@@ -9,7 +9,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator
 } from 'react-native';
 
 import TabBarMain from './views/main/tabBarMain';
@@ -17,9 +18,16 @@ import TabBarMain from './views/main/tabBarMain';
 export default class jiazhangbao extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <TabBarMain />
-      </View>
+
+       <Navigator
+          initialRoute={{ name: 'main', component: TabBarMain }}
+          configureScene={(route) => {
+            return Navigator.SceneConfigs.FloatFromRight;
+          }}
+          renderScene={(route, navigator) => {
+            let Component = route.component;
+            return <Component {...route.params} navigator={navigator} />
+          }} />
     );
   }
 }

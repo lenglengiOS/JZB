@@ -15,6 +15,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
 import JiaZhang from './jiazhang';
+import Login from '../login/login_index';
 
 export default class Home extends React.Component{
 	constructor(props){
@@ -27,10 +28,22 @@ export default class Home extends React.Component{
        
     }
 
+    _pressButton() {
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'denglu',
+                component: Login,
+            })
+        }
+    }
+
 	render(){
 		return(
 			<View style={styles.container}>
-                <Text>首页</Text>
+				<TouchableOpacity onPress={()=>{this._pressButton()}}>
+                	<Text>登录</Text>
+                </TouchableOpacity>
 			</View>
 		  )
 	}
@@ -41,7 +54,7 @@ var styles = StyleSheet.create({
         flex:1,
 		justifyContent:"center",
         backgroundColor:'red',
-        alignItems:'center',
+        alignItems:'center'
     },
     
 });
