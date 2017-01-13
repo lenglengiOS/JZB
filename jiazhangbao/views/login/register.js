@@ -15,6 +15,8 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
+import TabBarMain from '../../views/main/tabBarMain';
+
 const cancel = require('../../resources/login/login_cancel@2x.png'); 
 const nicheng = require('../../resources/login/login_user@2x.png'); 
 const phone = require('../../resources/login/login_phone@2x.png');
@@ -37,7 +39,7 @@ export default class Register extends React.Component{
         //<Component {...route.params} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
-            navigator.pop();
+            navigator.popToTop() 
         }
     }
 
@@ -90,7 +92,7 @@ export default class Register extends React.Component{
                         <Text style={{color:'#F88700', fontSize:18, marginTop:3}}>返回登录页</Text>
                     </TouchableOpacity>
                     <View style={styles.line}/>
-                    <TouchableOpacity onPress={()=>{alert('先去逛逛')}}>
+                    <TouchableOpacity onPress={()=>{this._cancel()}}>
                         <Text style={{color:'#8A8A8A', fontSize:18, marginTop:3}}>先去逛逛</Text>
                     </TouchableOpacity>
                 </View>
