@@ -8,7 +8,7 @@ import {
     Dimensions,
     PixelRatio
 } from 'react-native';
-var  navheight=(Platform.OS === 'android') ? 45 : 60;
+var  navheight=(Platform.OS === 'android') ? 45 : 64;
 var  screenWidth=Dimensions.get('window').width;
 var  screenHeight=Dimensions.get('window').height;
 var pixe=PixelRatio.get()

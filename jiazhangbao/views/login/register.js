@@ -16,6 +16,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
 import TabBarMain from '../../views/main/tabBarMain';
+import Yonghu from './yonghu'
 
 const cancel = require('../../resources/login/login_cancel@2x.png'); 
 const nicheng = require('../../resources/login/login_user@2x.png'); 
@@ -43,52 +44,88 @@ export default class Register extends React.Component{
         }
     }
 
+    _back(){
+        const { navigator } = this.props;
+        //为什么这里可以取得 props.navigator?请看上文:
+        //<Component {...route.params} navigator={navigator} />
+        //这里传递了navigator作为props
+        if(navigator) {
+            navigator.pop() 
+        }
+    }
+
+    _register(){
+        this.inputname&&this.inputname.blur();
+        this.inputphone&&this.inputphone.blur();
+        this.inputpwd&&this.inputpwd.blur();
+    }
+
+    _yonghu(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'yonghu',
+                component: Yonghu,
+            })
+        }
+    }
+
     render(){
         return(
             <View style={styles.container}>
-                <View style={styles.calcel}>
-                    <TouchableOpacity onPress={()=>{this._cancel()}}>
-                    <Image source={cancel} />
+                <ScrollView scrollEnabled={false} style={{height:260}}>
+                    <View style={styles.calcel}>
+                        <TouchableOpacity onPress={()=>{this._cancel()}}>
+                        <Image source={cancel} />
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.jiazhangbao}>家长宝</Text>
+                    <View style={{width:screenWidth, height:154, marginTop:40, marginBottom:35, backgroundColor:'blue'}}>
+                        <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
+                        <View style={styles.phone}>
+                            <Image source={nicheng} style={{width:25, height:25, marginLeft:20}}/>
+                            <TextInput 
+                                ref={(o)=>this.inputname=o}
+                                style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
+                                clearButtonMode='while-editing'
+                                placeholder='昵称'/>
+                        </View>
+                        <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
+                        <View style={styles.phone}>
+                            <Image source={phone} style={{width:25, height:25, marginLeft:20}}/>
+                            <TextInput 
+                                ref={(o)=>this.inputphone=o}
+                                style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
+                                keyboardType='number-pad'
+                                clearButtonMode='while-editing'
+                                placeholder='手机号'/>
+                        </View>
+                        <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
+                        <View style={styles.phone}>
+                            <Image source={pwd} style={{width:25, height:25, marginLeft:20}}/>
+                            <TextInput 
+                                ref={(o)=>this.inputpwd=o}
+                                style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
+                                clearButtonMode='while-editing'
+                                secureTextEntry={true}
+                                placeholder='密码'/>
+                        </View>
+                        <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
+                    </View>
+                    <TouchableOpacity style={styles.login} onPress={()=>{this._register()}}> 
+
+                            <Text style={{color:'#FFF', fontSize:20}}>注册账号</Text>
+
                     </TouchableOpacity>
-                </View>
-                <Text style={styles.jiazhangbao}>家长宝</Text>
-                <View style={{width:screenWidth, height:154, marginTop:40, backgroundColor:'blue'}}>
-                    <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                    <View style={styles.phone}>
-                        <Image source={nicheng} style={{width:25, height:25, marginLeft:20}}/>
-                        <TextInput 
-                            style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
-                            placeholder='昵称'/>
-                    </View>
-                    <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                    <View style={styles.phone}>
-                        <Image source={phone} style={{width:25, height:25, marginLeft:20}}/>
-                        <TextInput 
-                            style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
-                            placeholder='手机号'/>
-                    </View>
-                    <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                    <View style={styles.phone}>
-                        <Image source={pwd} style={{width:25, height:25, marginLeft:20}}/>
-                        <TextInput 
-                            style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
-                            placeholder='密码'/>
-                    </View>
-                    <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                </View>
-                <TouchableOpacity onPress={()=>{alert('登录')}}> 
-                    <View style={styles.login}>
-                        <Text style={{color:'#FFF', fontSize:20}}>注册账号</Text>
-                    </View>
-                </TouchableOpacity>
+                </ScrollView>
                 <View style={{flex:1,  width:screenWidth, marginTop:10, alignItems:'center'}}>
 
                     <Text style={styles.protocolText}>点击“注册账号”表示您同意并愿意遵守家长宝
-                        <Text style={{color:'#5A8FDE'}} > 用户协议</Text>
+                        <Text style={{color:'#5A8FDE'}} onPress={()=>{this._yonghu()}}> 用户协议</Text>
                     </Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity onPress={()=>{this._cancel()}}>
+                    <TouchableOpacity onPress={()=>{this._back()}}>
                         <Text style={{color:'#F88700', fontSize:18, marginTop:3}}>返回登录页</Text>
                     </TouchableOpacity>
                     <View style={styles.line}/>
@@ -136,9 +173,9 @@ var styles = StyleSheet.create({
     login:{
         height:50, 
         width:screenWidth-40, 
-        marginTop:35,
         backgroundColor:'#48B9A9', 
         borderRadius:5, 
+        marginLeft:20,
         justifyContent:'center', 
         alignItems:'center',
     },

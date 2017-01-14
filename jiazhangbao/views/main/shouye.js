@@ -17,6 +17,8 @@ import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,line
 import JiaZhang from './jiazhang';
 import Login from '../login/login_index';
 
+import YongHu from '../login/yonghu';
+
 export default class Home extends React.Component{
 	constructor(props){
 		super(props);
@@ -33,7 +35,7 @@ export default class Home extends React.Component{
         if(navigator) {
             navigator.push({
                 name: 'denglu',
-                component: Login,
+                component: YongHu,
             })
         }
     }

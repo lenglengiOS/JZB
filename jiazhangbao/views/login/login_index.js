@@ -49,44 +49,59 @@ export default class Login extends React.Component{
     	const { navigator } = this.props;
         if(navigator) {
             navigator.push({
-                name: 'zhucec',
+                name: 'zhuce',
                 component: Register,
             })
         }
     }
 
+    login(){
+        this.inputphone&&this.inputphone.blur();
+        this.inputpwd&&this.inputpwd.blur();
+    }
+
 	render(){
 		return(
-			<View style={styles.container}>
-                <View style={styles.calcel}>
-                	<TouchableOpacity onPress={()=>{this._cancel()}}>
-                	<Image source={cancel} />
-                	</TouchableOpacity>
-                </View>
-                <Text style={styles.jiazhangbao}>家长宝</Text>
-                <View style={{width:screenWidth, height:100, marginTop:40}}>
-                	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                	<View style={styles.phone}>
-                		<Image source={phone} style={{width:25, height:25, marginLeft:20}}/>
-                		<TextInput 
-                			style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
-							placeholder='手机号'/>
-                	</View>
-                	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                	<View style={styles.phone}>
-                		<Image source={pwd} style={{width:25, height:25, marginLeft:20}}/>
-                		<TextInput 
-                			style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
-							placeholder='密码'/>
-						<Text style={{color:'#8A8A8A'}}>忘记密码？</Text>
-                	</View>
-                	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                </View>
-                <TouchableOpacity onPress={()=>{alert('登录')}}> 
-	                	<View style={styles.login}>
-	                		<Text style={{color:'#FFF', fontSize:20}}>登录</Text>
-	                	</View>
-                </TouchableOpacity>
+            <View style={styles.container}>
+                <ScrollView scrollEnabled={false} style={{height:200}}>
+                    <View style={styles.cancel}>
+                    	<TouchableOpacity onPress={()=>{this._cancel()}}>
+                    	<Image source={cancel} />
+                    	</TouchableOpacity>
+                    </View>
+                    <Text style={styles.jiazhangbao}>家长宝</Text>
+                    <View style={{width:screenWidth, height:103, marginTop:40, marginBottom:40}}>
+                    	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
+                    	<View style={styles.phone}>
+                    		<Image source={phone} style={{width:25, height:25, marginLeft:20}}/>
+                    		<TextInput 
+                                ref={(o)=>this.inputphone=o}
+                                onFocus={() => {this.inputphone.focus()}}
+                                onBlur={() => {this.inputphone.blur()}}
+                    			style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
+                                autoFocus={true}
+                                keyboardType='number-pad'
+                                clearButtonMode='while-editing'
+    							placeholder='手机号'/>
+                    	</View>
+                    	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
+                    	<View style={styles.phone}>
+                    		<Image source={pwd} style={{width:25, height:25, marginLeft:20}}/>
+                    		<TextInput 
+                                ref={(o)=>this.inputpwd=o}
+                    			style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
+                                clearButtonMode='while-editing'
+                                secureTextEntry={true}
+    							placeholder='密码'/>
+    						<Text style={{color:'#8A8A8A'}}>忘记密码？</Text>
+                    	</View>
+                    	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
+                    </View>
+
+                    <TouchableOpacity style={styles.login} onPress={()=>{this.login()}}> 
+    	                <Text style={{color:'#FFF', fontSize:20}}>登录</Text>
+                    </TouchableOpacity>
+                </ScrollView>    
 
             	<View style={{flex:1,  width:screenWidth, marginTop:10}}>
             		<Text style={styles.loginText}>还可以使用以下账号登录</Text>
@@ -96,6 +111,7 @@ export default class Login extends React.Component{
             			<Image source={wb} style={{width:60, height:60}}/>
             		</View>
             	</View>
+
             	<View style={{flexDirection:'row'}}>
             		<TouchableOpacity onPress={()=>{this._pressRegister()}}>
             			<Text style={{color:'#F88700', fontSize:18, marginTop:3}}>注册家长宝账号</Text>
@@ -117,7 +133,7 @@ var styles = StyleSheet.create({
         alignItems:'center',
         paddingBottom:30
     },
-    calcel:{
+    cancel:{
 		width:screenWidth, 
 		height:60, 
 		paddingTop:20, 
@@ -145,19 +161,18 @@ var styles = StyleSheet.create({
 	login:{
 		height:50, 
 		width:screenWidth-40, 
-		marginLeft:20, 
 		backgroundColor:'#48B9A9', 
 		borderRadius:5, 
-		marginTop:40, 
+        marginLeft:20,
 		justifyContent:'center', 
 		alignItems:'center'
 	},
     loginWay:{
     	width:screenWidth-80, 
-    	marginLeft:40, flex:1, 
+    	marginLeft:40,
+        flex:1, 
     	flexDirection:'row', 
     	justifyContent:'space-around', 
-    	paddingTop:20
     },
     loginText:{
     	width:screenWidth, 
@@ -165,7 +180,6 @@ var styles = StyleSheet.create({
     	fontSize:16, 
     	color:'#8A8A8A', 
     	textAlign:'center', 
-    	paddingTop:30
     },
     line:{
     	height:25, 
