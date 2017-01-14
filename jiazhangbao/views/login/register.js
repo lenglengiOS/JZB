@@ -17,6 +17,8 @@ import {
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
 import TabBarMain from '../../views/main/tabBarMain';
 import Yonghu from './yonghu'
+import LoadingShow  from '../component/react-native-loading';
+import Toast from '../tools/Toast';
 
 const cancel = require('../../resources/login/login_cancel@2x.png'); 
 const nicheng = require('../../resources/login/login_user@2x.png'); 
@@ -27,7 +29,7 @@ export default class Register extends React.Component{
     constructor(props){
         super(props);
         this.state={
-           
+
         }
     }
     componentDidMount(){
@@ -58,6 +60,26 @@ export default class Register extends React.Component{
         this.inputname&&this.inputname.blur();
         this.inputphone&&this.inputphone.blur();
         this.inputpwd&&this.inputpwd.blur();
+        if (this.state.phonenum) {
+            var pPhone=this.state.phonenum;
+            pPhone=pPhone.replace(" ","");
+            var phone=pPhone
+        }
+        if (!this.state.name) {
+            Toast.show("请输入昵称", 2000);
+        }else if (!this.state.phonenum) {
+            Toast.show("请输入手机号", 2000);
+        }else if (this.state.phonenum.length!==11) {
+            Toast.show("请输入11位手机号", 2000);
+        }else if (pPhone.indexOf("+86")>=0) {
+            phone =pPhone.split("+86")[1];
+        }else if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(phone))){
+                Toast.show("非法的手机号", 2000);
+        }else if (!this.state.pwd) {
+            Toast.show("请输入密码", 2000);
+        }else{
+            alert('发送验证码')
+        }
     }
 
     _yonghu(){
@@ -73,7 +95,7 @@ export default class Register extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <ScrollView scrollEnabled={false} style={{height:260}}>
+                <ScrollView scrollEnabled={false} style={{height:200}}>
                     <View style={styles.calcel}>
                         <TouchableOpacity onPress={()=>{this._cancel()}}>
                         <Image source={cancel} />
@@ -88,6 +110,7 @@ export default class Register extends React.Component{
                                 ref={(o)=>this.inputname=o}
                                 style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
                                 clearButtonMode='while-editing'
+                                onChangeText={(text) => this.setState({name:text})}
                                 placeholder='昵称'/>
                         </View>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
@@ -98,6 +121,7 @@ export default class Register extends React.Component{
                                 style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
                                 keyboardType='number-pad'
                                 clearButtonMode='while-editing'
+                                onChangeText={(text) => this.setState({phonenum:text})}
                                 placeholder='手机号'/>
                         </View>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
@@ -105,6 +129,7 @@ export default class Register extends React.Component{
                             <Image source={pwd} style={{width:25, height:25, marginLeft:20}}/>
                             <TextInput 
                                 ref={(o)=>this.inputpwd=o}
+                                onChangeText={(text) => this.setState({pwd:text})}
                                 style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
                                 clearButtonMode='while-editing'
                                 secureTextEntry={true}
@@ -112,12 +137,10 @@ export default class Register extends React.Component{
                         </View>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                     </View>
-                    <TouchableOpacity style={styles.login} onPress={()=>{this._register()}}> 
-
-                            <Text style={{color:'#FFF', fontSize:20}}>注册账号</Text>
-
-                    </TouchableOpacity>
                 </ScrollView>
+                <TouchableOpacity style={styles.login} onPress={()=>{this._register()}}> 
+                    <Text style={{color:'#FFF', fontSize:20}}>注册账号</Text>
+                </TouchableOpacity>
                 <View style={{flex:1,  width:screenWidth, marginTop:10, alignItems:'center'}}>
 
                     <Text style={styles.protocolText}>点击“注册账号”表示您同意并愿意遵守家长宝
@@ -175,7 +198,6 @@ var styles = StyleSheet.create({
         width:screenWidth-40, 
         backgroundColor:'#48B9A9', 
         borderRadius:5, 
-        marginLeft:20,
         justifyContent:'center', 
         alignItems:'center',
     },

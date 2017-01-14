@@ -16,13 +16,13 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
+
 const back = require('../../resources/login/nav_back@2x.png'); 
 
 export default class Yonghu extends React.Component{
     constructor(props){
         super(props);
         this.state={
-           
         }
     }
     componentDidMount(){
@@ -61,6 +61,8 @@ export default class Yonghu extends React.Component{
           )
     }
 }
+
+
 
 var styles = StyleSheet.create({
     container:{

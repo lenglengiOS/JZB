@@ -4,7 +4,7 @@ let {
   StyleSheet,
   PixelRatio
 } = require('react-native');
-import {Size,navheight} from '../../constStr'
+import {Size,navheight} from '../../../constStr'
 module.exports = StyleSheet.create({
    container: {
       flex: 1,

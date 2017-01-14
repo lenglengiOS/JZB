@@ -859,7 +859,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jiazhangbao;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.com.jiazhangbao;
 				PRODUCT_NAME = jiazhangbao;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -879,7 +879,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jiazhangbao;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.com.jiazhangbao;
 				PRODUCT_NAME = jiazhangbao;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
