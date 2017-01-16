@@ -12,7 +12,8 @@ import {
     Alert,
     ScrollView,
     Image,
-    WebView
+    WebView,
+    StatusBar
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
@@ -42,7 +43,11 @@ export default class Yonghu extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <View style={{width:screenWidth, height:64, backgroundColor:'#FFF', paddingTop:20, justifyContent:'center', alignItems:'center'}}>
+                <StatusBar
+                     backgroundColor="blue"
+                     barStyle="default"
+                     animated={true}/>
+                <View style={styles.nav}>
                     <TouchableOpacity onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
                         <Image source={back} style={{width:30, height:30}} />
                     </TouchableOpacity>
@@ -51,7 +56,7 @@ export default class Yonghu extends React.Component{
                 <View style={{width:screenWidth, height:1, backgroundColor:'#E8E8E8'}}/>
                 <View style={{width:screenWidth, flex:1}}>
                     <WebView
-                        source={{uri:'https://www.baidu.com/'}}
+                        source={{uri:'http://appjzb.com/article/sview/16'}}
                         autoCapitalize="none"
                         scalesPageToFit={true}
                         startInLoadingState={true}
@@ -70,6 +75,14 @@ var styles = StyleSheet.create({
         alignItems:'center',
         backgroundColor:'#FFF'
     },
+    nav:{
+        width:screenWidth, 
+        height:64, 
+        backgroundColor:'#FFF', 
+        paddingTop:20, 
+        justifyContent:'center', 
+        alignItems:'center'
+    }
 });
 
 

@@ -11,7 +11,8 @@ import {
  	Platform,
     Alert,
     ScrollView,
-    Image
+    Image,
+    StatusBar
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
@@ -63,6 +64,10 @@ export default class Login extends React.Component{
 	render(){
 		return(
             <View style={styles.container}>
+                <StatusBar
+                         backgroundColor="blue"
+                         barStyle="default"
+                         animated={true}/>
                 <ScrollView scrollEnabled={false} style={{height:200}}>
                     <View style={styles.cancel}>
                     	<TouchableOpacity onPress={()=>{this._cancel()}}>
@@ -143,7 +148,6 @@ var styles = StyleSheet.create({
 	},
 	jiazhangbao:{
 		width:screenWidth, 
-		height:80, 
 		textAlign:'center', 
 		fontSize:45, 
 		color:'#48B9A9', 
