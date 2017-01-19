@@ -12,11 +12,14 @@ import {
     Alert,
     ScrollView,
     Image,
-    StatusBar
+    StatusBar,
+    NativeModules,
+    NativeAppEventEmitter
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
 import Register from '../login/register';
+import Toast from '../tools/Toast';
 
 const cancel = require('../../resources/login/login_cancel@2x.png');  
 const phone = require('../../resources/login/login_phone@2x.png');
@@ -24,6 +27,8 @@ const pwd = require('../../resources/login/login_psw@2x.png');
 const wx = require('../../resources/login/share_weixin.png');
 const qq = require('../../resources/login/share_qq.png');
 const wb = require('../../resources/login/share_sina.png');
+
+var NativeTools = NativeModules.NativeTools;
 
 export default class Login extends React.Component{
 	constructor(props){
@@ -57,8 +62,25 @@ export default class Login extends React.Component{
     }
 
     login(){
-        this.inputphone&&this.inputphone.blur();
-        this.inputpwd&&this.inputpwd.blur();
+        // this.inputphone&&this.inputphone.blur();
+        // this.inputpwd&&this.inputpwd.blur();
+        // if (!this.state.phone){
+        //     Toast.show("请输入手机号", 2000);
+        // }
+        // else if (!this.state.password){
+        //     Toast.show("请输入密码", 2000);
+        // }
+
+
+
+        NativeTools.doSomething((error, events) => {
+              if (error) {
+                console.error(error);
+              } else {
+                this.setState({events: events});
+                alert(events[1])
+              }
+            });
     }
 
 	render(){
@@ -87,6 +109,7 @@ export default class Login extends React.Component{
                                 autoFocus={true}
                                 keyboardType='number-pad'
                                 clearButtonMode='while-editing'
+                                onChangeText={(text) => this.setState({phone:text})}
     							placeholder='手机号'/>
                     	</View>
                     	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
@@ -97,6 +120,7 @@ export default class Login extends React.Component{
                     			style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
                                 clearButtonMode='while-editing'
                                 secureTextEntry={true}
+                                onChangeText={(text) => this.setState({password:text})}
     							placeholder='密码'/>
     						<Text style={{color:'#8A8A8A'}}>忘记密码？</Text>
                     	</View>
@@ -150,9 +174,8 @@ var styles = StyleSheet.create({
 		width:screenWidth, 
 		textAlign:'center', 
 		fontSize:45, 
-		color:'#48B9A9', 
-		paddingTop:20,
-		marginTop:10
+		color:'#48B9A9',
+        flex:1
 	},
 	phone:{
 		width:screenWidth, 

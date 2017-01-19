@@ -102,7 +102,7 @@ export default class Register extends React.Component{
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.jiazhangbao}>家长宝</Text>
-                    <View style={{width:screenWidth, height:154, marginTop:40, marginBottom:35, backgroundColor:'blue'}}>
+                    <View style={{width:screenWidth, height:154, marginBottom:35, backgroundColor:'blue', justifyContent:'center', alignItems:'center'}}>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                         <View style={styles.phone}>
                             <Image source={nicheng} style={{width:25, height:25, marginLeft:20}}/>
@@ -182,8 +182,7 @@ var styles = StyleSheet.create({
         textAlign:'center', 
         fontSize:45, 
         color:'#48B9A9', 
-        paddingTop:20,
-        marginTop:10
+        flex:1
     },
     phone:{
         width:screenWidth, 
