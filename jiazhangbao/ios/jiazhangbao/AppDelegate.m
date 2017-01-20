@@ -11,12 +11,17 @@
 #import <BmobSDK/Bmob.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <SMS_SDK/SMSSDK.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [Bmob registerWithAppKey:@"670b4c993dfe89f32bbec466937a5f45"];
+  // 后端云
+  [Bmob registerWithAppKey:@"38451a5ee8b63dc8634959c389207dbd"];
+  //验证码
+  [SMSSDK registerApp:@"1af4a3a0e0cb0"
+           withSecret:@"dd80d92bab667e38f22cdc00da9c8ac9"];
   
   NSURL *jsCodeLocation;
 

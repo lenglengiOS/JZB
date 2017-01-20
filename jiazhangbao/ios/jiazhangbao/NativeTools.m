@@ -8,34 +8,54 @@
 
 #import "NativeTools.h"
 #import <BmobSDK/Bmob.h>
+#import <SMS_SDK/SMSSDK.h>
 
 @implementation NativeTools
 
 RCT_EXPORT_MODULE();
-
-RCT_EXPORT_METHOD(doSomething:(RCTResponseSenderBlock)callback)
+// 注册
+RCT_EXPORT_METHOD(registerUSer:(NSString *)aUsername phoneNum:(NSString *)aPhoneNum pwd:(NSString *)aPwd callback:(RCTResponseSenderBlock)callback)
 {
-  //查找GameScore表
-  BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
-  //查找GameScore表里面id为0c6db13c的数据
-  [bquery getObjectInBackgroundWithId:@"11f56cd0ec" block:^(BmobObject *object,NSError *error){
-    if (error){
-      //进行错误处理
+  NSLog(@"username:%@, phone:%@, pwd:%@", aUsername, aPhoneNum, aPwd);
+  BmobObject *user = [BmobObject objectWithClassName:@"user"];
+  [user setObject:aUsername forKey:@"username"];
+  [user setObject:aPhoneNum forKey:@"phoneNum"];
+  [user setObject:aPwd forKey:@"password"];
+  [user saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+    //进行操作
+    if (isSuccessful) {
+      NSArray *events = [NSArray arrayWithObjects:@"注册成功", nil];
+      callback(@[[NSNull null], events]);
     }else{
-      //表里有id为0c6db13c的数据
-      if (object) {
-        //得到playerName和cheatMode
-        NSString *playerName = [object objectForKey:@"playerName"];
-        BOOL cheatMode = [[object objectForKey:@"cheatMode"] boolValue];
-        NSLog(@"%@----%i",playerName,cheatMode);
-        
-        NSArray *events = [NSArray arrayWithObjects:@"666", playerName, nil];
-        callback(@[[NSNull null], events]);
-      }
+      NSLog(@"%@", error);
+      NSArray *events = [NSArray arrayWithObjects:@"手机号已被注册", nil];
+      callback(@[[NSNull null], events]);
     }
   }];
-  
-
 }
 
+// 获取验证码
+RCT_EXPORT_METHOD(getVerificationCode:(NSString *)aPhoneNum callback:(RCTResponseSenderBlock)callback)
+{
+  [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:aPhoneNum
+                                 zone:@"86"
+                     customIdentifier:nil
+                               result:^(NSError *error){
+                                 if (!error) {
+                                   NSLog(@"获取验证码成功");
+                                 } else {
+                                   NSLog(@"错误信息：%@",error);
+                                 }}];
+}
+
+
 @end
+
+
+
+
+
+
+
+
+

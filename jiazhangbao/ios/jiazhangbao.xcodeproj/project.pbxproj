@@ -24,6 +24,14 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		9D116B711E31E46B00D74708 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B6E1E31E46B00D74708 /* MOBFoundation.framework */; };
+		9D116B721E31E46B00D74708 /* MOBFoundationEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B6F1E31E46B00D74708 /* MOBFoundationEx.framework */; };
+		9D116B731E31E46B00D74708 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B701E31E46B00D74708 /* SMS_SDK.framework */; };
+		9D116B8E1E31E49200D74708 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B8D1E31E49200D74708 /* libz.tbd */; };
+		9D116B901E31E4B300D74708 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B8F1E31E4B300D74708 /* MessageUI.framework */; };
+		9D116B921E31E4BD00D74708 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B911E31E4BD00D74708 /* JavaScriptCore.framework */; };
+		9D116B941E31E4C900D74708 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B931E31E4C900D74708 /* libstdc++.tbd */; };
+		9D116B961E31E4F100D74708 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B951E31E4F100D74708 /* AdSupport.framework */; };
 		9D8FE8231E309FE6007DEB6C /* NativeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8FE8221E309FE6007DEB6C /* NativeTools.m */; };
 		9D8FE8261E309FFC007DEB6C /* BmobSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8FE8251E309FFC007DEB6C /* BmobSDK.framework */; };
 		9D8FE8291E30A024007DEB6C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8FE8281E30A024007DEB6C /* CoreLocation.framework */; };
@@ -246,6 +254,14 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		9D116B6E1E31E46B00D74708 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
+		9D116B6F1E31E46B00D74708 /* MOBFoundationEx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundationEx.framework; sourceTree = "<group>"; };
+		9D116B701E31E46B00D74708 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		9D116B8D1E31E49200D74708 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		9D116B8F1E31E4B300D74708 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		9D116B911E31E4BD00D74708 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		9D116B931E31E4C900D74708 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		9D116B951E31E4F100D74708 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		9D8FE8211E309FE6007DEB6C /* NativeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeTools.h; path = jiazhangbao/NativeTools.h; sourceTree = "<group>"; };
 		9D8FE8221E309FE6007DEB6C /* NativeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NativeTools.m; path = jiazhangbao/NativeTools.m; sourceTree = "<group>"; };
 		9D8FE8251E309FFC007DEB6C /* BmobSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BmobSDK.framework; sourceTree = "<group>"; };
@@ -274,11 +290,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8FE83B1E30A168007DEB6C /* libsqlite3.tbd in Frameworks */,
-				9D8FE8391E30A160007DEB6C /* libicucore.tbd in Frameworks */,
-				9D8FE8371E30A155007DEB6C /* libz.1.2.5.tbd in Frameworks */,
-				9D8FE8351E30A14B007DEB6C /* SystemConfiguration.framework in Frameworks */,
+				9D116B961E31E4F100D74708 /* AdSupport.framework in Frameworks */,
 				9D8FE8331E30A140007DEB6C /* CoreTelephony.framework in Frameworks */,
+				9D8FE8351E30A14B007DEB6C /* SystemConfiguration.framework in Frameworks */,
+				9D116B941E31E4C900D74708 /* libstdc++.tbd in Frameworks */,
+				9D116B921E31E4BD00D74708 /* JavaScriptCore.framework in Frameworks */,
+				9D116B901E31E4B300D74708 /* MessageUI.framework in Frameworks */,
+				9D8FE8391E30A160007DEB6C /* libicucore.tbd in Frameworks */,
+				9D116B8E1E31E49200D74708 /* libz.tbd in Frameworks */,
+				9D8FE83B1E30A168007DEB6C /* libsqlite3.tbd in Frameworks */,
+				9D8FE8371E30A155007DEB6C /* libz.1.2.5.tbd in Frameworks */,
 				9D8FE8311E30A134007DEB6C /* CFNetwork.framework in Frameworks */,
 				9D8FE82F1E30A050007DEB6C /* MobileCoreServices.framework in Frameworks */,
 				9D8FE82D1E30A042007DEB6C /* CoreGraphics.framework in Frameworks */,
@@ -286,6 +307,7 @@
 				9D8FE8291E30A024007DEB6C /* CoreLocation.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				9D116B711E31E46B00D74708 /* MOBFoundation.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -295,7 +317,9 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				9D116B731E31E46B00D74708 /* SMS_SDK.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				9D116B721E31E46B00D74708 /* MOBFoundationEx.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,9 +502,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9D116B6D1E31E46B00D74708 /* SMS_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				9D116B6E1E31E46B00D74708 /* MOBFoundation.framework */,
+				9D116B6F1E31E46B00D74708 /* MOBFoundationEx.framework */,
+				9D116B701E31E46B00D74708 /* SMS_SDK.framework */,
+			);
+			path = SMS_SDK;
+			sourceTree = "<group>";
+		};
 		9D8FE8241E309FF0007DEB6C /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				9D116B6D1E31E46B00D74708 /* SMS_SDK */,
 				9D8FE8251E309FFC007DEB6C /* BmobSDK.framework */,
 			);
 			name = lib;
@@ -490,6 +525,11 @@
 		9D8FE8271E30A024007DEB6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D116B951E31E4F100D74708 /* AdSupport.framework */,
+				9D116B931E31E4C900D74708 /* libstdc++.tbd */,
+				9D116B911E31E4BD00D74708 /* JavaScriptCore.framework */,
+				9D116B8F1E31E4B300D74708 /* MessageUI.framework */,
+				9D116B8D1E31E49200D74708 /* libz.tbd */,
 				9D8FE83A1E30A168007DEB6C /* libsqlite3.tbd */,
 				9D8FE8381E30A160007DEB6C /* libicucore.tbd */,
 				9D8FE8361E30A155007DEB6C /* libz.1.2.5.tbd */,
@@ -921,6 +961,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/jiazhangbao/lib",
+					"$(PROJECT_DIR)/jiazhangbao/lib/SMS_SDK",
 				);
 				INFOPLIST_FILE = jiazhangbao/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -945,6 +986,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/jiazhangbao/lib",
+					"$(PROJECT_DIR)/jiazhangbao/lib/SMS_SDK",
 				);
 				INFOPLIST_FILE = jiazhangbao/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

@@ -11,25 +11,28 @@ import {
     Platform,
     Alert,
     ScrollView,
-    Image
+    Image,
+    NativeModules
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
 import TabBarMain from '../../views/main/tabBarMain';
-import Yonghu from './yonghu'
+import Yonghu from './yonghu';
+import Yzm from './yzm';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
-
 const cancel = require('../../resources/login/login_cancel@2x.png'); 
 const nicheng = require('../../resources/login/login_user@2x.png'); 
 const phone = require('../../resources/login/login_phone@2x.png');
 const pwd = require('../../resources/login/login_psw@2x.png'); 
+var NativeTools = NativeModules.NativeTools;
 
 export default class Register extends React.Component{
     constructor(props){
         super(props);
         this.state={
-
+            loading:false,
+            loadingWaitText:"注册中..",
         }
     }
     componentDidMount(){
@@ -65,7 +68,7 @@ export default class Register extends React.Component{
             pPhone=pPhone.replace(" ","");
             var phone=pPhone
         }
-        if (!this.state.name) {
+        if (!this.state.username) {
             Toast.show("请输入昵称", 2000);
         }else if (!this.state.phonenum) {
             Toast.show("请输入手机号", 2000);
@@ -78,7 +81,25 @@ export default class Register extends React.Component{
         }else if (!this.state.pwd) {
             Toast.show("请输入密码", 2000);
         }else{
-            alert('发送验证码')
+            this.setState({
+                loading:true
+            })
+            NativeTools.registerUSer(this.state.username, phone, this.state.pwd,(error, events) => {
+              if (events[0] == '手机号已被注册') {
+                this.setState({loading:false})
+                Toast.show("手机号已被注册", 2000)
+              } else {
+                this.setState({loading:false})
+                {/*跳转到验证码界面*/}
+                const { navigator } = this.props;
+                if(navigator) {
+                    navigator.push({
+                        name: 'yanzhengma',
+                        component: Yzm,
+                    })
+                }
+              }
+            });
         }
     }
 
@@ -110,7 +131,7 @@ export default class Register extends React.Component{
                                 ref={(o)=>this.inputname=o}
                                 style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
                                 clearButtonMode='while-editing'
-                                onChangeText={(text) => this.setState({name:text})}
+                                onChangeText={(text) => this.setState({username:text})}
                                 placeholder='昵称'/>
                         </View>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
@@ -156,6 +177,7 @@ export default class Register extends React.Component{
                         <Text style={{color:'#8A8A8A', fontSize:18, marginTop:3}}>先去逛逛</Text>
                     </TouchableOpacity>
                 </View>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
             </View>
           )
     }

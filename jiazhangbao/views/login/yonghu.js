@@ -53,7 +53,6 @@ export default class Yonghu extends React.Component{
                     </TouchableOpacity>
                     <Text style={{fontSize:20, color:'#00B09D'}}>用户协议</Text>
                 </View>
-                <View style={{width:screenWidth, height:1, backgroundColor:'#E8E8E8'}}/>
                 <View style={{width:screenWidth, flex:1}}>
                     <WebView
                         source={{uri:'http://appjzb.com/article/sview/16'}}
@@ -81,7 +80,9 @@ var styles = StyleSheet.create({
         backgroundColor:'#FFF', 
         paddingTop:20, 
         justifyContent:'center', 
-        alignItems:'center'
+        alignItems:'center',
+        borderBottomWidth:1,
+        borderBottomColor:'#E8E8E8'
     }
 });
 

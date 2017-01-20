@@ -43,7 +43,7 @@ export default class Home extends React.Component{
 		}
 	}
     componentDidMount(){
-       
+        
     }
 
     _pressLogin() {
@@ -99,7 +99,7 @@ export default class Home extends React.Component{
             <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                 <Image source={userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
                     <Image source={userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
-                    <Text style={styles.login} onPress={()=>{this._pressLogin()}}>登录/注册</Text>
+                    <Text style={styles.login} onPress={()=>{this._pressLogin()}}>{'登录/注册'}</Text>
                 </Image>
                 <View style={{width:screenWidth, height:180}}>
                     <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
@@ -143,7 +143,7 @@ export default class Home extends React.Component{
                                 <Text style={{fontSize:18}}>{TITLE}</Text>
                                 <Text style={{fontSize:18, color:'#F87B00'}}>{PRICE}</Text>
                             </View>
-                            <Text style={{fontSize:15, color:'#9B9B9B'}}>{SUBTITLE}</Text>
+                            <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>{SUBTITLE}</Text>
                         </View>
                         <View style={{flexDirection:'row'}}>
                             <Image source={location} style={{width:8, height:12}}/>
