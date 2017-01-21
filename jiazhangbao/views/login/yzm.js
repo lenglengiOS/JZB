@@ -73,6 +73,7 @@ export default class Register extends React.Component{
             navigator.pop() 
         }
     }
+    
     // 提交验证码
     _submit(){
         if (this.state.sendSuccess) {

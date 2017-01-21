@@ -85,23 +85,23 @@ export default class Register extends React.Component{
                 loading:true
             })
             NativeTools.registerUSer(this.state.username, phone, this.state.pwd,(error, events) => {
-              if (events[0] == '手机号已被注册') {
-                this.setState({loading:false})
-                Toast.show("手机号已被注册", 2000)
-              } else {
-                this.setState({loading:false})
-                {/*跳转到验证码界面*/}
-                const { navigator } = this.props;
-                if(navigator) {
-                    navigator.push({
-                        name:'yanzhengma',
-                        component:Yzm,
-                        params:{
-                            phonenum:phone
-                        }
-                    })
+                if (events[0] == '手机号已被注册') {
+                    this.setState({loading:false})
+                    Toast.show("手机号已被注册", 2000)
+                } else {
+                    this.setState({loading:false})
+                    {/*跳转到验证码界面*/}
+                    const { navigator } = this.props;
+                    if(navigator) {
+                        navigator.push({
+                            name:'yanzhengma',
+                            component:Yzm,
+                            params:{
+                                phonenum:phones
+                            }
+                        })
+                    }
                 }
-              }
             });
         }
     }
