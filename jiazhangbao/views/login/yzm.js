@@ -28,12 +28,21 @@ export default class Register extends React.Component{
         this.state={
             loading:false,
             loadingWaitText:"注册中..",
-            countDown:5,
-            counting:true
+            countDown:60,
+            counting:true,
+            sendSuccess:false,
         }
     }
 
     componentDidMount(){
+        NativeTools.getVerificationCode(this.props.phonenum,(error, events) => {
+            if (events[0] == '获取验证码成功') {
+                this.setState({sendSuccess:true})
+            } else {
+                Toast.show("操作失败", 2000)
+            }
+        });
+
         this.interval = setInterval(
         ()=>{this.setState({countDown:this.state.countDown>0?this.state.countDown-1:0,
                             counting:this.state.countDown===0?false:true
@@ -42,10 +51,20 @@ export default class Register extends React.Component{
     }
 
     _resend(){
-        this.setState({
-            counting:true,
-            countDown:60
-        })
+        if (!this.state.counting) {
+            this.setState({
+                counting:true,
+                countDown:60,
+                sendSuccess:false
+            })
+        }
+        NativeTools.getVerificationCode(this.props.phonenum,(error, events) => {
+            if (events[0] == '获取验证码成功') {
+                this.setState({sendSuccess:true})
+            } else {
+                Toast.show("操作失败", 2000)
+            }
+        });
     }
   
     _back(){
@@ -54,9 +73,17 @@ export default class Register extends React.Component{
             navigator.pop() 
         }
     }
-
+    // 提交验证码
     _submit(){
-        alert('66')
+        if (this.state.sendSuccess) {
+            NativeTools.commitVerificationCode(this.state.yanzhengma, this.props.phonenum, (error, events) => {
+                if (events[0] == '验证成功') {
+                    Toast.show("验证成功", 2000)
+                } else {
+                    Toast.show("验证失败", 2000)
+                }
+            });
+        }
     }
 
     render(){
@@ -69,7 +96,7 @@ export default class Register extends React.Component{
                     <Text style={{fontSize:20, color:'#00B09D'}}>手机验证</Text>
                 </View>
                 <View style={styles.textView}>
-                    <Text style={{color:'#A1A1A1', fontSize:15}}>验证码已发送到手机<Text style={{color:'#F88100'}}>15680222613</Text>，请注意查收</Text>
+                    <Text style={{color:'#A1A1A1', fontSize:15}}>验证码已发送到手机<Text style={{color:'#F88100'}}>{this.props.phonenum}</Text>，请注意查收</Text>
                 </View>
                 <View style={styles.yzm}>
                     <TextInput
@@ -130,6 +157,7 @@ var styles = StyleSheet.create({
     },
     countDown:{
         width:55,
+        height:30,
         borderRadius:5,
         paddingLeft:10,
         paddingRight:10,

@@ -43,10 +43,38 @@ RCT_EXPORT_METHOD(getVerificationCode:(NSString *)aPhoneNum callback:(RCTRespons
                                result:^(NSError *error){
                                  if (!error) {
                                    NSLog(@"获取验证码成功");
+                                   NSArray *events = [NSArray arrayWithObjects:@"获取验证码成功", nil];
+                                   callback(@[[NSNull null], events]);
                                  } else {
                                    NSLog(@"错误信息：%@",error);
+                                   NSArray *events = [NSArray arrayWithObjects:@"操作失败", nil];
+                                   callback(@[[NSNull null], events]);
                                  }}];
 }
+
+// 提交验证码
+RCT_EXPORT_METHOD(commitVerificationCode:(NSString *)code pohmeNum:(NSString *)aPhoneNum callback:(RCTResponseSenderBlock)callback)
+{
+  [SMSSDK commitVerificationCode:code phoneNumber:aPhoneNum zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
+    
+    {
+      if (!error)
+      {
+        NSLog(@"验证成功");
+        NSArray *events = [NSArray arrayWithObjects:@"验证成功", nil];
+        callback(@[[NSNull null], events]);
+      }
+      else
+      {
+        NSLog(@"错误信息:%@",error);
+        NSLog(@"验证失败");
+        NSArray *events = [NSArray arrayWithObjects:@"验证失败", nil];
+        callback(@[[NSNull null], events]);
+      }
+    }
+  }];
+}
+
 
 
 @end

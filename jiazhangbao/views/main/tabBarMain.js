@@ -25,8 +25,6 @@ import JiaZhang from './jiazhang';
 import BaoBan from './baoban';
 import WoDe from './wode';
 
-import Yzm from '../login/yzm';
-
 const HOMETITLE = '首页';
 const HOMETAG = 'home';
 const HomeIcon = require('../../resources/Main/tab_home@2x.png');
@@ -65,7 +63,7 @@ export default class TabBarMain extends React.Component{
     return(
       <View style={styles.container}>
         <TabNavigator>
-          {this._renderTabItem(HOMETAG, HOMETITLE, HomeIcon, HomeIcon_sel, <Yzm navigator={this.props.navigator}/>)}
+          {this._renderTabItem(HOMETAG, HOMETITLE, HomeIcon, HomeIcon_sel, <Home navigator={this.props.navigator}/>)}
           {this._renderTabItem(JZTAG, JZTITLE, JZIcon, JZIcon_sel, <JiaZhang navigator={this.props.navigator}/>)}
           {this._renderTabItem(BBTAG, BBTITLE, BBIcong, BBIcon_sel, <BaoBan navigator={this.props.navigator}/>)}
           {this._renderTabItem(WDTAG, WDTITLE, WDIcon, WDIcon_sel, <WoDe navigator={this.props.navigator}/>)}

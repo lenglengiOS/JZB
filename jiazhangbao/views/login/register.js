@@ -94,8 +94,11 @@ export default class Register extends React.Component{
                 const { navigator } = this.props;
                 if(navigator) {
                     navigator.push({
-                        name: 'yanzhengma',
-                        component: Yzm,
+                        name:'yanzhengma',
+                        component:Yzm,
+                        params:{
+                            phonenum:phone
+                        }
                     })
                 }
               }

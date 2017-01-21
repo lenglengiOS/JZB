@@ -18,10 +18,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // 后端云
-  [Bmob registerWithAppKey:@"38451a5ee8b63dc8634959c389207dbd"];
+  [Bmob registerWithAppKey:@"ee90961885f20d65680c306e517ddba7"];
   //验证码
   [SMSSDK registerApp:@"1af4a3a0e0cb0"
-           withSecret:@"dd80d92bab667e38f22cdc00da9c8ac9"];
+           withSecret:@"f9bd59d14ace351395d38094eb029c04"];
   
   NSURL *jsCodeLocation;
 
