@@ -46,9 +46,10 @@ RCT_EXPORT_METHOD(getUserInfo:(NSString *)phoneNum callback:(RCTResponseSenderBl
     }else{
       for (BmobObject *obj in array) {
         //打印username
+        BmobFile *file = (BmobFile*)[obj objectForKey:@"userIcon"];
         NSLog(@"username = %@", [obj objectForKey:@"username"]);
-        NSLog(@"username = %@", [obj objectForKey:@"userIcon"]);
-        NSArray *events = [NSArray arrayWithObjects:[obj objectForKey:@"username"], [obj objectForKey:@"userIcon"], nil];
+        NSLog(@"username = %@", file.url);
+        NSArray *events = [NSArray arrayWithObjects:[obj objectForKey:@"username"], (NSString *)file.url, nil];
         callback(@[[NSNull null], events]);
       }
     }

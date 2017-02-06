@@ -51,7 +51,9 @@ export default class Home extends React.Component{
             if (events[0] == '获取用户失败') {
                     Toast.show("获取用户失败", 2000)
                 } else {
-                    this.setState({username:events[0]})
+                    this.setState({username:events[0],
+                                   userIcon:events[1]
+                                   })
                 }       
         });
     }
@@ -78,9 +80,9 @@ export default class Home extends React.Component{
         return(
             <View>
                 <StatusBar
-                     backgroundColor="blue"
-                     barStyle="light-content"
-                     animated={true}/>
+                    backgroundColor="blue"
+                    barStyle="light-content"
+                    animated={true} />
                 <View style={{width:screenWidth, height:64}}>
                     <Image source={nav} style={styles.nav} resizeMode={Image.resizeMode.stretch}>
                         <TouchableOpacity onPress={()=>{this._search()}}>
@@ -108,7 +110,7 @@ export default class Home extends React.Component{
         return(
             <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                 <Image source={userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
-                    <Image source={userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
+                    <Image source={this.state.userIcon?{uri: this.state.userIcon}:userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
                     <Text style={styles.login} onPress={()=>{this._pressLogin()}}>{this.state.username?this.state.username:'登录/注册'}</Text>
                 </Image>
                 <View style={{width:screenWidth, height:180}}>
@@ -137,7 +139,7 @@ export default class Home extends React.Component{
                     <Text style={{color:'#00B1FE', marginLeft:10}}>{TITLT}</Text>
                 </View>
                 <Text style={styles.textStyle} numberOfLines={1}>{TEXT}</Text>
-                <View style={{height:1, width:screenWidth-30, marginLeft:15, marginTop:15, backgroundColor:COLOR}} />
+                <View style={{height:1, width:screenWidth-30, marginLeft:15, marginTop:15, backgroundColor:COLOR}}/>
             </View>
         )
     }
