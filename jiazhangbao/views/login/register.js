@@ -97,7 +97,8 @@ export default class Register extends React.Component{
                             name:'yanzhengma',
                             component:Yzm,
                             params:{
-                                phonenum:phones
+                                phonenum:phone,
+                                pwd:this.state.pwd
                             }
                         })
                     }

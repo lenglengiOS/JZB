@@ -39,6 +39,7 @@ export default class Register extends React.Component{
             if (events[0] == '获取验证码成功') {
                 this.setState({sendSuccess:true})
             } else {
+                this.setState({loading:false})
                 Toast.show("操作失败", 2000)
             }
         });
@@ -62,11 +63,19 @@ export default class Register extends React.Component{
             if (events[0] == '获取验证码成功') {
                 this.setState({sendSuccess:true})
             } else {
+                this.setState({loading:false})
                 Toast.show("操作失败", 2000)
             }
         });
     }
   
+    _backToHome(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.popToTop() 
+        }
+    }
+
     _back(){
         const { navigator } = this.props;
         if(navigator) {
@@ -76,11 +85,16 @@ export default class Register extends React.Component{
     
     // 提交验证码
     _submit(){
+        this.setState({loading:true})
         if (this.state.sendSuccess) {
             NativeTools.commitVerificationCode(this.state.yanzhengma, this.props.phonenum, (error, events) => {
                 if (events[0] == '验证成功') {
+                    this.setState({loading:false})
                     Toast.show("验证成功", 2000)
+                    
+                    {this._backToHome()}
                 } else {
+                    this.setState({loading:false})
                     Toast.show("验证失败", 2000)
                 }
             });
