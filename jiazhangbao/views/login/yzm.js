@@ -12,9 +12,11 @@ import {
     Alert,
     ScrollView,
     Image,
-    NativeModules
+    NativeModules,
+    AsyncStorage
 } from 'react-native';
 
+import Storage from 'react-native-storage';
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
@@ -50,6 +52,13 @@ export default class Register extends React.Component{
                             })},1000
         );
     }
+
+    componentWillUnMount() {
+        this.interval && clearInterval(this.interval);
+        NativeTools = null;
+    }
+
+
 
     _resend(){
         if (!this.state.counting) {
@@ -91,7 +100,12 @@ export default class Register extends React.Component{
                 if (events[0] == '验证成功') {
                     this.setState({loading:false})
                     Toast.show("验证成功", 2000)
+                    {/*验证成功后直接跳转到首页，登录状态为YES，并且存储登录的状态和账号密码*/}
                     
+
+
+
+
                     {this._backToHome()}
                 } else {
                     this.setState({loading:false})

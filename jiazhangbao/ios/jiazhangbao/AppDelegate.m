@@ -17,9 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  // 后端云
+  // Bmob后端云
   [Bmob registerWithAppKey:@"ee90961885f20d65680c306e517ddba7"];
-  //验证码
+  // Mod验证码
   [SMSSDK registerApp:@"1af4a3a0e0cb0"
            withSecret:@"f9bd59d14ace351395d38094eb029c04"];
   

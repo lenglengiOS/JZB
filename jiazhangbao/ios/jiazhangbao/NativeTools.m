@@ -34,6 +34,28 @@ RCT_EXPORT_METHOD(registerUSer:(NSString *)aUsername phoneNum:(NSString *)aPhone
   }];
 }
 
+// 获取用户信息
+RCT_EXPORT_METHOD(getUserInfo:(NSString *)phoneNum callback:(RCTResponseSenderBlock)callback)
+{
+  BmobQuery   *bquery = [BmobQuery queryWithClassName:@"user"];
+  [bquery whereKey:@"phoneNum" equalTo:phoneNum];
+  [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+    if (error) {
+      NSArray *events = [NSArray arrayWithObjects:@"获取用户失败", nil];
+      callback(@[[NSNull null], events]);
+    }else{
+      for (BmobObject *obj in array) {
+        //打印username
+        NSLog(@"username = %@", [obj objectForKey:@"username"]);
+        NSLog(@"username = %@", [obj objectForKey:@"userIcon"]);
+        NSArray *events = [NSArray arrayWithObjects:[obj objectForKey:@"username"], [obj objectForKey:@"userIcon"], nil];
+        callback(@[[NSNull null], events]);
+      }
+    }
+  }];
+  
+}
+
 // 获取验证码
 RCT_EXPORT_METHOD(getVerificationCode:(NSString *)aPhoneNum callback:(RCTResponseSenderBlock)callback)
 {

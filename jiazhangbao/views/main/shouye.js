@@ -12,7 +12,8 @@ import {
     Alert,
     ScrollView,
     Image,
-    StatusBar
+    StatusBar,
+    NativeModules
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
@@ -35,6 +36,9 @@ const jiazhangquan = require('../../resources/home/main_jzq@2x.png');
 const taolun = require('../../resources/home/main_taolun@2x.png');
 const location = require('../../resources/home/location@2x.png');
 
+var NativeTools = NativeModules.NativeTools;
+var phonenum= '15680222613';
+
 export default class Home extends React.Component{
 	constructor(props){
 		super(props);
@@ -43,7 +47,13 @@ export default class Home extends React.Component{
 		}
 	}
     componentDidMount(){
-        
+        NativeTools.getUserInfo(phonenum,(error, events) => {
+            if (events[0] == '获取用户失败') {
+                    Toast.show("获取用户失败", 2000)
+                } else {
+                    this.setState({username:events[0]})
+                }       
+        });
     }
 
     _pressLogin() {
@@ -99,7 +109,7 @@ export default class Home extends React.Component{
             <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                 <Image source={userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
                     <Image source={userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
-                    <Text style={styles.login} onPress={()=>{this._pressLogin()}}>{'登录/注册'}</Text>
+                    <Text style={styles.login} onPress={()=>{this._pressLogin()}}>{this.state.username?this.state.username:'登录/注册'}</Text>
                 </Image>
                 <View style={{width:screenWidth, height:180}}>
                     <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>

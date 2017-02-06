@@ -11,6 +11,4 @@
 #import <React/RCTBridgeModule.h>
 
 @interface NativeTools : NSObject<RCTBridgeModule>
-
-
 @end
