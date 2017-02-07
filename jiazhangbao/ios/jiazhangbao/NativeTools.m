@@ -98,7 +98,7 @@ RCT_EXPORT_METHOD(getUserInfo:(NSString *)phoneNum callback:(RCTResponseSenderBl
 }
 
 // 获取推荐新闻
-RCT_EXPORT_METHOD(getRecomNews:(NSString *)phoneNum callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getRecomNews:(RCTResponseSenderBlock)callback)
 {
   BmobQuery *bquery = [BmobQuery queryWithClassName:@"recomNews"];
   [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
@@ -110,11 +110,11 @@ RCT_EXPORT_METHOD(getRecomNews:(NSString *)phoneNum callback:(RCTResponseSenderB
       for (BmobObject *obj in array) {
         //打印username
         BmobFile *file = (BmobFile*)[obj objectForKey:@"icon"];
-        NSLog(@"typeName = %@", [obj objectForKey:@"typeName"]);
-        NSLog(@"pageUrl = %@", [obj objectForKey:@"url"]);
-        NSLog(@"title = %@", [obj objectForKey:@"title"]);
-        NSLog(@"icon = %@", file.url);
-        NSLog(@"************************************");
+//        NSLog(@"typeName = %@", [obj objectForKey:@"typeName"]);
+//        NSLog(@"pageUrl = %@", [obj objectForKey:@"url"]);
+//        NSLog(@"title = %@", [obj objectForKey:@"title"]);
+//        NSLog(@"icon = %@", file.url);
+//        NSLog(@"************************************");
         NSDictionary *dict = @{
                                @"typeName":[obj objectForKey:@"typeName"],
                                @"pageUrl":[obj objectForKey:@"url"],
@@ -123,7 +123,7 @@ RCT_EXPORT_METHOD(getRecomNews:(NSString *)phoneNum callback:(RCTResponseSenderB
                                };
         [events addObject:dict];
       }
-      NSLog(@"events = %@", events);
+//      NSLog(@"events = %@", events);
       callback(@[[NSNull null], events]);
     }
   }];

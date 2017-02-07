@@ -59,7 +59,7 @@ export default class Home extends React.Component{
                 }       
         });
         // 获取推荐新闻
-        NativeTools.getRecomNews(phonenum,(error, events) => {
+        NativeTools.getRecomNews((error, events) => {
             if (events[0] == '获取推荐新闻失败') {
                 Toast.show("获取推荐新闻失败", 2000)
             } else {
