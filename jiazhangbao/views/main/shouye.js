@@ -20,6 +20,7 @@ import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,line
 import JiaZhang from './jiazhang';
 import Login from '../login/login_index';
 import  LoadingShow  from '../component/react-native-loading';
+import NewsDetail from '../recomNews/newsDetail';
 
 const nav = require('../../resources/home/home_nav.png');
 const search = require('../../resources/home/search@2x.png');
@@ -47,6 +48,7 @@ export default class Home extends React.Component{
 		}
 	}
     componentDidMount(){
+        // 获取用户数据
         NativeTools.getUserInfo(phonenum,(error, events) => {
             if (events[0] == '获取用户失败') {
                     Toast.show("获取用户失败", 2000)
@@ -55,6 +57,14 @@ export default class Home extends React.Component{
                                    userIcon:events[1]
                                    })
                 }       
+        });
+        // 获取推荐新闻
+        NativeTools.getRecomNews(phonenum,(error, events) => {
+            if (events[0] == '获取推荐新闻失败') {
+                Toast.show("获取推荐新闻失败", 2000)
+            } else {
+                this.setState({events:events})
+            }   
         });
     }
 
@@ -131,15 +141,31 @@ export default class Home extends React.Component{
         )
     }
 
-    _renderBodyCell(ICON, TITLT, COLOR, TEXT){
+    _goToNewsDetail(TITLE, URL) {
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'newsDetail',
+                component: NewsDetail,
+                params: {
+                    title:TITLE,
+                    url:URL
+                }
+            })
+        }
+    }
+
+    _renderBodyCell(ICON, TITLT, COLOR, TEXT, URL){
         return(
             <View>
-                <View style={styles.bodyCell}>
-                    <Image source={ICON} style={{width:25, height:25, borderRadius:3}}/>
-                    <Text style={{color:'#00B1FE', marginLeft:10}}>{TITLT}</Text>
-                </View>
-                <Text style={styles.textStyle} numberOfLines={1}>{TEXT}</Text>
-                <View style={{height:1, width:screenWidth-30, marginLeft:15, marginTop:15, backgroundColor:COLOR}}/>
+                <TouchableOpacity onPress={()=>{this._goToNewsDetail(TEXT, URL)}}>
+                    <View style={styles.bodyCell}>
+                        <Image source={{uri: ICON}} style={{width:25, height:25, borderRadius:3}}/>
+                        <Text style={{color:'#00B1FE', marginLeft:10}}>{TITLT}</Text>
+                    </View>
+                    <Text style={styles.textStyle} numberOfLines={1}>{TEXT}</Text>
+                    <View style={{height:1, width:screenWidth-30, marginLeft:15, marginTop:15, backgroundColor:COLOR}}/>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -191,10 +217,10 @@ export default class Home extends React.Component{
         return(
             <View style={{backgroundColor:'#FFF', marginTop:20}}>
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                {this._renderBodyCell(nav, '升学政策', '#E8E8E8', '升学政策升学政策升学政策升学政策升学政策升学政策升学政策升学政策')}
-                {this._renderBodyCell(nav, '健康讲堂', '#E8E8E8', '升学政策升学政策升学政策升学政策升学政策升学政策升学政策升学政策')}
-                {this._renderBodyCell(nav, '今日知识', '#E8E8E8', '升学政策升学政策升学政策升学政策升学政策升学政策升学政策升学政策')}
-                {this._renderBodyCell(nav, '教育咨询', '#FFF', '升学政策升学政策升学政策升学政策升学政策升学政策升学政策升学政策')}
+                {this._renderBodyCell(this.state.events?this.state.events[0].icon:'', this.state.events?this.state.events[0].typeName:'', '#E8E8E8', this.state.events?this.state.events[0].title:'', this.state.events?this.state.events[0].pageUrl:'')}
+                {this._renderBodyCell(this.state.events?this.state.events[1].icon:'', this.state.events?this.state.events[1].typeName:'', '#E8E8E8', this.state.events?this.state.events[1].title:'', this.state.events?this.state.events[1].pageUrl:'')}
+                {this._renderBodyCell(this.state.events?this.state.events[2].icon:'', this.state.events?this.state.events[2].typeName:'', '#E8E8E8', this.state.events?this.state.events[2].title:'', this.state.events?this.state.events[2].pageUrl:'')}
+                {this._renderBodyCell(this.state.events?this.state.events[3].icon:'', this.state.events?this.state.events[3].typeName:'', '#FFF', this.state.events?this.state.events[3].title:'', this.state.events?this.state.events[3].pageUrl:'')}
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐课程')}

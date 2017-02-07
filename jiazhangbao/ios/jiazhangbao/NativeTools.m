@@ -34,29 +34,6 @@ RCT_EXPORT_METHOD(registerUSer:(NSString *)aUsername phoneNum:(NSString *)aPhone
   }];
 }
 
-// 获取用户信息
-RCT_EXPORT_METHOD(getUserInfo:(NSString *)phoneNum callback:(RCTResponseSenderBlock)callback)
-{
-  BmobQuery   *bquery = [BmobQuery queryWithClassName:@"user"];
-  [bquery whereKey:@"phoneNum" equalTo:phoneNum];
-  [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-    if (error) {
-      NSArray *events = [NSArray arrayWithObjects:@"获取用户失败", nil];
-      callback(@[[NSNull null], events]);
-    }else{
-      for (BmobObject *obj in array) {
-        //打印username
-        BmobFile *file = (BmobFile*)[obj objectForKey:@"userIcon"];
-        NSLog(@"username = %@", [obj objectForKey:@"username"]);
-        NSLog(@"username = %@", file.url);
-        NSArray *events = [NSArray arrayWithObjects:[obj objectForKey:@"username"], (NSString *)file.url, nil];
-        callback(@[[NSNull null], events]);
-      }
-    }
-  }];
-  
-}
-
 // 获取验证码
 RCT_EXPORT_METHOD(getVerificationCode:(NSString *)aPhoneNum callback:(RCTResponseSenderBlock)callback)
 {
@@ -97,6 +74,61 @@ RCT_EXPORT_METHOD(commitVerificationCode:(NSString *)code pohmeNum:(NSString *)a
     }
   }];
 }
+
+// 获取用户信息
+RCT_EXPORT_METHOD(getUserInfo:(NSString *)phoneNum callback:(RCTResponseSenderBlock)callback)
+{
+  BmobQuery *bquery = [BmobQuery queryWithClassName:@"user"];
+  [bquery whereKey:@"phoneNum" equalTo:phoneNum];
+  [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+    if (error) {
+      NSArray *events = [NSArray arrayWithObjects:@"获取用户失败", nil];
+      callback(@[[NSNull null], events]);
+    }else{
+      for (BmobObject *obj in array) {
+        //打印username
+        BmobFile *file = (BmobFile*)[obj objectForKey:@"userIcon"];
+        //        NSLog(@"username = %@", [obj objectForKey:@"username"]);
+        //        NSLog(@"username = %@", file.url);
+        NSArray *events = [NSArray arrayWithObjects:[obj objectForKey:@"username"], (NSString *)file.url, nil];
+        callback(@[[NSNull null], events]);
+      }
+    }
+  }];
+}
+
+// 获取推荐新闻
+RCT_EXPORT_METHOD(getRecomNews:(NSString *)phoneNum callback:(RCTResponseSenderBlock)callback)
+{
+  BmobQuery *bquery = [BmobQuery queryWithClassName:@"recomNews"];
+  [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+    if (error) {
+      NSArray *events = [NSArray arrayWithObjects:@"获取推荐新闻失败", nil];
+      callback(@[[NSNull null], events]);
+    }else{
+      NSMutableArray *events = [NSMutableArray array];
+      for (BmobObject *obj in array) {
+        //打印username
+        BmobFile *file = (BmobFile*)[obj objectForKey:@"icon"];
+        NSLog(@"typeName = %@", [obj objectForKey:@"typeName"]);
+        NSLog(@"pageUrl = %@", [obj objectForKey:@"url"]);
+        NSLog(@"title = %@", [obj objectForKey:@"title"]);
+        NSLog(@"icon = %@", file.url);
+        NSLog(@"************************************");
+        NSDictionary *dict = @{
+                               @"typeName":[obj objectForKey:@"typeName"],
+                               @"pageUrl":[obj objectForKey:@"url"],
+                               @"title":[obj objectForKey:@"title"],
+                               @"icon":file.url,
+                               };
+        [events addObject:dict];
+      }
+      NSLog(@"events = %@", events);
+      callback(@[[NSNull null], events]);
+    }
+  }];
+}
+
 
 
 
