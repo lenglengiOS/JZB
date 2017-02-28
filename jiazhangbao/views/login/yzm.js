@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 import Storage from 'react-native-storage';
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 const back = require('../../resources/login/nav_back@2x.png'); 

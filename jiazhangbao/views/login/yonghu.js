@@ -16,7 +16,7 @@ import {
     StatusBar
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 
 const back = require('../../resources/login/nav_back@2x.png'); 
 

@@ -17,7 +17,7 @@ import {
     Navigator
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import Login from '../login/login_index';
 import TabNavigator from 'react-native-tab-navigator';
 import Home from './shouye';
