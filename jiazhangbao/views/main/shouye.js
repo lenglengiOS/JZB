@@ -16,11 +16,12 @@ import {
     NativeModules
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import JiaZhang from './jiazhang';
 import Login from '../login/login_index';
 import  LoadingShow  from '../component/react-native-loading';
 import NewsDetail from '../recomNews/newsDetail';
+import Search from '../home/search.js';
 
 const nav = require('../../resources/home/home_nav.png');
 const search = require('../../resources/home/search@2x.png');
@@ -79,7 +80,13 @@ export default class Home extends React.Component{
     }
 
     _search(){
-        alert('搜索');
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'search',
+                component: Search,
+            })
+        }
     }
 
     _showMsg(){
@@ -120,8 +127,10 @@ export default class Home extends React.Component{
         return(
             <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                 <Image source={userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
-                    <Image source={this.state.userIcon?{uri: this.state.userIcon}:userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
-                    <Text style={styles.login} onPress={()=>{this._pressLogin()}}>{this.state.username?this.state.username:'登录/注册'}</Text>
+                    <TouchableOpacity onPress={()=>{this._pressLogin()}}>
+                        <Image source={this.state.userIcon?{uri: this.state.userIcon}:userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
+                        <Text style={styles.login} >{this.state.username?this.state.username:'登录/注册'}</Text>
+                    </TouchableOpacity>
                 </Image>
                 <View style={{width:screenWidth, height:180}}>
                     <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
@@ -270,7 +279,8 @@ var styles = StyleSheet.create({
         color:'#F9AB48', 
         marginTop:10, 
         fontSize:18, 
-        backgroundColor:'transparent'
+        backgroundColor:'transparent',
+        textAlign:'center'
     },
     bodyCell:{
         width:screenWidth-30, 

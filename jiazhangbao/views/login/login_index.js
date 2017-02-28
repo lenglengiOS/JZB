@@ -16,7 +16,7 @@ import {
     NativeModules,
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import Register from '../login/register';
 import Toast from '../tools/Toast';
 
