@@ -87,7 +87,7 @@ export default class WoDe extends React.Component{
                 </ScrollView>
                 {this.state.showMore?<View style={{position:'absolute', top:56, left:28, alignItems:'center'}}>
                                         <Image source={options} style={{width:11, height:8}} opacity={0.8}/>
-                                        <View opacity={0.8} style={{width:75, height:85, backgroundColor:'#000'}}>
+                                        <View opacity={0.8} style={{width:75, height:85, backgroundColor:'#000', borderRadius:2}}>
                                             <TouchableOpacity style={styles.selectOptions} onPress={()=>this.setState({selectOptions:'机构', showMore:false})}>
                                                 <Text style={{color:'#FFF', fontSize:18}}>机构</Text>
                                             </TouchableOpacity>
