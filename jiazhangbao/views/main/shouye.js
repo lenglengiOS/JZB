@@ -24,6 +24,7 @@ import NewsDetail from '../recomNews/newsDetail';
 import Search from '../home/search.js';
 import SysMsg from '../home/sysMsg.js';
 import UserInfo from '../user/userInfo';
+import Org from '../home/organization';
 
 const nav = require('../../resources/home/home_nav.png');
 const search = require('../../resources/home/search@2x.png');
@@ -102,6 +103,16 @@ export default class Home extends React.Component{
         }
     }
 
+    pressOrg(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'org',
+                component: Org,
+            })
+        }
+    }
+
     _renderNav(){
         return(
             <View>
@@ -111,10 +122,10 @@ export default class Home extends React.Component{
                     animated={true} />
                 <View style={{width:screenWidth, height:64}}>
                     <Image source={nav} style={styles.nav} resizeMode={Image.resizeMode.stretch}>
-                        <TouchableOpacity onPress={()=>{this._search()}}>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._search()}}>
                             <Image source={search} style={{width:30, height:30, marginRight:30}}/>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>{this._showMsg()}}>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._showMsg()}}>
                             <Image source={msg} style={{width:30, height:30}}/>
                         </TouchableOpacity>
                     </Image>
@@ -125,10 +136,12 @@ export default class Home extends React.Component{
 
     _renderCell(ICON, TITLE){
         return(
-            <View style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
-                <Image source={ICON} style={{width:50, height:50, borderRadius:25, marginBottom:10}}/>
-                <Text style={{fontSize:16}}>{TITLE}</Text>
-            </View>
+            <TouchableOpacity onPress={()=>this.pressOrg()} style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
+                <View style={{alignItems:'center'}}>
+                    <Image source={ICON} style={{width:50, height:50, borderRadius:25, marginBottom:10}}/>
+                    <Text style={{fontSize:16}}>{TITLE}</Text>
+                </View>
+            </TouchableOpacity>
         )
     }
 
@@ -136,7 +149,7 @@ export default class Home extends React.Component{
         return(
             <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                 <Image source={userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
-                    <TouchableOpacity onPress={()=>{this.pressUserIcon()}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}}>
                         <Image source={this.state.userIcon?{uri: this.state.userIcon}:userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
                         <Text style={styles.login} >{this.state.username?this.state.username:'登录/注册'}</Text>
                     </TouchableOpacity>
@@ -176,7 +189,7 @@ export default class Home extends React.Component{
     _renderBodyCell(ICON, TITLT, COLOR, TEXT, URL){
         return(
             <View>
-                <TouchableOpacity onPress={()=>{this._goToNewsDetail(TEXT, URL)}}>
+                <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._goToNewsDetail(TEXT, URL)}}>
                     <View style={styles.bodyCell}>
                         <Image source={{uri: ICON}} style={{width:25, height:25, borderRadius:3}}/>
                         <Text style={{color:'#00B1FE', marginLeft:10}}>{TITLT}</Text>

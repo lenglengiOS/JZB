@@ -54,7 +54,7 @@ export default class WoDe extends React.Component{
                      barStyle="default"
                      animated={true}/>
                 <View style={styles.nav}>
-                    <TouchableOpacity onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
                         <Image source={back} style={{width:30, height:30}} />
                     </TouchableOpacity>
                     <Text style={{fontSize:20, color:'#00B09D'}}>我的资料</Text>

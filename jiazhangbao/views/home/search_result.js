@@ -57,7 +57,7 @@ export default class WoDe extends React.Component{
                      backgroundColor="blue"
                      barStyle="default"
                      animated={true}/>
-                <TouchableOpacity onPress={()=>{this._back()}}>
+                <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
     				<View style={styles.nav}>
                             <Image source={back} style={{width:30, height:30, marginLeft:10}} />
                         <View style={styles.TextInput}>

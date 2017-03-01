@@ -92,7 +92,7 @@ export default class Login extends React.Component{
                          animated={true}/>
                 <ScrollView scrollEnabled={false} style={{height:200}}>
                     <View style={styles.cancel}>
-                    	<TouchableOpacity onPress={()=>{this._cancel()}}>
+                    	<TouchableOpacity activeOpacity={0.8} onPress={()=>{this._cancel()}}>
                     	<Image source={cancel} />
                     	</TouchableOpacity>
                     </View>
@@ -127,7 +127,7 @@ export default class Login extends React.Component{
                     	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                     </View>
 
-                    <TouchableOpacity style={styles.login} onPress={()=>{this.login()}}> 
+                    <TouchableOpacity activeOpacity={0.8} style={styles.login} onPress={()=>{this.login()}}> 
     	                <Text style={{color:'#FFF', fontSize:20}}>登录</Text>
                     </TouchableOpacity>
                 </ScrollView>    
@@ -142,11 +142,11 @@ export default class Login extends React.Component{
             	</View>
 
             	<View style={{flexDirection:'row'}}>
-            		<TouchableOpacity onPress={()=>{this._pressRegister()}}>
+            		<TouchableOpacity activeOpacity={0.8} onPress={()=>{this._pressRegister()}}>
             			<Text style={{color:'#F88700', fontSize:18, marginTop:3}}>注册家长宝账号</Text>
             		</TouchableOpacity>
             		<View style={styles.line}/>
-            		<TouchableOpacity onPress={()=>{this._cancel()}}>
+            		<TouchableOpacity activeOpacity={0.8} onPress={()=>{this._cancel()}}>
             			<Text style={{color:'#8A8A8A', fontSize:18, marginTop:3}}>先去逛逛</Text>
             		</TouchableOpacity>
             	</View>

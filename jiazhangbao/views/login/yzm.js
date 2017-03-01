@@ -119,7 +119,7 @@ export default class Register extends React.Component{
         return(
             <View style={styles.container}>
                 <View style={styles.nav}>
-                    <TouchableOpacity onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
                         <Image source={back} style={{width:30, height:30}} />
                     </TouchableOpacity>
                     <Text style={{fontSize:20, color:'#00B09D'}}>手机验证</Text>
@@ -134,13 +134,13 @@ export default class Register extends React.Component{
                     clearButtonMode='while-editing'
                     onChangeText={(text) => this.setState({yanzhengma:text})}
                     keyboardType='numeric'/>
-                    <TouchableOpacity onPress={()=>{this._resend()}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._resend()}}>
                         <View style={[styles.countDown, {backgroundColor:this.state.counting?'#C8C8C8':'#48B9A9'}]}>
                             <Text style={{color:'#FFF', fontSize:14}}>{this.state.counting?this.state.countDown+'秒':'重发'}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.submit} onPress={()=>{this._submit()}}> 
+                <TouchableOpacity activeOpacity={0.8} style={styles.submit} onPress={()=>{this._submit()}}> 
                     <Text style={{color:'#FFF', fontSize:20}}>完成</Text>
                 </TouchableOpacity>
                 <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>

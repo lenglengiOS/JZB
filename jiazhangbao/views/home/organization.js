@@ -61,7 +61,7 @@ export default class WoDe extends React.Component{
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
                         <Image source={back} style={{width:30, height:30}} />
                     </TouchableOpacity>
-                    <Text style={{fontSize:20, color:'#00B09D'}}>系统消息</Text>
+                    <Text style={{fontSize:20, color:'#00B09D'}}>幼儿园</Text>
                 </View>
                 <MyListView
                     onRefresh={this._onRefresh.bind(this)}
@@ -76,7 +76,19 @@ export default class WoDe extends React.Component{
     renderRow(){
         return(
             <View style={{flexDirection:'row', backgroundColor:'#FFF', paddingTop:15, paddingBottom:15, paddingLeft:10, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
-                <Text>666</Text>
+                <Image source={nav} style={{width:85, height:70}}/>
+                <View style={styles.recommendCell}>
+                    <View>
+                        <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                            <Text style={{fontSize:18}}>金苹果天府国际幼儿园</Text>
+                        </View>
+                        <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>四川省成都市武侯区</Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                        <Image source={location} style={{width:8, height:12}}/>
+                        <Text style={{fontSize:13, color:'#9B9B9B'}}> 1.26km</Text>
+                    </View>
+                </View>
             </View>
         )
     }

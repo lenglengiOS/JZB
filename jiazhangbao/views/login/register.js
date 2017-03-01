@@ -122,7 +122,7 @@ export default class Register extends React.Component{
             <View style={styles.container}>
                 <ScrollView scrollEnabled={false} style={{height:200}}>
                     <View style={styles.calcel}>
-                        <TouchableOpacity onPress={()=>{this._cancel()}}>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._cancel()}}>
                         <Image source={cancel} />
                         </TouchableOpacity>
                     </View>
@@ -163,7 +163,7 @@ export default class Register extends React.Component{
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                     </View>
                 </ScrollView>
-                <TouchableOpacity style={styles.login} onPress={()=>{this._register()}}> 
+                <TouchableOpacity activeOpacity={0.8} style={styles.login} onPress={()=>{this._register()}}> 
                     <Text style={{color:'#FFF', fontSize:20}}>注册账号</Text>
                 </TouchableOpacity>
                 <View style={{flex:1,  width:screenWidth, marginTop:10, alignItems:'center'}}>
@@ -173,11 +173,11 @@ export default class Register extends React.Component{
                     </Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity onPress={()=>{this._back()}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
                         <Text style={{color:'#F88700', fontSize:18, marginTop:3}}>返回登录页</Text>
                     </TouchableOpacity>
                     <View style={styles.line}/>
-                    <TouchableOpacity onPress={()=>{this._cancel()}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._cancel()}}>
                         <Text style={{color:'#8A8A8A', fontSize:18, marginTop:3}}>先去逛逛</Text>
                     </TouchableOpacity>
                 </View>

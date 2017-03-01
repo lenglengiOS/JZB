@@ -86,10 +86,10 @@ export default class WoDe extends React.Component{
                      barStyle="default"
                      animated={true}/>
 				<View style={styles.nav}>
-                    <TouchableOpacity onPress={()=>{this._back()}}>
+                    <TouchableOpacity  activeOpacity={0.8} onPress={()=>{this._back()}}>
                         <Image source={back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={{flexDirection:'row', alignItems:'center'}} onPress={()=>this.setState({showMore:!this.state.showMore})}>
+                    <TouchableOpacity  activeOpacity={0.8} style={{flexDirection:'row', alignItems:'center'}} onPress={()=>this.setState({showMore:!this.state.showMore})}>
                     	<Text style={{color:'#8C8C8C', fontSize:18, marginLeft:10}}>{this.state.selectOptions}</Text>
                     	<Image source={this.state.showMore?showMore:showMoreNor} style={{width:15, height:15, marginLeft:5}} />
                     </TouchableOpacity>
@@ -109,7 +109,7 @@ export default class WoDe extends React.Component{
                     <ListView
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow.bind(this)}/>
-                    <TouchableOpacity onPress={()=>this.setState({dataSource:defaultData.cloneWithRows([])})} style={styles.clearHistory}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.setState({dataSource:defaultData.cloneWithRows([])})} style={styles.clearHistory}>
                         <Image source={search_clearHistory} style={{width:20, height:20}} />
                         <Text style={{marginLeft:10, color:'#919191', fontSize:15}}>清除历史记录</Text>
                     </TouchableOpacity>
@@ -117,10 +117,10 @@ export default class WoDe extends React.Component{
                 {this.state.showMore?<View style={{position:'absolute', top:56, left:28, alignItems:'center'}}>
                                         <Image source={options} style={{width:11, height:8}} opacity={0.8}/>
                                         <View opacity={0.8} style={{width:75, height:85, backgroundColor:'#000', borderRadius:2}}>
-                                            <TouchableOpacity style={styles.selectOptions} onPress={()=>this.setState({selectOptions:'机构', showMore:false})}>
+                                            <TouchableOpacity activeOpacity={0.8} style={styles.selectOptions} onPress={()=>this.setState({selectOptions:'机构', showMore:false})}>
                                                 <Text style={{color:'#FFF', fontSize:18}}>机构</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={styles.selectOptions} onPress={()=>this.setState({selectOptions:'课程', showMore:false})}>
+                                            <TouchableOpacity activeOpacity={0.8} style={styles.selectOptions} onPress={()=>this.setState({selectOptions:'课程', showMore:false})}>
                                                 <Text style={{color:'#FFF', fontSize:18}}>课程</Text>
                                             </TouchableOpacity>
                                         </View>
@@ -131,7 +131,7 @@ export default class WoDe extends React.Component{
 
 	renderRow(){
 		return(
-            <TouchableOpacity onPress={()=>this.pressRow()}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
     			<View style={styles.renderRow}>
                     <Image source={search_history} style={{width:20, height:20}} />
                     <Text style={{marginLeft:10, color:'#919191', fontSize:15}}>金苹果</Text>
