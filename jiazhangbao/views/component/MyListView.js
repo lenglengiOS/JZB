@@ -8,7 +8,7 @@
 'use strict';
 import commenStyle from '../styles/basestyle';
 import Tools from '../tools';
-import {navheight,screenWidth,screenHeight,navbackground,Size} from '../constStr';
+import {navheight,screenWidth,screenHeight,navbackground,Size} from '../constStr'
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import React from 'react';
 import PageLoading from '../tools/Loading'

@@ -22,6 +22,8 @@ import Login from '../login/login_index';
 import  LoadingShow  from '../component/react-native-loading';
 import NewsDetail from '../recomNews/newsDetail';
 import Search from '../home/search.js';
+import SysMsg from '../home/sysMsg.js';
+import UserInfo from '../user/userInfo';
 
 const nav = require('../../resources/home/home_nav.png');
 const search = require('../../resources/home/search@2x.png');
@@ -46,6 +48,7 @@ export default class Home extends React.Component{
 		super(props);
 		this.state={
             network:true,
+            isLogin:true
 		}
 	}
     componentDidMount(){
@@ -69,14 +72,14 @@ export default class Home extends React.Component{
         });
     }
 
-    _pressLogin() {
-        const { navigator } = this.props;
-        if(navigator) {
-            navigator.push({
-                name: 'denglu',
-                component: Login,
-            })
-        }
+    pressUserIcon() {
+            const { navigator } = this.props;
+            if(navigator) {
+                navigator.push({
+                    name: 'denglu',
+                    component:this.state.isLogin?UserInfo:Login,
+                })
+            }
     }
 
     _search(){
@@ -90,7 +93,13 @@ export default class Home extends React.Component{
     }
 
     _showMsg(){
-        alert('消息');
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'sysmsg',
+                component: SysMsg,
+            })
+        }
     }
 
     _renderNav(){
@@ -127,7 +136,7 @@ export default class Home extends React.Component{
         return(
             <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                 <Image source={userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
-                    <TouchableOpacity onPress={()=>{this._pressLogin()}}>
+                    <TouchableOpacity onPress={()=>{this.pressUserIcon()}}>
                         <Image source={this.state.userIcon?{uri: this.state.userIcon}:userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
                         <Text style={styles.login} >{this.state.username?this.state.username:'登录/注册'}</Text>
                     </TouchableOpacity>

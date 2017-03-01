@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import SearchResult from './search_result';
 import MyListView from '../component/MyListView';
 const back = require('../../resources/login/nav_back@2x.png');
 const showMoreNor = require('../../resources/home/main_showMoreNor@2x.png');
@@ -51,6 +52,32 @@ export default class WoDe extends React.Component{
         }
     }
 
+    doSearch(){
+        const { navigator } = this.props;
+        if(navigator&&this.state.searchText) {
+            navigator.push({
+                name: 'searchresult',
+                component: SearchResult,
+                params:{
+                    searchText:this.state.searchText
+                }
+            })
+        }
+    }
+
+    pressRow(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'searchresult',
+                component: SearchResult,
+                params:{
+                    searchText:'rowData'
+                }
+            })
+        }
+    }
+
 	render(){
 		return(
 			<View style={styles.container}>
@@ -73,7 +100,9 @@ export default class WoDe extends React.Component{
 							placeholder="幼儿园/培训班/机构/课程"
 							placeholderTextColor='#A2A1A6'
                             returnKeyType='search'
-                            onSubmitEditing={()=>alert('搜索')}/>
+                            clearButtonMode='while-editing'
+                            onChangeText = {(text) => this.setState({searchText:text})}
+                            onSubmitEditing={()=>this.doSearch()}/>
                     </View>
                 </View>
                 <ScrollView>
@@ -102,10 +131,12 @@ export default class WoDe extends React.Component{
 
 	renderRow(){
 		return(
-			<View style={styles.renderRow}>
-                <Image source={search_history} style={{width:20, height:20}} />
-                <Text style={{marginLeft:10, color:'#919191', fontSize:15}}>金苹果</Text>
-			</View>
+            <TouchableOpacity onPress={()=>this.pressRow()}>
+    			<View style={styles.renderRow}>
+                    <Image source={search_history} style={{width:20, height:20}} />
+                    <Text style={{marginLeft:10, color:'#919191', fontSize:15}}>金苹果</Text>
+    			</View>
+            </TouchableOpacity>
 		)
 	}
 }
