@@ -52,7 +52,7 @@ export default class NewsDetail extends React.Component{
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
                         <Image source={back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
-                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D'}}>{this.props.title}</Text>
+                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.title}</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
                     	<Image source={common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>

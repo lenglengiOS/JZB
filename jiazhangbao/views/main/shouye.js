@@ -19,12 +19,14 @@ import {
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import JiaZhang from './jiazhang';
 import Login from '../login/login_index';
-import  LoadingShow  from '../component/react-native-loading';
+import LoadingShow  from '../component/react-native-loading';
 import NewsDetail from '../recomNews/newsDetail';
 import Search from '../home/search.js';
 import SysMsg from '../home/sysMsg.js';
 import UserInfo from '../user/userInfo';
 import Org from '../home/organization';
+import JIAOYU from '../home/jiaoyu_jiazhang.js';
+import JIAZHANGQUAN from '../home/jiazhangquan.js';
 
 const nav = require('../../resources/home/home_nav.png');
 const search = require('../../resources/home/search@2x.png');
@@ -103,12 +105,18 @@ export default class Home extends React.Component{
         }
     }
 
-    pressOrg(){
+    pressOrg(TITLE, INDEX){
+        var com = JIAOYU;
+        if (INDEX == 7) {com=JIAZHANGQUAN}
+        if (INDEX == 8) {return}
         const { navigator } = this.props;
         if(navigator) {
             navigator.push({
                 name: 'org',
-                component: Org,
+                component: INDEX<=4?Org:com,
+                params:{
+                    TITLE:TITLE
+                }
             })
         }
     }
@@ -134,9 +142,9 @@ export default class Home extends React.Component{
         )
     }
 
-    _renderCell(ICON, TITLE){
+    _renderCell(ICON, TITLE, INDEX){
         return(
-            <TouchableOpacity onPress={()=>this.pressOrg()} style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressOrg(TITLE, INDEX)} style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
                 <View style={{alignItems:'center'}}>
                     <Image source={ICON} style={{width:50, height:50, borderRadius:25, marginBottom:10}}/>
                     <Text style={{fontSize:16}}>{TITLE}</Text>
@@ -156,16 +164,16 @@ export default class Home extends React.Component{
                 </Image>
                 <View style={{width:screenWidth, height:180}}>
                     <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
-                        {this._renderCell(youeryuan,'幼儿园')}
-                        {this._renderCell(xiaoxue,'小学')}
-                        {this._renderCell(peixunban,'培训班')}
-                        {this._renderCell(tuoguanban,'托管班')}
+                        {this._renderCell(youeryuan,'幼儿园',1)}
+                        {this._renderCell(xiaoxue,'小学',2)}
+                        {this._renderCell(peixunban,'培训班',3)}
+                        {this._renderCell(tuoguanban,'托管班',4)}
                     </View>
                     <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
-                        {this._renderCell(jiaoyu,'教育升学')}
-                        {this._renderCell(zhishi,'家长知识')}
-                        {this._renderCell(jiazhangquan,'家长圈')}
-                        {this._renderCell(taolun,'热门讨论')}
+                        {this._renderCell(jiaoyu,'教育升学',5)}
+                        {this._renderCell(zhishi,'家长知识',6)}
+                        {this._renderCell(jiazhangquan,'家长圈',7)}
+                        {this._renderCell(taolun,'热门讨论',8)}
                     </View>
                 </View>
             </View>
