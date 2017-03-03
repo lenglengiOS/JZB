@@ -24,6 +24,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		956011B4F7974B1A8F4DD5A4 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E55DFD38F84460B8D5407A /* libimageCropPicker.a */; };
 		9D116B711E31E46B00D74708 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B6E1E31E46B00D74708 /* MOBFoundation.framework */; };
 		9D116B721E31E46B00D74708 /* MOBFoundationEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B6F1E31E46B00D74708 /* MOBFoundationEx.framework */; };
 		9D116B731E31E46B00D74708 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D116B701E31E46B00D74708 /* SMS_SDK.framework */; };
@@ -44,6 +45,12 @@
 		9D8FE8371E30A155007DEB6C /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8FE8361E30A155007DEB6C /* libz.1.2.5.tbd */; };
 		9D8FE8391E30A160007DEB6C /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8FE8381E30A160007DEB6C /* libicucore.tbd */; };
 		9D8FE83B1E30A168007DEB6C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8FE83A1E30A168007DEB6C /* libsqlite3.tbd */; };
+		9DE035601E690A2A00F8E46C /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355E1E690A2A00F8E46C /* QBImagePicker.framework */; };
+		9DE035611E690A2A00F8E46C /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355F1E690A2A00F8E46C /* RSKImageCropper.framework */; };
+		9DE035621E690AAA00F8E46C /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355F1E690A2A00F8E46C /* RSKImageCropper.framework */; };
+		9DE035631E690AAA00F8E46C /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355F1E690A2A00F8E46C /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DE035651E690AC700F8E46C /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355E1E690A2A00F8E46C /* QBImagePicker.framework */; };
+		9DE035661E690AC700F8E46C /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355E1E690A2A00F8E46C /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DEF0CCA1E4B1F6600AC0504 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEF0CC91E4B1F6600AC0504 /* QuartzCore.framework */; };
 		9DEF0CCC1E4B1F7000AC0504 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEF0CCB1E4B1F7000AC0504 /* OpenGLES.framework */; };
 		9DEF0CCE1E4B1F9D00AC0504 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEF0CCD1E4B1F9D00AC0504 /* libsqlite3.0.tbd */; };
@@ -232,7 +239,29 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		9DE035421E69095800F8E46C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 616181FEE6F34FF889118A4E /* imageCropPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3400A8081CEB54A6008A0BC7;
+			remoteInfo = imageCropPicker;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9DE035641E690AAA00F8E46C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9DE035631E690AAA00F8E46C /* RSKImageCropper.framework in Embed Frameworks */,
+				9DE035661E690AC700F8E46C /* QBImagePicker.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -255,6 +284,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = jiazhangbao/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		616181FEE6F34FF889118A4E /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		9D116B6E1E31E46B00D74708 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
@@ -278,12 +308,15 @@
 		9D8FE8361E30A155007DEB6C /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		9D8FE8381E30A160007DEB6C /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		9D8FE83A1E30A168007DEB6C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		9DE0355E1E690A2A00F8E46C /* QBImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = "<group>"; };
+		9DE0355F1E690A2A00F8E46C /* RSKImageCropper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = "<group>"; };
 		9DEF0CC91E4B1F6600AC0504 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9DEF0CCB1E4B1F7000AC0504 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		9DEF0CCD1E4B1F9D00AC0504 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		9DEF0CCF1E4B1FB400AC0504 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		9DEF0CD11E4B1FFB00AC0504 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../../thirdlibs/libcrypto.a; sourceTree = "<group>"; };
 		9DEF0CD21E4B1FFB00AC0504 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../../thirdlibs/libssl.a; sourceTree = "<group>"; };
+		D3E55DFD38F84460B8D5407A /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,19 +352,24 @@
 				9D8FE82F1E30A050007DEB6C /* MobileCoreServices.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				9DE035601E690A2A00F8E46C /* QBImagePicker.framework in Frameworks */,
 				9D116B711E31E46B00D74708 /* MOBFoundation.framework in Frameworks */,
+				9DE035621E690AAA00F8E46C /* RSKImageCropper.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				9D8FE8261E309FFC007DEB6C /* BmobSDK.framework in Frameworks */,
+				9DE035651E690AC700F8E46C /* QBImagePicker.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				9DE035611E690A2A00F8E46C /* RSKImageCropper.framework in Frameworks */,
 				9D116B731E31E46B00D74708 /* SMS_SDK.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				9D116B721E31E46B00D74708 /* MOBFoundationEx.framework in Frameworks */,
+				956011B4F7974B1A8F4DD5A4 /* libimageCropPicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +517,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+				616181FEE6F34FF889118A4E /* imageCropPicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -527,6 +566,7 @@
 		9D8FE8241E309FF0007DEB6C /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				9DE0355D1E690A2A00F8E46C /* ImageCropPickerSDK */,
 				9D116B6D1E31E46B00D74708 /* SMS_SDK */,
 				9D8FE8251E309FFC007DEB6C /* BmobSDK.framework */,
 			);
@@ -562,6 +602,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9DE0353F1E69095800F8E46C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9DE035431E69095800F8E46C /* libimageCropPicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9DE0355D1E690A2A00F8E46C /* ImageCropPickerSDK */ = {
+			isa = PBXGroup;
+			children = (
+				9DE0355E1E690A2A00F8E46C /* QBImagePicker.framework */,
+				9DE0355F1E690A2A00F8E46C /* RSKImageCropper.framework */,
+			);
+			path = ImageCropPickerSDK;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -591,6 +648,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				9DE035641E690AAA00F8E46C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -607,7 +665,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -631,6 +689,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 9DE0353F1E69095800F8E46C /* Products */;
+					ProjectRef = 616181FEE6F34FF889118A4E /* imageCropPicker.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -860,6 +922,13 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9DE035431E69095800F8E46C /* libimageCropPicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libimageCropPicker.a;
+			remoteRef = 9DE035421E69095800F8E46C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -951,6 +1020,10 @@
 				INFOPLIST_FILE = jiazhangbaoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jiazhangbao.app/jiazhangbao";
 			};
@@ -964,6 +1037,10 @@
 				INFOPLIST_FILE = jiazhangbaoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jiazhangbao.app/jiazhangbao";
 			};
@@ -980,6 +1057,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/jiazhangbao/lib",
 					"$(PROJECT_DIR)/jiazhangbao/lib/SMS_SDK",
+					"$(PROJECT_DIR)/jiazhangbao/lib/ImageCropPickerSDK",
 				);
 				INFOPLIST_FILE = jiazhangbao/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1005,6 +1083,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/jiazhangbao/lib",
 					"$(PROJECT_DIR)/jiazhangbao/lib/SMS_SDK",
+					"$(PROJECT_DIR)/jiazhangbao/lib/ImageCropPickerSDK",
 				);
 				INFOPLIST_FILE = jiazhangbao/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
