@@ -13,7 +13,8 @@ import {
     ScrollView,
     Image,
     WebView,
-    StatusBar
+    StatusBar,
+    Linking
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
@@ -43,6 +44,24 @@ export default class NewsDetail extends React.Component{
         }
     }
 
+    call(){
+        Linking.canOpenURL('tel:18202853094').then(supported => {
+            if (!supported) {
+                alert('该设备不支持拨打电话')
+            } else {
+                return Linking.openURL('tel:18202853094')
+            }
+        }).catch(err => console.error('An error occurred', err));
+    }
+
+    send(){
+        alert('发消息')
+    }
+
+    baoban(){
+        alert('报班')
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -69,9 +88,18 @@ export default class NewsDetail extends React.Component{
                 </ScrollView>
                 <View style={styles.bottomBar}>
                     <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Image source={common_phone} style={{width:25, height:25, marginLeft:18}} />
-                        <Image source={common_mes} style={{width:25, height:25, marginLeft:22}} />
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>this.call()} style={{flexDirection:'row', alignItems:'center'}}>
+                            <Image source={common_phone} style={{width:25, height:25, marginLeft:18}} />
+                            <Text style={{color:'#6F6F6F', marginLeft:3, fontSize:16}}>咨询</Text>
+                        </TouchableOpacity>    
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.send()}} style={{flexDirection:'row', alignItems:'center'}}>
+                            <Image source={common_mes} style={{width:25, height:25, marginLeft:22}} />
+                            <Text style={{color:'#6F6F6F', marginLeft:3, fontSize:16}}>私信</Text>
+                        </TouchableOpacity>
                     </View>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.baoban} onPress={()=>{this.baoban()}}>
+                        <Text style={{color:'#FFF', fontSize:16}}>立即报班</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
           )
@@ -104,7 +132,17 @@ var styles = StyleSheet.create({
         width:screenWidth, 
         height:47, 
         position:'absolute', 
-        bottom:0
+        bottom:0,
+        justifyContent:'space-between'
+    },
+    baoban:{
+        width:88, 
+        height:34, 
+        backgroundColor:'#33BAAB', 
+        borderRadius:3, 
+        marginRight:10,
+        justifyContent:'center',
+        alignItems:'center'
     }
 });
 
