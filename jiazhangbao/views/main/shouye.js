@@ -27,6 +27,7 @@ import UserInfo from '../user/userInfo';
 import Org from '../home/organization';
 import JIAOYU from '../home/jiaoyu_jiazhang.js';
 import JIAZHANGQUAN from '../home/jiazhangquan.js';
+import CourseDetail from '../home/courseDetails';
 
 const nav = require('../../resources/home/home_nav.png');
 const search = require('../../resources/home/search@2x.png');
@@ -194,6 +195,27 @@ export default class Home extends React.Component{
         }
     }
 
+    goToCourseDetails(PRICE){
+        var TITLE = '';
+        if (PRICE) {
+            TITLE = "课程详情";
+        }else{
+            TITLE = "机构信息";
+        }
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'courseDetail',
+                component: CourseDetail,
+                params: {
+                    title:TITLE,
+                }
+            })
+        }
+
+        
+    }
+
     _renderBodyCell(ICON, TITLT, COLOR, TEXT, URL){
         return(
             <View>
@@ -212,22 +234,24 @@ export default class Home extends React.Component{
     _renderRecommendCell(IMG, TITLE, SUBTITLE, PRICE, DISTANCE){
         return(
             <View>
-                <View style={{flexDirection:'row'}}>
-                    <Image source={IMG} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
-                    <View style={styles.recommendCell}>
-                        <View>
-                            <View style={{justifyContent:'space-between', flexDirection:'row'}}>
-                                <Text style={{fontSize:18}}>{TITLE}</Text>
-                                <Text style={{fontSize:18, color:'#F87B00'}}>{PRICE}</Text>
+                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.goToCourseDetails(PRICE)}>
+                    <View style={{flexDirection:'row'}}>
+                        <Image source={IMG} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
+                        <View style={styles.recommendCell}>
+                            <View>
+                                <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                                    <Text style={{fontSize:18}}>{TITLE}</Text>
+                                    <Text style={{fontSize:18, color:'#F87B00'}}>{PRICE}</Text>
+                                </View>
+                                <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>{SUBTITLE}</Text>
                             </View>
-                            <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>{SUBTITLE}</Text>
-                        </View>
-                        <View style={{flexDirection:'row'}}>
-                            <Image source={location} style={{width:8, height:12}}/>
-                            <Text style={{fontSize:13, color:'#9B9B9B'}}> {DISTANCE}km</Text>
+                            <View style={{flexDirection:'row'}}>
+                                <Image source={location} style={{width:8, height:12}}/>
+                                <Text style={{fontSize:13, color:'#9B9B9B'}}> {DISTANCE}km</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <View style={{height:1, width:screenWidth, marginTop:15, backgroundColor:'#E8E8E8'}} />
             </View>
         )
@@ -263,16 +287,16 @@ export default class Home extends React.Component{
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐课程')}
-                {this._renderRecommendCell(nav, '钢琴培训季度套餐', '星萌艺校', '¥ 3999', '1.54')}
-                {this._renderRecommendCell(nav, '钢琴培训季度套餐', '星萌艺校', '¥ 3999', '1.54')}
-                {this._renderRecommendCell(nav, '钢琴培训季度套餐', '星萌艺校', '¥ 3999', '1.54')}
-                {this._renderRecommendCell(nav, '钢琴培训季度套餐', '星萌艺校', '¥ 3999', '1.54')}
+                {this._renderRecommendCell(nav, '钢琴度套餐', '星萌艺校', '¥ 39', '1.54')}
+                {this._renderRecommendCell(nav, '钢琴季度冷洪林餐', '星萌艺校', '¥ 19', '1.54')}
+                {this._renderRecommendCell(nav, '钢玩到无餐', '星萌艺校', '¥ 229', '1.54')}
+                {this._renderRecommendCell(nav, '分瓦达季度套餐', '星萌艺校', '¥ 34', '1.54')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐机构')}
-                {this._renderRecommendCell(nav, '钢琴培训季度套餐', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(nav, '钢琴培训季度套餐', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(nav, '钢琴培训季度套餐', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(nav, '钢琴培训季度套餐', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(nav, '钢威锋网无法季度套餐', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(nav, '钢企鹅王发季度套餐', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(nav, '钢琴培驱蚊器翁', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(nav, '钢请问我去餐', '星萌艺校', '', '1.54')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
             </View>
         )
