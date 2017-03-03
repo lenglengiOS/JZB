@@ -18,6 +18,7 @@ import {
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
 import NewsDetail from '../recomNews/newsDetail';
+import Publish from './publish';
 
 const back = require('../../resources/login/nav_back@2x.png');
 const showMoreNor = require('../../resources/home/main_showMoreNor@2x.png');
@@ -77,8 +78,8 @@ export default class WoDe extends React.Component{
         const { navigator } = this.props;
         if(navigator) {
             navigator.push({
-                name: 'topicDetail',
-                component: NewsDetail
+                name: 'publish',
+                component: Publish
             })
         }
     }
