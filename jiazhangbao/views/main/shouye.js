@@ -28,6 +28,7 @@ import Org from '../home/organization';
 import JIAOYU from '../home/jiaoyu_jiazhang.js';
 import JIAZHANGQUAN from '../home/jiazhangquan.js';
 import CourseDetail from '../home/courseDetails';
+import JigouInfo from '../home/jigouInfo';
 
 const nav = require('../../resources/home/home_nav.png');
 const search = require('../../resources/home/search@2x.png');
@@ -199,19 +200,30 @@ export default class Home extends React.Component{
         var TITLE = '';
         if (PRICE) {
             TITLE = "课程详情";
+            const { navigator } = this.props;
+            if(navigator) {
+                navigator.push({
+                    name: 'courseDetail',
+                    component: CourseDetail,
+                    params: {
+                        title:TITLE,
+                    }
+                })
+            }
         }else{
             TITLE = "机构信息";
+            const { navigator } = this.props;
+            if(navigator) {
+                navigator.push({
+                    name: 'jigouInfo',
+                    component: JigouInfo,
+                    params: {
+                        title:TITLE,
+                    }
+                })
+            }
         }
-        const { navigator } = this.props;
-        if(navigator) {
-            navigator.push({
-                name: 'courseDetail',
-                component: CourseDetail,
-                params: {
-                    title:TITLE,
-                }
-            })
-        }
+        
 
         
     }
