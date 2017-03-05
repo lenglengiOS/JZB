@@ -78,6 +78,10 @@ export default class NewsDetail extends React.Component{
         }
     }
 
+    gotoLocation(){
+        alert('地图')
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -99,6 +103,17 @@ export default class NewsDetail extends React.Component{
                         <Image source={nav} style={{width:90, height:73, marginRight:10}} />
                         <Text style={{fontSize:16}}>成都市盐道街小学</Text>
                     </View>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.gotoLocation()} style={styles.location}>
+                        <View style={{flexDirection:'row', alignItems:'center'}}>
+                            <Image source={location} style={{width:16, height:16}} />
+                            <Text style={{fontSize:16, marginLeft:10}}>盐道街2号</Text>
+                        </View>
+                        <Image source={chose} style={{width:20, height:20}} />
+                    </TouchableOpacity>
+
+
+
+
                 </ScrollView>
                
             </View>
@@ -142,6 +157,21 @@ var styles = StyleSheet.create({
         borderTopColor:'#E8E8E8',
         alignItems:'center',
         backgroundColor:'#FFF'
+    },
+    location:{
+        height:44, 
+        width:screenWidth,
+        borderTopColor:'#E8E8E8',
+        borderTopWidth:1,
+        borderBottomWidth:1,
+        borderBottomColor:'#E8E8E8',
+        flexDirection:'row',
+        alignItems:'center',
+        backgroundColor:'#FFF',
+        paddingLeft:10,
+        paddingRight:10,
+        marginTop:15,
+        justifyContent:'space-between'
     }
 });
 
