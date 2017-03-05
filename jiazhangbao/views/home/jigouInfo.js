@@ -19,6 +19,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import Publish from './publish';
+import JiGouIntru from './jigouIntru';
 const nav = require('../../resources/home/home_nav.png');
 const back = require('../../resources/login/nav_back@2x.png');
 const common_more = require('../../resources/home/common_more@2x.png');
@@ -75,6 +76,16 @@ export default class NewsDetail extends React.Component{
         }
     }
 
+    jigouIntru(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'jigouIntru',
+                component: JiGouIntru
+            })
+        }
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -106,22 +117,22 @@ export default class NewsDetail extends React.Component{
                         </View>
                         <View style={styles.jigouIntru}>
                             <View style={{alignItems:'center', marginLeft:18}}>
-                                <Image source={jigouIntru} style={{width:30, height:30, marginBottom:6}}/>
-                                <Text style={{color:'#9B9B9B', fontSize:13}}>机构介绍</Text>
+                                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.jigouIntru()} style={{alignItems:'center'}}>
+                                    <Image source={jigouIntru} style={{width:30, height:30, marginBottom:6}}/>
+                                    <Text style={{color:'#9B9B9B', fontSize:13}}>机构介绍</Text>
+                                </TouchableOpacity>
                             </View>
                             <View style={{alignItems:'center', marginLeft:30}}>
-                                <Image source={online} style={{width:30, height:30, marginBottom:6}}/>
-                                <Text style={{color:'#9B9B9B', fontSize:13}}>机构介绍</Text>
+                                <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('在线讨论')} style={{alignItems:'center'}}>
+                                    <Image source={online} style={{width:30, height:30, marginBottom:6}}/>
+                                    <Text style={{color:'#9B9B9B', fontSize:13}}>在线讨论</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.jiazhang}>
                             <Text style={{fontSize:14, color:'#989898'}}>家长讨论</Text>
-                            <Text onPress={()=>alert('家长讨论')} style={{fontSize:14, color:'#19BCAD'}}>机构圈子>></Text>
+                            <Text onPress={()=>alert('机构圈子')} style={{fontSize:14, color:'#19BCAD'}}>机构圈子>></Text>
                         </View>
-                        
-
-
-
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('帖子详情')} style={styles.cell}>
                             <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
                                 <View style={{flexDirection:'row'}}>
@@ -140,14 +151,6 @@ export default class NewsDetail extends React.Component{
                             </View>
                             <Text style={{fontSize:16, marginLeft:5, marginRight:5, marginTop:10}} numberOfLines={2}>欢迎关注我们</Text>
                         </TouchableOpacity>
-
-
-
-
-
-
-
-                       
                     </ScrollView>
                 </View>
                 <View style={styles.bottomBar}>
