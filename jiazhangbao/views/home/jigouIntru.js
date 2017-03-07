@@ -19,6 +19,8 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import Publish from './publish';
+import BaiduMapDemo from './BaiduMapDemo';
+
 const nav = require('../../resources/home/home_nav.png');
 const back = require('../../resources/login/nav_back@2x.png');
 const common_more = require('../../resources/home/common_more@2x.png');
@@ -79,7 +81,13 @@ export default class NewsDetail extends React.Component{
     }
 
     gotoLocation(){
-        alert('地图')
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'baiduMapDemo',
+                component: BaiduMapDemo
+            })
+        }
     }
 
     render(){

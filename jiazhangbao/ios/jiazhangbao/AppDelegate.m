@@ -12,6 +12,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <SMS_SDK/SMSSDK.h>
+#import "RCTBaiduMapViewManager.h"
 
 @implementation AppDelegate
 
@@ -22,6 +23,8 @@
   // Mod验证码
   [SMSSDK registerApp:@"1af4a3a0e0cb0"
            withSecret:@"f9bd59d14ace351395d38094eb029c04"];
+  // 百度地图
+  [RCTBaiduMapViewManager initSDK:@"Uzny2Z0UBOGuMgbBrD6GdQNsaPUycXhS"];
   
   NSURL *jsCodeLocation;
 
