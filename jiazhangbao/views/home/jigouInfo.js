@@ -156,7 +156,7 @@ export default class NewsDetail extends React.Component{
                 <View style={styles.bottomBar}>
                     <Image source={nav} style={{width:38, height:38, marginLeft:8, borderRadius:19}} />
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.publish()} style={styles.touch}>
-                        <Text style={styles.bottomText}>对于这个机构，您有什么想了解的吗？</Text>
+                        <Text style={styles.bottomText} numberOfLines={2}>对于这个机构，您有什么想了解的吗？</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -247,6 +247,9 @@ var styles = StyleSheet.create({
     bottomText:{
         color:'#C0C0C0',
         fontSize:14,
+        backgroundColor:'red',
+        marginLeft:5,
+        marginRight:5
     },
     touch:{
         marginLeft:8,

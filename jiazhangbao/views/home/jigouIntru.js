@@ -36,6 +36,7 @@ export default class NewsDetail extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            isShowMore:false
         }
     }
     componentDidMount(){
@@ -90,6 +91,16 @@ export default class NewsDetail extends React.Component{
         }
     }
 
+    callPhone(){
+        Linking.canOpenURL('tel:18202853094').then(supported => {
+            if (!supported) {
+                alert('该设备不支持拨打电话')
+            } else {
+                return Linking.openURL('tel:18202853094')
+            }
+        }).catch(err => console.error('An error occurred', err));
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -113,11 +124,28 @@ export default class NewsDetail extends React.Component{
                     </View>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.gotoLocation()} style={styles.location}>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
-                            <Image source={location} style={{width:16, height:16}} />
+                            <Image source={location} style={{width:17, height:17}} />
                             <Text style={{fontSize:16, marginLeft:10}}>盐道街2号</Text>
                         </View>
                         <Image source={chose} style={{width:20, height:20}} />
                     </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.callPhone()} style={styles.location}>
+                        <View style={{flexDirection:'row', alignItems:'center'}}>
+                            <Image source={phone} style={{width:17, height:17}} />
+                            <Text style={{fontSize:16, marginLeft:10}}>18202853094</Text>
+                        </View>
+                        <Image source={chose} style={{width:20, height:20}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={()=>this.setState({isShowMore:!this.state.isShowMore})} style={styles.jigou}>
+                        <Text style={{fontSize:14, color:'#A1A0A1'}}>机构简介</Text>
+                        <Text style={{fontSize:15, marginTop:10, marginLeft:5, marginRight:5}}  numberOfLines={this.state.isShowMore?0:4}>EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)</Text>
+                        <View style={{alignItems:'center'}}>
+                            <Image source={!this.state.isShowMore?showMoreNor:showMore} style={{width:20, height:20}} />
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{height:35, alignItems:'center', paddingLeft:10}}>
+                        <Text style={{fontSize:14, color:'#A1A0A1'}}>机构相册</Text>
+                    </View>
 
 
 
@@ -180,6 +208,17 @@ var styles = StyleSheet.create({
         paddingRight:10,
         marginTop:15,
         justifyContent:'space-between'
+    },
+    jigou:{
+        width:screenWidth,
+        borderTopColor:'#E8E8E8',
+        borderTopWidth:1,
+        borderBottomWidth:1,
+        borderBottomColor:'#E8E8E8',
+        backgroundColor:'#FFF',
+        padding:10,
+        paddingBottom:6,
+        marginTop:15,
     }
 });
 
