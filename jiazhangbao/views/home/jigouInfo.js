@@ -247,7 +247,6 @@ var styles = StyleSheet.create({
     bottomText:{
         color:'#C0C0C0',
         fontSize:14,
-        backgroundColor:'red',
         marginLeft:5,
         marginRight:5
     },
