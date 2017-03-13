@@ -48,7 +48,11 @@ export default class BaoBan extends React.Component{
         };
 	}
     componentDidMount(){
-       var jsonData = Car.data;
+       {this.loadData()}
+    }
+
+    loadData(){
+        var jsonData = Car.data;
         var dataBlob = {},
             sectionIDs = [],
             rowIDs = [],
@@ -81,14 +85,17 @@ export default class BaoBan extends React.Component{
         this.page=1;
         var firstData=[];
         if(this.state.isLocationSearch){
-            this.loadManualFwqData()
             return;
         }
     }
 
-    renderRow(rowData){
+    renderRow(rowData,sectionID){
+        if(!this.state.isShowMore&&this.state.closeSection==sectionID)
+        {
+            return;
+        }
         return (
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>alert(sectionID)}>
                 <View style={styles.rowStyle}>
                     <Image source={nav} style={styles.rowImageStyle}/>
                     <View style={{justifyContent:'center', flex:1, height:72, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
@@ -103,10 +110,11 @@ export default class BaoBan extends React.Component{
     }
 
     pressHeader(sectionID){
-    	alert(sectionID)
     	this.setState({
     		isShowMore:!this.state.isShowMore,
+            closeSection:sectionID
     	})
+
     }
 
     // 每一组中的数据
