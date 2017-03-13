@@ -32,7 +32,7 @@ const location = require('../../resources/home/agency_location@2x.png');
 const phone = require('../../resources/home/agency_phone@2x.png');
 const showMore = require('../../resources/home/common_getin@2x.png');
 const showMoreNor = require('../../resources/home/common_getinNor@2x.png');
-
+const arr = ['','','','','','','','','','',''];
 
 
 export default class NewsDetail extends React.Component{
@@ -124,6 +124,18 @@ export default class NewsDetail extends React.Component{
         }).catch(err => console.error('An error occurred', err));
     }
 
+    renderPhotoCell(){
+        var margin = 3;
+        return arr.map((item, index) => {
+            return(
+                <View style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25, marginRight:3, marginTop:3}} >
+                     <Image source={nav} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25}} />
+                </View>
+            )
+        })
+    }
+
+
     render(){
         return(
             <View style={styles.container}>
@@ -166,7 +178,7 @@ export default class NewsDetail extends React.Component{
                             <Image source={!this.state.isShowMore?showMoreNor:showMore} style={{width:20, height:20}} />
                         </View>
                     </TouchableOpacity>
-                    <View style={{height:35, alignItems:'center', paddingLeft:10}}>
+                    <View style={styles.photo}>
                         <Text style={{fontSize:14, color:'#A1A0A1'}}>机构相册</Text>
                     </View>
                     <View style={styles.photos}>
@@ -253,7 +265,27 @@ var styles = StyleSheet.create({
         padding:10,
         paddingBottom:6,
         marginTop:15,
+    },
+    photo:{
+        height:35, 
+        justifyContent:'center',
+        paddingLeft:10,
+        backgroundColor:'#FFF',
+        borderBottomWidth:1,
+        borderBottomColor:'#E8E8E8',
+        marginTop:15
+    },
+    photos:{
+        padding:10,
+        paddingRight:0, 
+        backgroundColor:'#FFF',
+        flexWrap:'wrap',
+        flexDirection:'row',
+        width:screenWidth,
+        borderBottomWidth:1,
+        borderBottomColor:'#E8E8E8'
     }
+
 });
 
 
