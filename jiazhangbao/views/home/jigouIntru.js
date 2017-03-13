@@ -19,7 +19,10 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import Publish from './publish';
-import BaiduMapDemo from './BaiduMapDemo';
+import BaiduMap from './BaiduMap';
+import GuanLi from './jigouguanli';
+import JiuCuo from './jiucuo';
+
 
 const nav = require('../../resources/home/home_nav.png');
 const back = require('../../resources/login/nav_back@2x.png');
@@ -85,8 +88,28 @@ export default class NewsDetail extends React.Component{
         const { navigator } = this.props;
         if(navigator) {
             navigator.push({
-                name: 'baiduMapDemo',
-                component: BaiduMapDemo
+                name: 'baiduMap',
+                component: BaiduMap
+            })
+        }
+    }
+
+    gotoGuanli(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'guanli',
+                component: GuanLi
+            })
+        }
+    }
+
+    gotojiucuo(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'jiucuo',
+                component: JiuCuo
             })
         }
     }
@@ -114,8 +137,8 @@ export default class NewsDetail extends React.Component{
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={styles.title}>机构介绍</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
-                    	<Image source={common_more} style={{width:30, height:30, marginRight:10}} />
-                	</TouchableOpacity>
+                        <Image source={common_more} style={{width:30, height:30, marginRight:10}} />
+                    </TouchableOpacity>
                 </View>
                 <ScrollView>
                     <View style={styles.school}>
@@ -146,12 +169,23 @@ export default class NewsDetail extends React.Component{
                     <View style={{height:35, alignItems:'center', paddingLeft:10}}>
                         <Text style={{fontSize:14, color:'#A1A0A1'}}>机构相册</Text>
                     </View>
+                    <View style={styles.photos}>
+                        {this.renderPhotoCell()}
+                    </View>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.gotojiucuo()} style={styles.location}>
+                        <View style={{flexDirection:'row', alignItems:'center'}}>
+                            <Text style={{fontSize:16, marginLeft:10, color:'#33BAAB'}}>我要纠错</Text>
+                            <Text style={{fontSize:14, marginLeft:10, color:'#A6A6A6'}}>（信息来源于网络，如有错误请更正）</Text>
+                        </View>
+                        <Image source={chose} style={{width:20, height:20}} />
+                    </TouchableOpacity>
 
-
-
-
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.gotoGuanli()} style={[styles.location, {height:56,marginBottom:15, justifyContent:'center'}]}>
+                        <View style={{justifyContent:'center', alignItems:'center', width:170, height:40, borderRadius:5, backgroundColor:'#33BAAB'}}>
+                            <Text style={{fontSize:17, marginLeft:10, color:'#FFF'}}>我是机构管理者</Text>
+                        </View>
+                    </TouchableOpacity>
                 </ScrollView>
-               
             </View>
           )
     }
