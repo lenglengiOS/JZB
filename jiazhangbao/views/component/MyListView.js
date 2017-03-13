@@ -76,7 +76,7 @@ export default class MyListView extends React.Component {
             <View style={commenStyle.container}>
                 <ListView
                     ref={(o)=>this.listview=o}
-                    renderHeader={this.props.renderHeader?this.props.renderHeader:null}
+                    renderSectionHeader={this.props.renderSectionHeader?this.props.renderSectionHeader:null}
                     refreshControl={
                     Tools.intiRefresh(this.state.isRefreshing,this._onRefresh.bind(this))}
                     dataSource={this.props.dataSource}

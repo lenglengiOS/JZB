@@ -292,10 +292,10 @@ export default class Home extends React.Component{
         return(
             <View style={{backgroundColor:'#FFF', marginTop:20}}>
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                {this._renderBodyCell(this.state.events?this.state.events[0].icon:'', this.state.events?this.state.events[0].typeName:'', '#E8E8E8', this.state.events?this.state.events[0].title:'', this.state.events?this.state.events[0].pageUrl:'')}
-                {this._renderBodyCell(this.state.events?this.state.events[1].icon:'', this.state.events?this.state.events[1].typeName:'', '#E8E8E8', this.state.events?this.state.events[1].title:'', this.state.events?this.state.events[1].pageUrl:'')}
-                {this._renderBodyCell(this.state.events?this.state.events[2].icon:'', this.state.events?this.state.events[2].typeName:'', '#E8E8E8', this.state.events?this.state.events[2].title:'', this.state.events?this.state.events[2].pageUrl:'')}
-                {this._renderBodyCell(this.state.events?this.state.events[3].icon:'', this.state.events?this.state.events[3].typeName:'', '#FFF', this.state.events?this.state.events[3].title:'', this.state.events?this.state.events[3].pageUrl:'')}
+                {this._renderBodyCell(this.state.events?this.state.events[0].icon:'http://', this.state.events?this.state.events[0].typeName:'', '#E8E8E8', this.state.events?this.state.events[0].title:'', this.state.events?this.state.events[0].pageUrl:'')}
+                {this._renderBodyCell(this.state.events?this.state.events[1].icon:'http://', this.state.events?this.state.events[1].typeName:'', '#E8E8E8', this.state.events?this.state.events[1].title:'', this.state.events?this.state.events[1].pageUrl:'')}
+                {this._renderBodyCell(this.state.events?this.state.events[2].icon:'http://', this.state.events?this.state.events[2].typeName:'', '#E8E8E8', this.state.events?this.state.events[2].title:'', this.state.events?this.state.events[2].pageUrl:'')}
+                {this._renderBodyCell(this.state.events?this.state.events[3].icon:'http://', this.state.events?this.state.events[3].typeName:'', '#FFF', this.state.events?this.state.events[3].title:'', this.state.events?this.state.events[3].pageUrl:'')}
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐课程')}
