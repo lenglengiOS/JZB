@@ -16,6 +16,8 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
+import Jiazhangquan from '../home/jiazhangquan';
+
 const nav = require('../../resources/home/home_nav.png');
 const showMore = require('../../resources/home/common_getin@2x.png');
 const showMoreNor = require('../../resources/home/common_getinNor@2x.png');
@@ -27,7 +29,14 @@ const defaultData = new ListView.DataSource({
 export default class BaoBan extends React.Component{
 	constructor(props){
 		super(props);
-		var getSectionData = (dataBlob, sectionID) => {
+		{this.loadData()}
+	}
+    componentDidMount(){
+       {this.loadData()}
+    }
+
+    loadData(){
+        var getSectionData = (dataBlob, sectionID) => {
             return dataBlob[sectionID];
         };
 
@@ -46,12 +55,6 @@ export default class BaoBan extends React.Component{
             count:3,
             isShowMore:false
         };
-	}
-    componentDidMount(){
-       {this.loadData()}
-    }
-
-    loadData(){
         var jsonData = Car.data;
         var dataBlob = {},
             sectionIDs = [],
@@ -89,13 +92,31 @@ export default class BaoBan extends React.Component{
         }
     }
 
+    pressRow(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'jiazhangquan',
+                component: Jiazhangquan
+            })
+        }
+    }
+
+    pressHeader(sectionID){
+        this.setState({
+            isShowMore:!this.state.isShowMore,
+            closeSection:sectionID
+        })
+        {this.loadData()}
+    }
+
     renderRow(rowData,sectionID){
         if(!this.state.isShowMore&&this.state.closeSection==sectionID)
         {
-            return;
+            return null;
         }
         return (
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>alert(sectionID)}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
                 <View style={styles.rowStyle}>
                     <Image source={nav} style={styles.rowImageStyle}/>
                     <View style={{justifyContent:'center', flex:1, height:72, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
@@ -109,21 +130,13 @@ export default class BaoBan extends React.Component{
         )
     }
 
-    pressHeader(sectionID){
-    	this.setState({
-    		isShowMore:!this.state.isShowMore,
-            closeSection:sectionID
-    	})
-
-    }
-
     // 每一组中的数据
     renderSectionHeader(sectionData, sectionID) {
         return (
         	<TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressHeader(sectionID)}>
 	            <View style={styles.sectionHeaderViewStyle}>
 	                <Text style={{marginLeft: 5, color: '#8F8F8F'}}>{sectionData}</Text>
-		            <Image source={this.state.isShowMore?showMore:showMoreNor} style={{wdith:15, height:15, tintColor:'#AAAAAA'}}/>
+		            <Image source={!this.state.isShowMore&&this.state.closeSection==sectionID?showMore:showMoreNor} style={{wdith:15, height:15, tintColor:'#AAAAAA'}}/>
 	            </View>
 	        </TouchableOpacity>
         );

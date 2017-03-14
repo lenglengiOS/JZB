@@ -34,8 +34,8 @@ export default class JiaZhang extends React.Component{
 		return(
 			<View style={styles.container}>
                 <ScrollableTabView renderTabBar={() => <CustomTabBar textStyle={{fontSize:16}}/>}>
-			        <Jiazhangquan tabLabel="家长圈" />
-			        <Taolun tabLabel="讨论群" />
+			        <Jiazhangquan tabLabel="家长圈" navigator={this.props.navigator}/>
+			        <Taolun tabLabel="讨论群" navigator={this.props.navigator}/>
 			    </ScrollableTabView>
 			</View>
 		  )
