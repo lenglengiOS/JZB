@@ -53,7 +53,7 @@ export default class BaoBan extends React.Component{
             }),
             dataSize:4,
             count:3,
-            isShowMore:false
+            closeSection:[]
         };
         var jsonData = Car.data;
         var dataBlob = {},
@@ -103,28 +103,39 @@ export default class BaoBan extends React.Component{
     }
 
     pressHeader(sectionID){
+        var index = this.state.closeSection.indexOf(sectionID);
+        if (index!=-1) { // 包含该元素
+            var arr = this.state.closeSection;
+            arr.splice(index,1);
+            this.setState({
+                closeSection:arr
+            })
+            {this.loadData()}
+            return;
+        }
         this.setState({
-            isShowMore:!this.state.isShowMore,
-            closeSection:sectionID
+            closeSection:this.state.closeSection.concat([sectionID])
         })
         {this.loadData()}
     }
 
     renderRow(rowData,sectionID){
-        if(!this.state.isShowMore&&this.state.closeSection==sectionID)
-        {
+        if (this.state.closeSection.indexOf(sectionID)!=-1) {
             return null;
         }
         return (
             <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
                 <View style={styles.rowStyle}>
                     <Image source={nav} style={styles.rowImageStyle}/>
-                    <View style={{justifyContent:'center', flex:1, height:72, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
+                    <View style={{justifyContent:'center', flex:1, height:72}}>
                     	<View>
 	                    	<Text style={{color:'#F87A00'}}>{rowData.name}</Text>
 	                    	<Text style={{marginTop:5, color:'#838383'}}>{rowData.name}</Text>
 	                    </View>
                     </View>
+                </View>
+                <View style={{height:1, backgroundColor:'#FFF', width:screenWidth}}>
+                    <View style={{height:1, backgroundColor:'#E8E8E8', width:screenWidth-68, marginLeft:68}}/>
                 </View>
             </TouchableOpacity>
         )
@@ -136,7 +147,7 @@ export default class BaoBan extends React.Component{
         	<TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressHeader(sectionID)}>
 	            <View style={styles.sectionHeaderViewStyle}>
 	                <Text style={{marginLeft: 5, color: '#8F8F8F'}}>{sectionData}</Text>
-		            <Image source={!this.state.isShowMore&&this.state.closeSection==sectionID?showMore:showMoreNor} style={{wdith:15, height:15, tintColor:'#AAAAAA'}}/>
+		            <Image source={this.state.closeSection.indexOf(sectionID)!=-1?showMore:showMoreNor} style={{wdith:15, height:15, tintColor:'#AAAAAA'}}/>
 	            </View>
 	        </TouchableOpacity>
         );
@@ -170,7 +181,6 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
     rowStyle: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -179,14 +189,12 @@ var styles = StyleSheet.create({
         paddingRight:10,
         backgroundColor:'#FFF'
     },
-
     rowImageStyle: {
         width: 48,
         height: 48,
         borderRadius:24,
         marginRight:10
     },
-
     sectionHeaderViewStyle: {
         backgroundColor: '#F5F5F5',
         height: 36,

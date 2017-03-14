@@ -112,7 +112,7 @@ export default class WoDe extends React.Component{
                     </View>
                 </View>
                 <MyListView
-                    onRefresh={this._onRefresh.bind(this)}
+                    onRefresh={this.onRefresh.bind(this)}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}
                     dataSize={this.state.dataSize}
@@ -183,10 +183,9 @@ export default class WoDe extends React.Component{
                 {this.renderCell()}
             </View>
         )
-        
     }
 
-    _onRefresh() {  
+    onRefresh() {  
         this.page=1;
         var firstData=[];
         if(this.state.isLocationSearch){

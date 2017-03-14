@@ -50,7 +50,7 @@ export default class MyListView extends React.Component {
     renderFooter() {
         if (this.props.dataSize >= this.props.count) {
             return (
-                <View style={commenStyle.listFooter}>
+                <View style={[commenStyle.listFooter, {marginTop:-1, borderTopWidth:1, borderTopColor:'#E8E8E8'}]}>
                     <Text style={{fontSize:Size(14)}}>{this.props.hideToast?"":"没有更多数据"}</Text>
                 </View>
             )
