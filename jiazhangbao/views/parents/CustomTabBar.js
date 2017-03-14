@@ -1,6 +1,7 @@
 const React = require('react');
 const ReactNative = require('react-native');
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import SysMsg from '../home/sysMsg.js';
 const {
   StyleSheet,
   Text,
@@ -55,6 +56,19 @@ const DefaultTabBar = React.createClass({
     </Button>;
   },
 
+  gotoChat(){
+    const { navigator } = this.props;
+    if(navigator) {
+        navigator.push({
+            name: 'sysmsg',
+            component: SysMsg,
+            params:{
+                title:'聊天记录'
+            }
+        })
+    }
+  },
+
   render() {
     const containerWidth = 147;
     const numberOfTabs = this.props.tabs.length;
@@ -79,7 +93,7 @@ const DefaultTabBar = React.createClass({
           })}
           <Animated.View style={[tabUnderlineStyle, { left, }, this.props.underlineStyle, ]} />
         </View>
-        <Text style={{color:'#FFF', fontSize:16, position:'absolute', right:13, bottom:15}} onPress={()=>alert('聊天')}>聊天</Text>
+        <Text style={{color:'#FFF', fontSize:16, position:'absolute', right:13, bottom:15}} onPress={()=>this.gotoChat()}>聊天</Text>
       </View>
     );
   },

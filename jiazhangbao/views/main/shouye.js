@@ -103,6 +103,9 @@ export default class Home extends React.Component{
             navigator.push({
                 name: 'sysmsg',
                 component: SysMsg,
+                params:{
+                    title:'系统消息'
+                }
             })
         }
     }

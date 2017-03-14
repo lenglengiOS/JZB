@@ -50,6 +50,10 @@ export default class WoDe extends React.Component{
         }
     }
 
+    pressRow(){
+        alert('pressRow')
+    }
+
 	render(){
 		return(
 			<View style={styles.container}>
@@ -61,7 +65,7 @@ export default class WoDe extends React.Component{
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
                         <Image source={back} style={{width:30, height:30}} />
                     </TouchableOpacity>
-                    <Text style={{fontSize:20, color:'#00B09D'}}>系统消息</Text>
+                    <Text style={{fontSize:20, color:'#00B09D'}}>{this.props.title}</Text>
                 </View>
                 <MyListView
                     onRefresh={this._onRefresh.bind(this)}
@@ -74,6 +78,24 @@ export default class WoDe extends React.Component{
 	}
 
     renderRow(){
+        if (this.props.title=='聊天记录') {
+            return(
+                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
+                    <View style={styles.rowStyle}>
+                        <Image source={nav} style={styles.rowImageStyle}/>
+                        <View style={{justifyContent:'center', flex:1, height:65}}>
+                            <View>
+                                <Text style={{fontSize:16}}>天府幼儿园</Text>
+                                <Text style={{marginTop:5, color:'#9E9E9E'}}>哈喽</Text>
+                            </View>
+                        </View>
+                        <View style={{position:'absolute', top:18, right:13}}>
+                            <Text style={{color:'#9A9A9A', fontSize:14}}>下午 2:24</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            )
+        }
         return(
             <View style={{flexDirection:'row', backgroundColor:'#FFF', paddingTop:15, paddingBottom:15, paddingLeft:10, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
                 <Text>666</Text>
@@ -123,5 +145,21 @@ var styles = StyleSheet.create({
         marginLeft:10, 
         marginRight:10, 
         justifyContent:'space-between'
+    },
+    rowStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent:'center',
+        paddingLeft:10,
+        paddingRight:10,
+        backgroundColor:'#FFF',
+        borderBottomWidth:1,
+        borderBottomColor:'#E8E8E8'
+    },
+    rowImageStyle: {
+        width: 48,
+        height: 48,
+        borderRadius:24,
+        marginRight:10
     }
 });

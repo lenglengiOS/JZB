@@ -153,7 +153,6 @@ var styles = StyleSheet.create({
         paddingRight:10,
         backgroundColor:'#FFF'
     },
-
     rowImageStyle: {
         width: 48,
         height: 48,
