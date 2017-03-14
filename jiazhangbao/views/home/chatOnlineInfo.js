@@ -20,8 +20,6 @@ import {
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import Publish from './publish';
 import JiGouIntru from './jigouIntru';
-import ChatOnlie from './chatOnlineInfo';
-
 const nav = require('../../resources/home/home_nav.png');
 const back = require('../../resources/login/nav_back@2x.png');
 const common_more = require('../../resources/home/common_more@2x.png');
@@ -73,13 +71,7 @@ export default class NewsDetail extends React.Component{
     }
 
     chatOnline(){
-        const { navigator } = this.props;
-        if(navigator) {
-            navigator.push({
-                name: 'chatOnlie',
-                component: ChatOnlie
-            })
-        }
+        
     }
 
     render(){
@@ -93,60 +85,28 @@ export default class NewsDetail extends React.Component{
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
                         <Image source={back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
-                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.title}</Text>
+                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>在线讨论群</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
                     	<Image source={common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>
                 </View>
                 <View style={{width:screenWidth, height:screenHeight-64-47}}>
                     <ScrollView>
-                        <View style={{flexDirection:'row', backgroundColor:'#FFF', borderBottomWidth:1, borderBottomColor:'#E8E8E8', paddingBottom:15}}>
-                            <Image source={nav} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
+                        <View style={{flexDirection:'row', backgroundColor:'#FFF', borderBottomWidth:1, borderBottomColor:'#E8E8E8', paddingBottom:10}}>
+                            <Image source={nav} style={{width:85, height:74, marginTop:10, marginLeft:10}}/>
                             <View style={styles.recommendCell}>
                                 <View>
                                     <View style={{justifyContent:'space-between', flexDirection:'row'}}>
-                                        <Text style={{fontSize:18}}>EF音符教育青少儿英语（优品道中心）</Text>
+                                        <Text style={{fontSize:18}}>市机关第三幼儿园讨论群</Text>
                                     </View>
-                                    <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>成都市青羊区99号UI为hi武汉覅乌尔禾</Text>
+                                    <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>成都市青羊区99号</Text>
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.jigouIntru}>
-                            <View style={{alignItems:'center', marginLeft:18}}>
-                                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.jigouIntru()} style={{alignItems:'center'}}>
-                                    <Image source={jigouIntru} style={{width:30, height:30, marginBottom:6}}/>
-                                    <Text style={{color:'#9B9B9B', fontSize:13}}>机构介绍</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{alignItems:'center', marginLeft:30}}>
-                                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.chatOnline()} style={{alignItems:'center'}}>
-                                    <Image source={online} style={{width:30, height:30, marginBottom:6}}/>
-                                    <Text style={{color:'#9B9B9B', fontSize:13}}>在线讨论</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={styles.jiazhang}>
-                            <Text style={{fontSize:14, color:'#989898'}}>家长讨论</Text>
-                            <Text onPress={()=>alert('机构圈子')} style={{fontSize:14, color:'#19BCAD'}}>机构圈子>></Text>
-                        </View>
-                        <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('帖子详情')} style={styles.cell}>
-                            <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
-                                <View style={{flexDirection:'row'}}>
-                                    <Image source={nav} style={{width:40, height:40, borderRadius:20}} />
-                                    <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
-                                        <Text style={{color:'#FAB665', fontSize:14}}>EF音符教育青少儿英语(优品道中心)</Text>
-                                        <Text style={{color:'#A5A5A5', fontSize:12}}>四年级家长</Text>
-                                    </View>
-                                </View>
-                                <View style={{flexDirection:'row'}}>
-                                    <Image source={replyIco} style={{width:14, height:14}} />
-                                    <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>10</Text>
-                                    <Image source={likeIcon} style={{width:14, height:14, marginLeft:10}} />
-                                    <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>8</Text>
-                                </View>
-                            </View>
-                            <Text style={{fontSize:16, marginLeft:5, marginRight:5, marginTop:10}} numberOfLines={2}>欢迎关注我们</Text>
-                        </TouchableOpacity>
+                        
+
+
+
                     </ScrollView>
                 </View>
                 <View style={styles.bottomBar}>
