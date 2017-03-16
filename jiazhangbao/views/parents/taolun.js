@@ -16,6 +16,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
+import CahtGroupInfo from './cahtGroupInfo'
 
 const nav = require('../../resources/home/home_nav.png');
 const showMore = require('../../resources/home/common_getin@2x.png');
@@ -51,8 +52,20 @@ export default class BaoBan extends React.Component{
         }
     }
 
-    pressRow(){
-        alert('pressRow')
+    pressRow(rowID){
+        if (this.state.isJoin&&this.state.selectedButton.indexOf(rowID)!=-1){
+            alert('聊天')
+        }else{            
+            const { navigator } = this.props;
+            if(navigator) {
+                navigator.push({
+                    name: 'cahtGroupInfo',
+                    component: CahtGroupInfo
+                })
+            }
+        }
+        
+
     }
 
     pressHeader(sectionID){
@@ -72,7 +85,7 @@ export default class BaoBan extends React.Component{
 
     renderCell(rowData, sectionID, rowID){
         return(
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow(rowID)}>
                 <View style={styles.rowStyle}>
                     <Image source={nav} style={styles.rowImageStyle}/>
                     <View style={{justifyContent:'center', flex:1, height:72}}>
