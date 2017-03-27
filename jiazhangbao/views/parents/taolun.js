@@ -123,7 +123,7 @@ export default class BaoBan extends React.Component{
                 <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressHeader(sectionID)}>
                     <View style={styles.sectionHeaderViewStyle}>
                         <Text style={{marginLeft: 5, color: '#8F8F8F'}}>附近群</Text>
-                        <Image source={!this.state.isShowMore?showMore:showMoreNor} style={{wdith:15, height:15, tintColor:'#AAAAAA'}}/>
+                        <Image source={!this.state.isShowMore?showMore:showMoreNor} style={{width:15, height:15, tintColor:'#AAAAAA'}}/>
                     </View>
                 </TouchableOpacity>
             )
