@@ -70,7 +70,7 @@ const DefaultTabBar = React.createClass({
   },
 
   render() {
-    const containerWidth = 147;
+    const containerWidth = 127;
     const numberOfTabs = this.props.tabs.length;
     const tabUnderlineStyle = {
       position: 'absolute',
@@ -85,7 +85,7 @@ const DefaultTabBar = React.createClass({
     });
     return (
       <View style={{width:screenWidth, alignItems:'center', backgroundColor:'#48B9A9'}}>
-        <View style={[styles.tabs, {backgroundColor: '#48B9A9', }, this.props.style, {width:120}]}>
+        <View style={[styles.tabs, {backgroundColor: '#48B9A9', }, this.props.style, {width:110}]}>
           {this.props.tabs.map((name, page) => {
             const isTabActive = this.props.activeTab === page;
             const renderTab = this.props.renderTab || this.renderTab;
