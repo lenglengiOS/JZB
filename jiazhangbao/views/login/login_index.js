@@ -16,16 +16,11 @@ import {
     NativeModules,
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import Register from '../login/register';
 import Toast from '../tools/Toast';
 
-const cancel = require('../../resources/login/login_cancel@2x.png');  
-const phone = require('../../resources/login/login_phone@2x.png');
-const pwd = require('../../resources/login/login_psw@2x.png');
-const wx = require('../../resources/login/share_weixin.png');
-const qq = require('../../resources/login/share_qq.png');
-const wb = require('../../resources/login/share_sina.png');
+
 
 var NativeTools = NativeModules.NativeTools;
 
@@ -93,14 +88,14 @@ export default class Login extends React.Component{
                 <ScrollView scrollEnabled={false} style={{height:200}}>
                     <View style={styles.cancel}>
                     	<TouchableOpacity activeOpacity={0.8} onPress={()=>{this._cancel()}}>
-                    	<Image source={cancel} />
+                    	<Image source={JZBImages.cancel} />
                     	</TouchableOpacity>
                     </View>
                     <Text style={styles.jiazhangbao}>家长宝</Text>
                     <View style={{width:screenWidth, height:103, marginTop:40, marginBottom:40}}>
                     	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                     	<View style={styles.phone}>
-                    		<Image source={phone} style={{width:25, height:25, marginLeft:20}}/>
+                    		<Image source={JZBImages.phone} style={{width:25, height:25, marginLeft:20}}/>
                     		<TextInput 
                                 ref={(o)=>this.inputphone=o}
                                 onFocus={() => {this.inputphone.focus()}}
@@ -114,7 +109,7 @@ export default class Login extends React.Component{
                     	</View>
                     	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                     	<View style={styles.phone}>
-                    		<Image source={pwd} style={{width:25, height:25, marginLeft:20}}/>
+                    		<Image source={JZBImages.pwd} style={{width:25, height:25, marginLeft:20}}/>
                     		<TextInput 
                                 ref={(o)=>this.inputpwd=o}
                     			style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
@@ -135,9 +130,9 @@ export default class Login extends React.Component{
             	<View style={{flex:1,  width:screenWidth, marginTop:10}}>
             		<Text style={styles.loginText}>还可以使用以下账号登录</Text>
             		<View style={styles.loginWay}>
-            			<Image source={wx} style={{width:60, height:60}}/>
-            			<Image source={qq} style={{width:60, height:60}}/>
-            			<Image source={wb} style={{width:60, height:60}}/>
+            			<Image source={JZBImages.wx} style={{width:60, height:60}}/>
+            			<Image source={JZBImages.qq} style={{width:60, height:60}}/>
+            			<Image source={JZBImages.wb} style={{width:60, height:60}}/>
             		</View>
             	</View>
 

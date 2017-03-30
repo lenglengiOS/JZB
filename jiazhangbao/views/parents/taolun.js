@@ -14,13 +14,9 @@ import {
     Image
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
 import CahtGroupInfo from './cahtGroupInfo'
-
-const nav = require('../../resources/home/home_nav.png');
-const showMore = require('../../resources/home/common_getin@2x.png');
-const showMoreNor = require('../../resources/home/common_getinNor@2x.png');
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -87,7 +83,7 @@ export default class BaoBan extends React.Component{
         return(
             <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow(rowID)}>
                 <View style={styles.rowStyle}>
-                    <Image source={nav} style={styles.rowImageStyle}/>
+                    <Image source={JZBImages.nav} style={styles.rowImageStyle}/>
                     <View style={{justifyContent:'center', flex:1, height:72}}>
                         <View>
                             <Text style={{color:'#F87A00'}}>天府幼儿园</Text>
@@ -123,7 +119,7 @@ export default class BaoBan extends React.Component{
                 <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressHeader(sectionID)}>
                     <View style={styles.sectionHeaderViewStyle}>
                         <Text style={{marginLeft: 5, color: '#8F8F8F'}}>附近群</Text>
-                        <Image source={!this.state.isShowMore?showMore:showMoreNor} style={{width:15, height:15, tintColor:'#AAAAAA'}}/>
+                        <Image source={!this.state.isShowMore?JZBImages.showMore:JZBImages.showMoreNor} style={{width:15, height:15, tintColor:'#AAAAAA'}}/>
                     </View>
                 </TouchableOpacity>
             )
@@ -156,7 +152,7 @@ export default class BaoBan extends React.Component{
 var styles = StyleSheet.create({
 	container:{
         flex:1,
-        backgroundColor:'#F5F5F5',
+        backgroundColor:'#FFF',
     },
     rowStyle: {
         flexDirection: 'row',

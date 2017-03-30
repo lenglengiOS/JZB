@@ -15,19 +15,9 @@ import {
     StatusBar
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
 import NewsDetail from '../recomNews/newsDetail';
-
-const back = require('../../resources/login/nav_back@2x.png');
-const showMoreNor = require('../../resources/home/main_showMoreNor@2x.png');
-const search = require('../../resources/home/lxr_icon_search@2x.png');
-const search_history = require('../../resources/home/search_history@2x.png');
-const search_clearHistory = require('../../resources/home/search_clearHistory@2x.png');
-const options = require('../../resources/home/options_pointer@2x.png');  
-const nav = require('../../resources/home/home_nav.png');
-const location = require('../../resources/home/location@2x.png');
-const edite = require('../../resources/home/main_articles_edit@2x.png');
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -76,7 +66,7 @@ export default class WoDe extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
-                        <Image source={back} style={{width:30, height:30}} />
+                        <Image source={JZBImages.back} style={{width:30, height:30}} />
                     </TouchableOpacity>
                     <Text style={{fontSize:20, color:'#00B09D'}}>{this.props.TITLE}</Text>
                 </View>
@@ -101,13 +91,13 @@ export default class WoDe extends React.Component{
                             </View>
                         </View>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
-                            <Image source={edite} style={{width:13, height:13}}/>
+                            <Image source={JZBImages.edite} style={{width:13, height:13}}/>
                             <Text style={{fontSize:13, color:'#9B9B9B'}}> 家长宝</Text>
                             <View style={{backgroundColor:'#9B9B9B', height:10, width:1, marginLeft:5}}/>
                             <Text style={{fontSize:13, color:'#9B9B9B'}}> 今日知识</Text>
                         </View>
                     </View>
-                    <Image source={nav} style={{width:85, height:70}}/>
+                    <Image source={JZBImages.nav} style={{width:85, height:70}}/>
                 </View>
             </TouchableOpacity>
         )

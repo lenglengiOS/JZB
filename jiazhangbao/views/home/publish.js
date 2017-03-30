@@ -16,9 +16,8 @@ import {
     ActionSheetIOS
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import ImagePicker from 'react-native-image-crop-picker';
-const addImage = require('../../resources/home/sendPost_add@2x.png');
 import Toast from '../tools/Toast';
 
 export default class WoDe extends React.Component{
@@ -141,7 +140,7 @@ export default class WoDe extends React.Component{
                     </ScrollView>
                 </View>
                 <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pickImage()}>
-                    <Image source={addImage} style={{width:42, height:42, marginLeft:10, marginTop:5}} /> 
+                    <Image source={JZBImages.addImage} style={{width:42, height:42, marginLeft:10, marginTop:5}} /> 
                 </TouchableOpacity>
             </View>
           )

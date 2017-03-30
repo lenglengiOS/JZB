@@ -17,10 +17,9 @@ import {
 } from 'react-native';
 
 import Storage from 'react-native-storage';
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
-const back = require('../../resources/login/nav_back@2x.png'); 
 
 var NativeTools = NativeModules.NativeTools;
 
@@ -120,7 +119,7 @@ export default class Register extends React.Component{
             <View style={styles.container}>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
-                        <Image source={back} style={{width:30, height:30}} />
+                        <Image source={JZBImages.back} style={{width:30, height:30}} />
                     </TouchableOpacity>
                     <Text style={{fontSize:20, color:'#00B09D'}}>手机验证</Text>
                 </View>

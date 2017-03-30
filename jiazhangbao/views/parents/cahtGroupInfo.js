@@ -17,17 +17,8 @@ import {
     Linking
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
-const nav = require('../../resources/home/home_nav.png');
-const back = require('../../resources/login/nav_back@2x.png');
-const common_more = require('../../resources/home/common_more@2x.png');
-const common_mes = require('../../resources/home/common_mes@2x.png');
-const common_phone = require('../../resources/home/common_phone@2x.png');
-const jigou = require('../../resources/home/class_pay_success@2x.png');
-const youhui = require('../../resources/home/agency_tag_youhui@2x.png');
-const zhifu = require('../../resources/home/agency_tag_zhifu@2x.png');
-const money = require('../../resources/home/agency_tag_jigou@2x.png');
-const location = require('../../resources/home/location@2x.png');
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -106,16 +97,16 @@ export default class NewsDetail extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
-                        <Image source={back} style={{width:30, height:30, marginLeft:10}} />
+                        <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>在线讨论群</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
-                    	<Image source={common_more} style={{width:30, height:30, marginRight:10}} />
+                    	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>
                 </View>
                 <ScrollView>
                     <View style={{flexDirection:'row', backgroundColor:'#FFF', borderBottomWidth:1, borderBottomColor:'#E8E8E8', paddingBottom:10}}>
-                        <Image source={nav} style={{width:88, height:74, marginTop:10, marginLeft:10}}/>
+                        <Image source={JZBImages.nav} style={{width:88, height:74, marginTop:10, marginLeft:10}}/>
                         <View style={styles.recommendCell}>
                             <View>
                                 <View style={{justifyContent:'space-between', flexDirection:'row'}}>

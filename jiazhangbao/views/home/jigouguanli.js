@@ -16,9 +16,7 @@ import {
     StatusBar
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
-
-const back = require('../../resources/login/nav_back@2x.png'); 
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 
 export default class Yonghu extends React.Component{
     constructor(props){
@@ -49,7 +47,7 @@ export default class Yonghu extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
-                        <Image source={back} style={{width:30, height:30}} />
+                        <Image source={JZBImages.back} style={{width:30, height:30}} />
                     </TouchableOpacity>
                     <Text style={{fontSize:20, color:'#00B09D'}}>欢迎入驻</Text>
                 </View>

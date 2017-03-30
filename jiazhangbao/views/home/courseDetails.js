@@ -17,17 +17,7 @@ import {
     Linking
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
-const nav = require('../../resources/home/home_nav.png');
-const back = require('../../resources/login/nav_back@2x.png');
-const common_more = require('../../resources/home/common_more@2x.png');
-const common_mes = require('../../resources/home/common_mes@2x.png');
-const common_phone = require('../../resources/home/common_phone@2x.png');
-const jigou = require('../../resources/home/class_pay_success@2x.png');
-const youhui = require('../../resources/home/agency_tag_youhui@2x.png');
-const zhifu = require('../../resources/home/agency_tag_zhifu@2x.png');
-const money = require('../../resources/home/agency_tag_jigou@2x.png');
-const location = require('../../resources/home/location@2x.png');
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -76,16 +66,16 @@ export default class NewsDetail extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
-                        <Image source={back} style={{width:30, height:30, marginLeft:10}} />
+                        <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.title}</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
-                    	<Image source={common_more} style={{width:30, height:30, marginRight:10}} />
+                    	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>
                 </View>
                 <View style={{width:screenWidth, height:screenHeight-64-47}}>
                     <ScrollView>
-                        <Image source={nav} style={{width:screenWidth, height:180}}>
+                        <Image source={JZBImages.nav} style={{width:screenWidth, height:180}}>
                             <View style={{width:screenWidth, height:30, backgroundColor:'rgba(0,0,0, 0.6)' , position:'absolute', bottom:0, justifyContent:'center'}}>
                                 <Text style={{color:'#FFF', fontSize:16, marginLeft:10}}>钢琴培训季度套餐</Text>
                             </View>
@@ -100,11 +90,11 @@ export default class NewsDetail extends React.Component{
                             </View>
                             <View style={{width:screenWidth-10, height:1, backgroundColor:'#E8E8E8', marginLeft:10}}/>
                             <View style={[styles.price,{justifyContent:'flex-start', height:40}]}>
-                                <Image source={jigou} style={{width:13, height:13, tintColor:'#3BC1B3'}} />
+                                <Image source={JZBImages.jigou} style={{width:13, height:13, tintColor:'#3BC1B3'}} />
                                 <Text style={{fontSize:14, color:'#3BC1B3', marginLeft:2}}>机构认证</Text>
-                                <Image source={money} style={{width:13, height:13, marginLeft:20}} />
+                                <Image source={JZBImages.money} style={{width:13, height:13, marginLeft:20}} />
                                 <Text style={{fontSize:14, color:'#3BC1B3'}}>随时退</Text>
-                                <Image source={money} style={{width:13, height:13, marginLeft:20}} />
+                                <Image source={JZBImages.money} style={{width:13, height:13, marginLeft:20}} />
                                 <Text style={{fontSize:14, color:'#3BC1B3'}}>过期退</Text>
                             </View>
                             <View style={{width:screenWidth-10, height:1, backgroundColor:'#E8E8E8', marginLeft:10}}/>
@@ -113,7 +103,7 @@ export default class NewsDetail extends React.Component{
                                     <View style={{borderWidth:1, borderRadius:5, borderColor:'#83CFC5', padding:8, width:75}}>
                                         <Text style={{fontSize:13.5, color:'#8F8F8F'}} numberOfLines={4}>线上支付小额预交费，获取优惠券</Text>
                                     </View>
-                                    <Image source={zhifu} style={{width:15, height:15, marginTop:8}} />
+                                    <Image source={JZBImages.zhifu} style={{width:15, height:15, marginTop:8}} />
                                 </View>
                                 <View style={{width:(screenWidth-75*3-20)*0.5, height:75, justifyContent:'center', alignItems:'center'}}>
                                     <Text style={{textAlign:'center', fontWeight:'bold', fontSize:20, color:'#00B2A0'}}>→</Text>
@@ -122,7 +112,7 @@ export default class NewsDetail extends React.Component{
                                     <View style={{borderWidth:1, borderRadius:5, borderColor:'#83CFC5', padding:8, width:75}}>
                                         <Text style={{fontSize:13.5, color:'#8F8F8F'}} numberOfLines={4}>凭优惠券到机构报班，支付剩余学费</Text>
                                     </View>
-                                    <Image source={money} style={{width:15, height:15, marginTop:8}} />
+                                    <Image source={JZBImages.money} style={{width:15, height:15, marginTop:8}} />
                                 </View>
                                 <View style={{width:(screenWidth-75*3-20)*0.5, height:75, justifyContent:'center', alignItems:'center'}}>
                                     <Text style={{textAlign:'center', fontWeight:'bold', fontSize:20, color:'#00B2A0'}}>→</Text>
@@ -131,7 +121,7 @@ export default class NewsDetail extends React.Component{
                                     <View style={{borderWidth:1, borderRadius:5, borderColor:'#83CFC5', padding:8, width:75}}>
                                         <Text style={{fontSize:13.5, color:'#8F8F8F'}} numberOfLines={4}>完成报班享受折扣优惠，开始上课</Text>
                                     </View>
-                                    <Image source={youhui} style={{width:15, height:15, marginTop:8}} />
+                                    <Image source={JZBImages.youhui} style={{width:15, height:15, marginTop:8}} />
                                 </View>
                             </View>
                         </View>
@@ -143,7 +133,7 @@ export default class NewsDetail extends React.Component{
                             <Text style={{fontSize:16, color:'#000'}}>星萌艺校</Text>
                             <Text style={{fontSize:14, color:'#808080', marginTop:5}}>四川省成都市锦江区景明路65号5栋</Text>
                             <View style={{flexDirection:'row', marginTop:5}}>
-                                <Image source={location} style={{width:8, height:12}}/>
+                                <Image source={JZBImages.location} style={{width:8, height:12}}/>
                                 <Text style={{fontSize:13, color:'#9B9B9B'}}> 9.35km</Text>
                             </View>
                         </TouchableOpacity>
@@ -195,11 +185,11 @@ export default class NewsDetail extends React.Component{
                 <View style={styles.bottomBar}>
                     <View style={{flexDirection:'row', alignItems:'center'}}>
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>this.call()} style={{flexDirection:'row', alignItems:'center'}}>
-                            <Image source={common_phone} style={{width:25, height:25, marginLeft:18}} />
+                            <Image source={JZBImages.common_phone} style={{width:25, height:25, marginLeft:18}} />
                             <Text style={{color:'#6F6F6F', marginLeft:3, fontSize:16}}>咨询</Text>
                         </TouchableOpacity>    
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.send()}} style={{flexDirection:'row', alignItems:'center'}}>
-                            <Image source={common_mes} style={{width:25, height:25, marginLeft:22}} />
+                            <Image source={JZBImages.common_mes} style={{width:25, height:25, marginLeft:22}} />
                             <Text style={{color:'#6F6F6F', marginLeft:3, fontSize:16}}>私信</Text>
                         </TouchableOpacity>
                     </View>

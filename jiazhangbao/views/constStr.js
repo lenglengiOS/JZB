@@ -29,5 +29,76 @@ if(!isDebug){
 	console.log=function(text){}
 }
 
+const JZBImages = {
+	nav:require('../resources/home/home_nav.png'),
+	back:require('../resources/login/nav_back@2x.png'),
+	common_more:require('../resources/home/common_more@2x.png'),
+	jigouIntru:require('../resources/home/agency_introduce@2x.png'),
+	online:require('../resources/home/agency_discussOnline@2x.png'),
+	likeIcon:require('../resources/home/postList_likeIcon@2x.png'),
+	replyIco:require('../resources/home/postList_replyIcon@2x.png'),
+	common_mes:require('../resources/home/common_mes@2x.png'),
+	common_phone :require('../resources/home/common_phone@2x.png'),
+	jigou:require('../resources/home/class_pay_success@2x.png'),
+	youhui:require('../resources/home/agency_tag_youhui@2x.png'),
+	zhifu:require('../resources/home/agency_tag_zhifu@2x.png'),
+	money:require('../resources/home/agency_tag_jigou@2x.png'),
+	location:require('../resources/home/location@2x.png'),
+	showMoreNor:require('../resources/home/main_showMoreNor@2x.png'),
+	search:require('../resources/home/lxr_icon_search@2x.png'),
+	search_history:require('../resources/home/search_history@2x.png'),
+	search_clearHistory:require('../resources/home/search_clearHistory@2x.png'),
+	options:require('../resources/home/options_pointer@2x.png'),
+	edite:require('../resources/home/main_articles_edit@2x.png'),
+	focus_off:require('../resources/home/circleList_focus_off@2x.png'),
+	focus_on:require('../resources/home/circleList_focus_on@2x.png'),
+	fabu:require('../resources/home/fabu.png'),
+	chose:require('../resources/user/common_getin@2x.png'),
+	phone:require('../resources/home/agency_phone@2x.png'),
+	showMore:require('../resources/home/common_getin@2x.png'),
+	addImage:require('../resources/home/sendPost_add@2x.png'),
+	cancel:require('../resources/login/login_cancel@2x.png'),
+	pwd:require('../resources/login/login_psw@2x.png'),
+	wx:require('../resources/login/share_weixin.png'),
+	qq:require('../resources/login/share_qq.png'),
+	wb:require('../resources/login/share_sina.png'),
+	nicheng:require('../resources/login/login_user@2x.png'),
+	msg:require('../resources/home/main_mes@2x.png'),
+	userBg:require('../resources/home/home_userbg.png'),
+	userIcon:require('../resources/home/default_user.png'),
+	youeryuan:require('../resources/home/main_youeryuan@2x.png'),
+	xiaoxue:require('../resources/home/main_xiaoxue@2x.png'),
+	peixunban:require('../resources/home/main_peixun@2x.png'),
+	tuoguanban:require('../resources/home/main_tuoguan@2x.png'),
+	jiaoyu:require('../resources/home/main_edu@2x.png'),
+	zhishi:require('../resources/home/main_zhishi@2x.png'),
+	jiazhangquan:require('../resources/home/main_jzq@2x.png'),
+	taolun:require('../resources/home/main_taolun@2x.png'),
+	HomeIcon:require('../resources/Main/tab_home@2x.png'),
+	HomeIcon_sel:require('../resources/Main/tab_home-on@2x.png'),
+	JZIcon:require('../resources/Main/tab_user-group@2x.png'),
+	JZIcon_sel:require('../resources/Main/tab_user-group-on@2x.png'),
+	BBIcong:require('../resources/Main/tab_graduation@2x.png'),
+	BBIcon_sel:require('../resources/Main/tab_graduation-on@2x.png'),
+	WDIcon:require('../resources/Main/tab_user@2x.png'),
+	WDIcon_sel:require('../resources/Main/tab_user-on@2x.png'),
+}
 
-module.exports ={Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console}
+
+module.exports ={Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -17,21 +17,12 @@ import {
     Linking
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import Publish from './publish';
 import BaiduMap from './BaiduMap';
 import GuanLi from './jigouguanli';
 import JiuCuo from './jiucuo';
 
-
-const nav = require('../../resources/home/home_nav.png');
-const back = require('../../resources/login/nav_back@2x.png');
-const common_more = require('../../resources/home/common_more@2x.png');
-const chose = require('../../resources/user/common_getin@2x.png');
-const location = require('../../resources/home/agency_location@2x.png');
-const phone = require('../../resources/home/agency_phone@2x.png');
-const showMore = require('../../resources/home/common_getin@2x.png');
-const showMoreNor = require('../../resources/home/common_getinNor@2x.png');
 const arr = ['','','','','','','','','','',''];
 
 
@@ -129,7 +120,7 @@ export default class NewsDetail extends React.Component{
         return arr.map((item, index) => {
             return(
                 <View style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25, marginRight:3, marginTop:3}} >
-                     <Image source={nav} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25}} />
+                     <Image source={JZBImages.nav} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25}} />
                 </View>
             )
         })
@@ -145,37 +136,37 @@ export default class NewsDetail extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
-                        <Image source={back} style={{width:30, height:30, marginLeft:10}} />
+                        <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={styles.title}>机构介绍</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
-                        <Image source={common_more} style={{width:30, height:30, marginRight:10}} />
+                        <Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                     </TouchableOpacity>
                 </View>
                 <ScrollView>
                     <View style={styles.school}>
-                        <Image source={nav} style={{width:90, height:73, marginRight:10}} />
+                        <Image source={JZBImages.nav} style={{width:90, height:73, marginRight:10}} />
                         <Text style={{fontSize:16}}>成都市盐道街小学</Text>
                     </View>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.gotoLocation()} style={styles.location}>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
-                            <Image source={location} style={{width:17, height:17}} />
+                            <Image source={JZBImages.location} style={{width:17, height:17}} />
                             <Text style={{fontSize:16, marginLeft:10}}>盐道街2号</Text>
                         </View>
-                        <Image source={chose} style={{width:20, height:20}} />
+                        <Image source={JZBImages.chose} style={{width:20, height:20}} />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.callPhone()} style={styles.location}>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
-                            <Image source={phone} style={{width:17, height:17}} />
+                            <Image source={JZBImages.phone} style={{width:17, height:17}} />
                             <Text style={{fontSize:16, marginLeft:10}}>18202853094</Text>
                         </View>
-                        <Image source={chose} style={{width:20, height:20}} />
+                        <Image source={JZBImages.chose} style={{width:20, height:20}} />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={()=>this.setState({isShowMore:!this.state.isShowMore})} style={styles.jigou}>
                         <Text style={{fontSize:14, color:'#A1A0A1'}}>机构简介</Text>
                         <Text style={{fontSize:15, marginTop:10, marginLeft:5, marginRight:5}}  numberOfLines={this.state.isShowMore?0:4}>EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)</Text>
                         <View style={{alignItems:'center'}}>
-                            <Image source={!this.state.isShowMore?showMoreNor:showMore} style={{width:20, height:20}} />
+                            <Image source={!this.state.isShowMore?JZBImages.showMoreNor:JZBImages.showMore} style={{width:20, height:20}} />
                         </View>
                     </TouchableOpacity>
                     <View style={styles.photo}>
@@ -189,7 +180,7 @@ export default class NewsDetail extends React.Component{
                             <Text style={{fontSize:16, marginLeft:10, color:'#33BAAB'}}>我要纠错</Text>
                             <Text style={{fontSize:14, marginLeft:10, color:'#A6A6A6'}}>（信息来源于网络，如有错误请更正）</Text>
                         </View>
-                        <Image source={chose} style={{width:20, height:20}} />
+                        <Image source={JZBImages.chose} style={{width:20, height:20}} />
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.gotoGuanli()} style={[styles.location, {height:56,marginBottom:15, justifyContent:'center'}]}>

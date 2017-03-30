@@ -17,16 +17,9 @@ import {
     Linking
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import Publish from './publish';
 import JiGouIntru from './jigouIntru';
-const nav = require('../../resources/home/home_nav.png');
-const back = require('../../resources/login/nav_back@2x.png');
-const common_more = require('../../resources/home/common_more@2x.png');
-const jigouIntru = require('../../resources/home/agency_introduce@2x.png');
-const online = require('../../resources/home/agency_discussOnline@2x.png');
-const likeIcon = require('../../resources/home/postList_likeIcon@2x.png');
-const replyIco = require('../../resources/home/postList_replyIcon@2x.png');
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -83,17 +76,17 @@ export default class NewsDetail extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
-                        <Image source={back} style={{width:30, height:30, marginLeft:10}} />
+                        <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>在线讨论群</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
-                    	<Image source={common_more} style={{width:30, height:30, marginRight:10}} />
+                    	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>
                 </View>
                 <View style={{width:screenWidth, height:screenHeight-64-47}}>
                     <ScrollView>
                         <View style={{flexDirection:'row', backgroundColor:'#FFF', borderBottomWidth:1, borderBottomColor:'#E8E8E8', paddingBottom:10}}>
-                            <Image source={nav} style={{width:85, height:74, marginTop:10, marginLeft:10}}/>
+                            <Image source={JZBImages.nav} style={{width:85, height:74, marginTop:10, marginLeft:10}}/>
                             <View style={styles.recommendCell}>
                                 <View>
                                     <View style={{justifyContent:'space-between', flexDirection:'row'}}>
@@ -110,7 +103,7 @@ export default class NewsDetail extends React.Component{
                     </ScrollView>
                 </View>
                 <View style={styles.bottomBar}>
-                    <Image source={nav} style={{width:38, height:38, marginLeft:8, borderRadius:19}} />
+                    <Image source={JZBImages.nav} style={{width:38, height:38, marginLeft:8, borderRadius:19}} />
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.publish()} style={styles.touch}>
                         <Text style={styles.bottomText} numberOfLines={2}>对于这个机构，您有什么想了解的吗？</Text>
                     </TouchableOpacity>

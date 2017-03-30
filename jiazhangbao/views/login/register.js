@@ -15,16 +15,13 @@ import {
     NativeModules
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import TabBarMain from '../../views/main/tabBarMain';
 import Yonghu from './yonghu';
 import Yzm from './yzm';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
-const cancel = require('../../resources/login/login_cancel@2x.png'); 
-const nicheng = require('../../resources/login/login_user@2x.png'); 
-const phone = require('../../resources/login/login_phone@2x.png');
-const pwd = require('../../resources/login/login_psw@2x.png'); 
+
 var NativeTools = NativeModules.NativeTools;
 
 export default class Register extends React.Component{
@@ -123,14 +120,14 @@ export default class Register extends React.Component{
                 <ScrollView scrollEnabled={false} style={{height:200}}>
                     <View style={styles.calcel}>
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._cancel()}}>
-                        <Image source={cancel} />
+                        <Image source={JZBImages.cancel} />
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.jiazhangbao}>家长宝</Text>
                     <View style={{width:screenWidth, height:154, marginBottom:35, backgroundColor:'blue', justifyContent:'center', alignItems:'center'}}>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                         <View style={styles.phone}>
-                            <Image source={nicheng} style={{width:25, height:25, marginLeft:20}}/>
+                            <Image source={JZBImages.nicheng} style={{width:25, height:25, marginLeft:20}}/>
                             <TextInput 
                                 ref={(o)=>this.inputname=o}
                                 style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
@@ -140,7 +137,7 @@ export default class Register extends React.Component{
                         </View>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                         <View style={styles.phone}>
-                            <Image source={phone} style={{width:25, height:25, marginLeft:20}}/>
+                            <Image source={JZBImages.phone} style={{width:25, height:25, marginLeft:20}}/>
                             <TextInput 
                                 ref={(o)=>this.inputphone=o}
                                 style={{flex:1, height: 40, marginLeft:20, marginTop:5}}
@@ -151,7 +148,7 @@ export default class Register extends React.Component{
                         </View>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                         <View style={styles.phone}>
-                            <Image source={pwd} style={{width:25, height:25, marginLeft:20}}/>
+                            <Image source={JZBImages.pwd} style={{width:25, height:25, marginLeft:20}}/>
                             <TextInput 
                                 ref={(o)=>this.inputpwd=o}
                                 onChangeText={(text) => this.setState({pwd:text})}

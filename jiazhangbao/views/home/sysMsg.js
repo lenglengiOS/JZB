@@ -15,16 +15,9 @@ import {
     StatusBar
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
-const back = require('../../resources/login/nav_back@2x.png');
-const showMoreNor = require('../../resources/home/main_showMoreNor@2x.png');
-const search = require('../../resources/home/lxr_icon_search@2x.png');
-const search_history = require('../../resources/home/search_history@2x.png');
-const search_clearHistory = require('../../resources/home/search_clearHistory@2x.png');
-const options = require('../../resources/home/options_pointer@2x.png');  
-const nav = require('../../resources/home/home_nav.png');
-const location = require('../../resources/home/location@2x.png');
+
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -63,7 +56,7 @@ export default class WoDe extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
-                        <Image source={back} style={{width:30, height:30}} />
+                        <Image source={JZBImages.back} style={{width:30, height:30}} />
                     </TouchableOpacity>
                     <Text style={{fontSize:20, color:'#00B09D'}}>{this.props.title}</Text>
                 </View>
@@ -82,7 +75,7 @@ export default class WoDe extends React.Component{
             return(
                 <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
                     <View style={styles.rowStyle}>
-                        <Image source={nav} style={styles.rowImageStyle}/>
+                        <Image source={JZBImages.nav} style={styles.rowImageStyle}/>
                         <View style={{justifyContent:'center', flex:1, height:65}}>
                             <View>
                                 <Text style={{fontSize:16}}>天府幼儿园</Text>

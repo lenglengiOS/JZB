@@ -14,14 +14,14 @@ import {
     Image
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
 import Jiazhangquan from '../home/jiazhangquan';
 
-const nav = require('../../resources/home/home_nav.png');
-const showMore = require('../../resources/home/common_getin@2x.png');
-const showMoreNor = require('../../resources/home/common_getinNor@2x.png');
+
 var Car = require('./Car.json');
+
+
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
 });
@@ -29,8 +29,29 @@ const defaultData = new ListView.DataSource({
 export default class BaoBan extends React.Component{
 	constructor(props){
 		super(props);
-		{this.loadData()}
+
+		var getSectionData = (dataBlob, sectionID) => {
+            return dataBlob[sectionID];
+        };
+
+        var getRowData = (dataBlob, sectionID, rowID) => {
+            return dataBlob[sectionID + ':' + rowID];
+        };
+
+        this.state = {
+            dataSource: new ListView.DataSource({
+                getSectionData: getSectionData, // 获取组中数据
+                getRowData: getRowData, // 获取行中的数据
+                rowHasChanged: (r1, r2) => r1 !== r2,
+                sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+            }),
+            dataSize:4,
+            count:3,
+            closeSection:[]
+        };
 	}
+
+
     componentDidMount(){
        {this.loadData()}
     }
@@ -126,7 +147,7 @@ export default class BaoBan extends React.Component{
         return (
             <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
                 <View style={styles.rowStyle}>
-                    <Image source={nav} style={styles.rowImageStyle}/>
+                    <Image source={JZBImages.nav} style={styles.rowImageStyle}/>
                     <View style={{justifyContent:'center', flex:1, height:72}}>
                     	<View>
 	                    	<Text style={{color:'#F87A00'}}>{rowData.name}</Text>
@@ -147,7 +168,7 @@ export default class BaoBan extends React.Component{
         	<TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressHeader(sectionID)}>
 	            <View style={styles.sectionHeaderViewStyle}>
 	                <Text style={{marginLeft: 5, color: '#8F8F8F'}}>{sectionData}</Text>
-		            <Image source={this.state.closeSection.indexOf(sectionID)!=-1?showMore:showMoreNor} style={{width:15, height:15, tintColor:'#AAAAAA'}}/>
+		            <Image source={this.state.closeSection.indexOf(sectionID)!=-1?JZBImages.showMore:JZBImages.showMoreNor} style={{width:15, height:15, tintColor:'#AAAAAA'}}/>
 	            </View>
 	        </TouchableOpacity>
         );

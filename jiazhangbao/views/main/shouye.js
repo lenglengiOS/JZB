@@ -16,7 +16,7 @@ import {
     NativeModules
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import JiaZhang from './jiazhang';
 import Login from '../login/login_index';
 import LoadingShow  from '../component/react-native-loading';
@@ -29,21 +29,6 @@ import JIAOYU from '../home/jiaoyu_jiazhang.js';
 import JIAZHANGQUAN from '../home/jiazhangquan.js';
 import CourseDetail from '../home/courseDetails';
 import JigouInfo from '../home/jigouInfo';
-
-const nav = require('../../resources/home/home_nav.png');
-const search = require('../../resources/home/search@2x.png');
-const msg = require('../../resources/home/main_mes@2x.png');
-const userBg = require('../../resources/home/home_userbg.png');
-const userIcon = require('../../resources/home/default_user.png');
-const youeryuan = require('../../resources/home/main_youeryuan@2x.png');
-const xiaoxue = require('../../resources/home/main_xiaoxue@2x.png');
-const peixunban = require('../../resources/home/main_peixun@2x.png');
-const tuoguanban = require('../../resources/home/main_tuoguan@2x.png');
-const jiaoyu = require('../../resources/home/main_edu@2x.png');
-const zhishi = require('../../resources/home/main_zhishi@2x.png');
-const jiazhangquan = require('../../resources/home/main_jzq@2x.png');
-const taolun = require('../../resources/home/main_taolun@2x.png');
-const location = require('../../resources/home/location@2x.png');
 
 var NativeTools = NativeModules.NativeTools;
 var phonenum= '15680222613';
@@ -134,12 +119,12 @@ export default class Home extends React.Component{
                     barStyle="light-content"
                     animated={true} />
                 <View style={{width:screenWidth, height:64}}>
-                    <Image source={nav} style={styles.nav} resizeMode={Image.resizeMode.stretch}>
+                    <Image source={JZBImages.nav} style={styles.nav} resizeMode={Image.resizeMode.stretch}>
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._search()}}>
-                            <Image source={search} style={{width:30, height:30, marginRight:30}}/>
+                            <Image source={JZBImages.search} style={{width:30, height:30, marginRight:30, tintColor:'#FFF'}}/>
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._showMsg()}}>
-                            <Image source={msg} style={{width:30, height:30}}/>
+                            <Image source={JZBImages.msg} style={{width:30, height:30}}/>
                         </TouchableOpacity>
                     </Image>
                 </View>
@@ -161,24 +146,24 @@ export default class Home extends React.Component{
     _renderHeader(){
         return(
             <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
-                <Image source={userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
+                <Image source={JZBImages.userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}}>
-                        <Image source={this.state.userIcon?{uri: this.state.userIcon}:userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
+                        <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
                         <Text style={styles.login} >{this.state.username?this.state.username:'登录/注册'}</Text>
                     </TouchableOpacity>
                 </Image>
                 <View style={{width:screenWidth, height:180}}>
                     <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
-                        {this._renderCell(youeryuan,'幼儿园',1)}
-                        {this._renderCell(xiaoxue,'小学',2)}
-                        {this._renderCell(peixunban,'培训班',3)}
-                        {this._renderCell(tuoguanban,'托管班',4)}
+                        {this._renderCell(JZBImages.youeryuan,'幼儿园',1)}
+                        {this._renderCell(JZBImages.xiaoxue,'小学',2)}
+                        {this._renderCell(JZBImages.peixunban,'培训班',3)}
+                        {this._renderCell(JZBImages.tuoguanban,'托管班',4)}
                     </View>
                     <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
-                        {this._renderCell(jiaoyu,'教育升学',5)}
-                        {this._renderCell(zhishi,'家长知识',6)}
-                        {this._renderCell(jiazhangquan,'家长圈',7)}
-                        {this._renderCell(taolun,'热门讨论',8)}
+                        {this._renderCell(JZBImages.jiaoyu,'教育升学',5)}
+                        {this._renderCell(JZBImages.zhishi,'家长知识',6)}
+                        {this._renderCell(JZBImages.jiazhangquan,'家长圈',7)}
+                        {this._renderCell(JZBImages.taolun,'热门讨论',8)}
                     </View>
                 </View>
             </View>
@@ -261,7 +246,7 @@ export default class Home extends React.Component{
                                 <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>{SUBTITLE}</Text>
                             </View>
                             <View style={{flexDirection:'row'}}>
-                                <Image source={location} style={{width:8, height:12}}/>
+                                <Image source={JZBImages.location} style={{width:8, height:12}}/>
                                 <Text style={{fontSize:13, color:'#9B9B9B'}}> {DISTANCE}km</Text>
                             </View>
                         </View>
@@ -302,16 +287,16 @@ export default class Home extends React.Component{
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐课程')}
-                {this._renderRecommendCell(nav, '钢琴度套餐', '星萌艺校', '¥ 39', '1.54')}
-                {this._renderRecommendCell(nav, '钢琴季度冷洪林餐', '星萌艺校', '¥ 19', '1.54')}
-                {this._renderRecommendCell(nav, '钢玩到无餐', '星萌艺校', '¥ 229', '1.54')}
-                {this._renderRecommendCell(nav, '分瓦达季度套餐', '星萌艺校', '¥ 34', '1.54')}
+                {this._renderRecommendCell(JZBImages.nav, '钢琴度套餐', '星萌艺校', '¥ 39', '1.54')}
+                {this._renderRecommendCell(JZBImages.nav, '钢琴季度冷洪林餐', '星萌艺校', '¥ 19', '1.54')}
+                {this._renderRecommendCell(JZBImages.nav, '钢玩到无餐', '星萌艺校', '¥ 229', '1.54')}
+                {this._renderRecommendCell(JZBImages.nav, '分瓦达季度套餐', '星萌艺校', '¥ 34', '1.54')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐机构')}
-                {this._renderRecommendCell(nav, '钢威锋网无法季度套餐', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(nav, '钢企鹅王发季度套餐', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(nav, '钢琴培驱蚊器翁', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(nav, '钢请问我去餐', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(JZBImages.nav, '钢威锋网无法季度套餐', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(JZBImages.nav, '钢企鹅王发季度套餐', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(JZBImages.nav, '钢琴培驱蚊器翁', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(JZBImages.nav, '钢请问我去餐', '星萌艺校', '', '1.54')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
             </View>
         )
