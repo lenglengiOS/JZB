@@ -16,8 +16,6 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
-import Jiazhangquan from '../home/jiazhangquan';
-
 
 var Car = require('./Car.json');
 
@@ -50,8 +48,7 @@ export default class BaoBan extends React.Component{
             closeSection:[]
         };
 	}
-
-
+    
     componentDidMount(){
        {this.loadData()}
     }
@@ -114,11 +111,13 @@ export default class BaoBan extends React.Component{
     }
 
     pressRow(){
-        const { navigator } = this.props;
+        let { navigator } = this.props;
         if(navigator) {
             navigator.push({
-                name: 'jiazhangquan',
-                component: Jiazhangquan
+                name: 'homejiazhangquan',
+                param:{
+                    TITLE:'家长圈'
+                }
             })
         }
     }
@@ -168,7 +167,7 @@ export default class BaoBan extends React.Component{
         	<TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressHeader(sectionID)}>
 	            <View style={styles.sectionHeaderViewStyle}>
 	                <Text style={{marginLeft: 5, color: '#8F8F8F'}}>{sectionData}</Text>
-		            <Image source={this.state.closeSection.indexOf(sectionID)!=-1?JZBImages.showMore:JZBImages.showMoreNor} style={{width:15, height:15, tintColor:'#AAAAAA'}}/>
+		            <Image source={this.state.closeSection.indexOf(sectionID)!=-1?JZBImages.showMore:JZBImages.common_getinNor} style={{width:15, height:15, tintColor:'#AAAAAA'}}/>
 	            </View>
 	        </TouchableOpacity>
         );

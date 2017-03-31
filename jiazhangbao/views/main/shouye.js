@@ -17,18 +17,9 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-import JiaZhang from './jiazhang';
-import Login from '../login/login_index';
+
 import LoadingShow  from '../component/react-native-loading';
-import NewsDetail from '../recomNews/newsDetail';
-import Search from '../home/search.js';
-import SysMsg from '../home/sysMsg.js';
-import UserInfo from '../user/userInfo';
-import Org from '../home/organization';
-import JIAOYU from '../home/jiaoyu_jiazhang.js';
-import JIAZHANGQUAN from '../home/jiazhangquan.js';
-import CourseDetail from '../home/courseDetails';
-import JigouInfo from '../home/jigouInfo';
+
 
 var NativeTools = NativeModules.NativeTools;
 var phonenum= '15680222613';
@@ -63,11 +54,10 @@ export default class Home extends React.Component{
     }
 
     pressUserIcon() {
-            const { navigator } = this.props;
+            let {route,navigator} = this.props;
             if(navigator) {
                 navigator.push({
-                    name: 'denglu',
-                    component:this.state.isLogin?UserInfo:Login,
+                    name: this.state.isLogin?'userinfo':'login'
                 })
             }
     }
@@ -77,7 +67,6 @@ export default class Home extends React.Component{
         if(navigator) {
             navigator.push({
                 name: 'search',
-                component: Search,
             })
         }
     }
@@ -87,8 +76,7 @@ export default class Home extends React.Component{
         if(navigator) {
             navigator.push({
                 name: 'sysmsg',
-                component: SysMsg,
-                params:{
+                param:{
                     title:'系统消息'
                 }
             })
@@ -96,15 +84,14 @@ export default class Home extends React.Component{
     }
 
     pressOrg(TITLE, INDEX){
-        var com = JIAOYU;
-        if (INDEX == 7) {com=JIAZHANGQUAN}
+        var com = 'jiaoyu';
+        if (INDEX == 7) {com='homejiazhangquan'}
         if (INDEX == 8) {return}
         const { navigator } = this.props;
         if(navigator) {
             navigator.push({
-                name: 'org',
-                component: INDEX<=4?Org:com,
-                params:{
+                name: INDEX<=4?'org':com,
+                param:{
                     TITLE:TITLE
                 }
             })
@@ -114,12 +101,9 @@ export default class Home extends React.Component{
     _renderNav(){
         return(
             <View>
-                <StatusBar
-                    backgroundColor="blue"
-                    barStyle="light-content"
-                    animated={true} />
                 <View style={{width:screenWidth, height:64}}>
                     <Image source={JZBImages.nav} style={styles.nav} resizeMode={Image.resizeMode.stretch}>
+
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._search()}}>
                             <Image source={JZBImages.search} style={{width:30, height:30, marginRight:30, tintColor:'#FFF'}}/>
                         </TouchableOpacity>
@@ -174,9 +158,8 @@ export default class Home extends React.Component{
         const { navigator } = this.props;
         if(navigator) {
             navigator.push({
-                name: 'newsDetail',
-                component: NewsDetail,
-                params: {
+                name: 'newsdetail',
+                param: {
                     title:TITLE,
                     url:URL
                 }
@@ -191,9 +174,8 @@ export default class Home extends React.Component{
             const { navigator } = this.props;
             if(navigator) {
                 navigator.push({
-                    name: 'courseDetail',
-                    component: CourseDetail,
-                    params: {
+                    name: 'coursedetail',
+                    param: {
                         title:TITLE,
                     }
                 })
@@ -203,9 +185,8 @@ export default class Home extends React.Component{
             const { navigator } = this.props;
             if(navigator) {
                 navigator.push({
-                    name: 'jigouInfo',
-                    component: JigouInfo,
-                    params: {
+                    name: 'jigouinfo',
+                    param: {
                         title:TITLE,
                     }
                 })

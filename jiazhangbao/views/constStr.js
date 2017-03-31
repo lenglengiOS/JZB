@@ -16,6 +16,17 @@ var MainTabHeight =48;
 var navbackground="#353232";
 var lineColor="#ededed"
 
+//保存当前的route名字
+var push={
+	routeName:"tabmain",
+	typelabel:""
+}
+var cgRoute={
+	route:{name: 'tabmain', param: {index: 0, topIndex: 0}},
+	navigat:[{name: 'tabmain', param: {index: 0, topIndex: 0}}],
+	isRestore:false
+}
+
 var Size=function(font){
 	if(pixe<=2){
 		return font;
@@ -38,6 +49,7 @@ const JZBImages = {
 	likeIcon:require('../resources/home/postList_likeIcon@2x.png'),
 	replyIco:require('../resources/home/postList_replyIcon@2x.png'),
 	common_mes:require('../resources/home/common_mes@2x.png'),
+	common_getinNor:require('../resources/home/common_getinNor@2x.png'),
 	common_phone :require('../resources/home/common_phone@2x.png'),
 	jigou:require('../resources/home/class_pay_success@2x.png'),
 	youhui:require('../resources/home/agency_tag_youhui@2x.png'),
@@ -85,7 +97,7 @@ const JZBImages = {
 }
 
 
-module.exports ={Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console}
+module.exports ={Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,push,cgRoute}
 
 
 

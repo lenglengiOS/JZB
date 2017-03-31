@@ -17,7 +17,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
-import NewsDetail from '../recomNews/newsDetail';
+
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -37,19 +37,18 @@ export default class WoDe extends React.Component{
     }
 
     _back(){
-        const { navigator } = this.props;
+        let { navigator } = this.props;
         if(navigator) {
             navigator.pop() 
         }
     }
 
     goToNewsDetail(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'newsDetail',
-                component: NewsDetail,
-                params: {
+                name:"newsdetail",
+                param:{
                     title:"金苹果天府国际幼儿园",
                     url:'http://www.baidu.com'
                 }
@@ -68,7 +67,7 @@ export default class WoDe extends React.Component{
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
                         <Image source={JZBImages.back} style={{width:30, height:30}} />
                     </TouchableOpacity>
-                    <Text style={{fontSize:20, color:'#00B09D'}}>{this.props.TITLE}</Text>
+                    <Text style={{fontSize:20, color:'#00B09D'}}>{this.props.param.TITLE}</Text>
                 </View>
                 <MyListView
                     onRefresh={this._onRefresh.bind(this)}

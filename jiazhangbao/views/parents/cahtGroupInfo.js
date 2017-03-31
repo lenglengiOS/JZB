@@ -1,4 +1,3 @@
-
 'use strict';
 import React from 'react';
 import {
@@ -34,7 +33,7 @@ export default class NewsDetail extends React.Component{
     _back(){
         const { navigator } = this.props;
         //为什么这里可以取得 props.navigator?请看上文:
-        //<Component {...route.params} navigator={navigator} />
+        //<Component {...route.param} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
             navigator.pop() 

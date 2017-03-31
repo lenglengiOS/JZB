@@ -17,8 +17,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
-import NewsDetail from '../recomNews/newsDetail';
-import Publish from './publish';
+
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -46,25 +45,25 @@ export default class WoDe extends React.Component{
     }
 
     goToTopicDetail(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'topicDetail',
-                component: NewsDetail,
-                params: {
-                    title:"金苹果天府国际幼儿园",
-                    url:'http://www.baidu.com'
+                name:"newsdetail",
+                param:{
+                    
                 }
             })
         }
     }
 
     publish(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'publish',
-                component: Publish
+                name:"publish",
+                param:{
+                    
+                }
             })
         }
     }
@@ -72,16 +71,15 @@ export default class WoDe extends React.Component{
 	render(){
 		return(
 			<View style={styles.container}>
-
-				<StatusBar
+                 <StatusBar
                      backgroundColor="blue"
                      barStyle="default"
-                     animated={true}/>
+                   />
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
                         <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
-                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.TITLE}</Text>
+                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.param.TITLE}</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.setState({isFocus:!this.state.isFocus})}>
                         <Image source={this.state.isFocus?JZBImages.focus_on:JZBImages.focus_off} style={{width:20, height:20, marginRight:10}} />
                     </TouchableOpacity>

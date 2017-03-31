@@ -36,7 +36,7 @@ export default class Register extends React.Component{
     }
 
     componentDidMount(){
-        NativeTools.getVerificationCode(this.props.phonenum,(error, events) => {
+        NativeTools.getVerificationCode(this.props.param.phonenum,(error, events) => {
             if (events[0] == '获取验证码成功') {
                 this.setState({sendSuccess:true})
             } else {
@@ -67,7 +67,7 @@ export default class Register extends React.Component{
                 sendSuccess:false
             })
         }
-        NativeTools.getVerificationCode(this.props.phonenum,(error, events) => {
+        NativeTools.getVerificationCode(this.props.param.phonenum,(error, events) => {
             if (events[0] == '获取验证码成功') {
                 this.setState({sendSuccess:true})
             } else {
@@ -95,7 +95,7 @@ export default class Register extends React.Component{
     _submit(){
         this.setState({loading:true})
         if (this.state.sendSuccess) {
-            NativeTools.commitVerificationCode(this.state.yanzhengma, this.props.phonenum, (error, events) => {
+            NativeTools.commitVerificationCode(this.state.yanzhengma, this.props.param.phonenum, (error, events) => {
                 if (events[0] == '验证成功') {
                     this.setState({loading:false})
                     Toast.show("验证成功", 2000)
@@ -124,7 +124,7 @@ export default class Register extends React.Component{
                     <Text style={{fontSize:20, color:'#00B09D'}}>手机验证</Text>
                 </View>
                 <View style={styles.textView}>
-                    <Text style={{color:'#A1A1A1', fontSize:15}}>验证码已发送到手机<Text style={{color:'#F88100'}}>{this.props.phonenum}</Text>，请注意查收</Text>
+                    <Text style={{color:'#A1A1A1', fontSize:15}}>验证码已发送到手机<Text style={{color:'#F88100'}}>{this.props.param.phonenum}</Text>，请注意查收</Text>
                 </View>
                 <View style={styles.yzm}>
                     <TextInput

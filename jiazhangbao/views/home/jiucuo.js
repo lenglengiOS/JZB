@@ -18,13 +18,6 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-import Publish from './publish';
-import BaiduMap from './BaiduMap';
-import GuanLi from './jigouguanli';
-
-
-
-
 
 export default class NewsDetail extends React.Component{
     constructor(props){

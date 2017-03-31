@@ -17,7 +17,6 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-import Register from '../login/register';
 import Toast from '../tools/Toast';
 
 
@@ -39,7 +38,7 @@ export default class Login extends React.Component{
     _cancel(){
     	const { navigator } = this.props;
         //为什么这里可以取得 props.navigator?请看上文:
-        //<Component {...route.params} navigator={navigator} />
+        //<Component {...route.param} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
             navigator.pop();
@@ -47,11 +46,12 @@ export default class Login extends React.Component{
     }
 
     _pressRegister(){
-    	const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'zhuce',
-                component: Register,
+                name:"register",
+                param:{
+                }
             })
         }
     }

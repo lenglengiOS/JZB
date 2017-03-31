@@ -16,9 +16,6 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-import TabBarMain from '../../views/main/tabBarMain';
-import Yonghu from './yonghu';
-import Yzm from './yzm';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 
@@ -39,7 +36,7 @@ export default class Register extends React.Component{
     _cancel(){
         const { navigator } = this.props;
         //为什么这里可以取得 props.navigator?请看上文:
-        //<Component {...route.params} navigator={navigator} />
+        //<Component {...route.param} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
             navigator.popToTop() 
@@ -49,7 +46,7 @@ export default class Register extends React.Component{
     _back(){
         const { navigator } = this.props;
         //为什么这里可以取得 props.navigator?请看上文:
-        //<Component {...route.params} navigator={navigator} />
+        //<Component {...route.param} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
             navigator.pop() 
@@ -88,12 +85,11 @@ export default class Register extends React.Component{
                 } else {
                     this.setState({loading:false})
                     {/*跳转到验证码界面*/}
-                    const { navigator } = this.props;
-                    if(navigator) {
+                    let {route,navigator} = this.props;
+                    if(navigator){
                         navigator.push({
-                            name:'yanzhengma',
-                            component:Yzm,
-                            params:{
+                            name:"yzm",
+                            param:{
                                 phonenum:phone,
                                 pwd:this.state.pwd
                             }
@@ -105,11 +101,12 @@ export default class Register extends React.Component{
     }
 
     _yonghu(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'yonghu',
-                component: Yonghu,
+                name:"yonghu",
+                param:{
+                }
             })
         }
     }

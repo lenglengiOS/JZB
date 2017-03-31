@@ -61,8 +61,7 @@ const DefaultTabBar = React.createClass({
     if(navigator) {
         navigator.push({
             name: 'sysmsg',
-            component: SysMsg,
-            params:{
+            param:{
                 title:'聊天记录'
             }
         })

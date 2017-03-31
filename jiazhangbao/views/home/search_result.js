@@ -55,7 +55,7 @@ export default class WoDe extends React.Component{
                             <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
                         <View style={styles.TextInput}>
                         	<Image source={JZBImages.search} style={{width:15, height:15, marginLeft:5}} />
-                        	<Text style={{flex:1, marginLeft:5}}>{"\""+this.props.searchText+"\""+"的搜索结果"}</Text>
+                        	<Text style={{flex:1, marginLeft:5}}>{"\""+this.props.param.searchText+"\""+"的搜索结果"}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>

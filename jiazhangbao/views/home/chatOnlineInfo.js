@@ -18,8 +18,7 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-import Publish from './publish';
-import JiGouIntru from './jigouIntru';
+
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -34,7 +33,7 @@ export default class NewsDetail extends React.Component{
     _back(){
         const { navigator } = this.props;
         //为什么这里可以取得 props.navigator?请看上文:
-        //<Component {...route.params} navigator={navigator} />
+        //<Component {...route.param} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
             navigator.pop() 
@@ -44,21 +43,25 @@ export default class NewsDetail extends React.Component{
  
 
     publish(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'publish',
-                component: Publish
+                name:"publish",
+                param:{
+                    
+                }
             })
         }
     }
 
     jigouIntru(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'jigouIntru',
-                component: JiGouIntru
+                name:"jigouintru",
+                param:{
+                    
+                }
             })
         }
     }

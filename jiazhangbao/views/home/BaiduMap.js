@@ -40,7 +40,7 @@ class Buttton extends Component {
       <TouchableHighlight 
         style={styles.btn}
         onPress={this.props.onPress}>
-        <Text style={{color: 'white'}}>{this.props.label}</Text>
+        <Text style={{color: 'white'}}>{this.props.param.label}</Text>
       </TouchableHighlight>
     );
   }

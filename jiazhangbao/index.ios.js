@@ -13,32 +13,6 @@ import {
   Navigator
 } from 'react-native';
 
-import TabBarMain from './views/main/tabBarMain';
+import MainIndex from './views/main/mainIndex';
 
-export default class jiazhangbao extends Component {
-  render() {
-    return (
-
-       <Navigator
-          initialRoute={{ name: 'main', component: TabBarMain }}
-          configureScene={(route) => {
-            return Navigator.SceneConfigs.FloatFromRight;
-          }}
-          renderScene={(route, navigator) => {
-            let Component = route.component;
-            return <Component {...route.params} navigator={navigator} />
-          }} />
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor:'#FFF'
-  },
-});
-
-AppRegistry.registerComponent('jiazhangbao', () => jiazhangbao);
+AppRegistry.registerComponent('jiazhangbao', () => MainIndex);

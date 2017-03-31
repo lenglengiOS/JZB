@@ -18,10 +18,6 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-import Publish from './publish';
-import JiGouIntru from './jigouIntru';
-import ChatOnlie from './chatOnlineInfo';
-
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -36,7 +32,7 @@ export default class NewsDetail extends React.Component{
     _back(){
         const { navigator } = this.props;
         //为什么这里可以取得 props.navigator?请看上文:
-        //<Component {...route.params} navigator={navigator} />
+        //<Component {...route.param} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
             navigator.pop() 
@@ -46,31 +42,34 @@ export default class NewsDetail extends React.Component{
  
 
     publish(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'publish',
-                component: Publish
+                name:"publish",
+                param:{
+                }
             })
         }
     }
 
     jigouIntru(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'jigouIntru',
-                component: JiGouIntru
+                name:"jigouintru",
+                param:{
+                }
             })
         }
     }
 
     chatOnline(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'chatOnlie',
-                component: ChatOnlie
+                name:"chatonline",
+                param:{
+                }
             })
         }
     }
@@ -86,7 +85,7 @@ export default class NewsDetail extends React.Component{
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
                         <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
                     </TouchableOpacity>
-                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.title}</Text>
+                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.param.title}</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
                     	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>

@@ -16,10 +16,7 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-import SearchResult from './search_result';
 import MyListView from '../component/MyListView';
-
-
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -46,12 +43,11 @@ export default class WoDe extends React.Component{
     }
 
     doSearch(){
-        const { navigator } = this.props;
+        let {route,navigator} = this.props;
         if(navigator&&this.state.searchText) {
             navigator.push({
                 name: 'searchresult',
-                component: SearchResult,
-                params:{
+                param:{
                     searchText:this.state.searchText
                 }
             })
@@ -59,12 +55,11 @@ export default class WoDe extends React.Component{
     }
 
     pressRow(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'searchresult',
-                component: SearchResult,
-                params:{
+                name:"searchresult",
+                param:{
                     searchText:'rowData'
                 }
             })

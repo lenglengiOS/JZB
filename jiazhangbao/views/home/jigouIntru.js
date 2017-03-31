@@ -18,10 +18,7 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-import Publish from './publish';
-import BaiduMap from './BaiduMap';
-import GuanLi from './jigouguanli';
-import JiuCuo from './jiucuo';
+
 
 const arr = ['','','','','','','','','','',''];
 
@@ -40,7 +37,7 @@ export default class NewsDetail extends React.Component{
     _back(){
         const { navigator } = this.props;
         //为什么这里可以取得 props.navigator?请看上文:
-        //<Component {...route.params} navigator={navigator} />
+        //<Component {...route.param} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
             navigator.pop() 
@@ -66,41 +63,45 @@ export default class NewsDetail extends React.Component{
     }
 
     publish(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'publish',
-                component: Publish
+                name:"publish",
+                param:{
+                }
             })
         }
     }
 
     gotoLocation(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'baiduMap',
-                component: BaiduMap
+                name:"baidumap",
+                param:{
+                }
             })
         }
     }
 
     gotoGuanli(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'guanli',
-                component: GuanLi
+                name:"guanli",
+                param:{
+                }
             })
         }
     }
 
     gotojiucuo(){
-        const { navigator } = this.props;
-        if(navigator) {
+        let {route,navigator} = this.props;
+        if(navigator){
             navigator.push({
-                name: 'jiucuo',
-                component: JiuCuo
+                name:"jiucuo",
+                param:{
+                }
             })
         }
     }

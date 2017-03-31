@@ -16,7 +16,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
-import CahtGroupInfo from './cahtGroupInfo'
+
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -55,8 +55,7 @@ export default class BaoBan extends React.Component{
             const { navigator } = this.props;
             if(navigator) {
                 navigator.push({
-                    name: 'cahtGroupInfo',
-                    component: CahtGroupInfo
+                    name: 'chatgroupinfo',
                 })
             }
         }

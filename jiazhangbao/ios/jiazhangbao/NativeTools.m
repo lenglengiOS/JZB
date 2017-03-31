@@ -13,6 +13,14 @@
 @implementation NativeTools
 
 RCT_EXPORT_MODULE();
+/**
+ * 插件名-initPush
+ */
+RCT_EXPORT_METHOD(initPush)
+{
+  NSLog(@"initPush");
+}
+
 // 注册
 RCT_EXPORT_METHOD(registerUSer:(NSString *)aUsername phoneNum:(NSString *)aPhoneNum pwd:(NSString *)aPwd callback:(RCTResponseSenderBlock)callback)
 {

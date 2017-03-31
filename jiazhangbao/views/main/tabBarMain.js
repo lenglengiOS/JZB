@@ -11,10 +11,10 @@ import {
  	TextInput,
  	ListView,
  	Platform,
-    Alert,
-    ScrollView,
-    Image,
-    Navigator
+  Alert,
+  ScrollView,
+  Image,
+  Navigator,
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
