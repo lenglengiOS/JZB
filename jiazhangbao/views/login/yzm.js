@@ -17,9 +17,11 @@ import {
 } from 'react-native';
 
 import Storage from 'react-native-storage';
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
 import LoadingShow  from '../component/react-native-loading';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import Toast from '../tools/Toast';
+import Tools from '../tools';
 
 var NativeTools = NativeModules.NativeTools;
 
@@ -41,7 +43,7 @@ export default class Register extends React.Component{
                 this.setState({sendSuccess:true})
             } else {
                 this.setState({loading:false})
-                Toast.show("操作失败", 2000)
+                Toast.show("验证码发送失败！", 2000)
             }
         });
 
@@ -52,7 +54,7 @@ export default class Register extends React.Component{
         );
     }
 
-    componentWillUnMount() {
+    componentWillUnmount() {
         this.interval && clearInterval(this.interval);
         NativeTools = null;
     }
@@ -78,6 +80,8 @@ export default class Register extends React.Component{
     }
   
     _backToHome(){
+        let value = 'value';
+        RCTDeviceEventEmitter.emit('undateUserInfo',value); 
         const { navigator } = this.props;
         if(navigator) {
             navigator.popToTop() 
@@ -96,20 +100,43 @@ export default class Register extends React.Component{
         this.setState({loading:true})
         if (this.state.sendSuccess) {
             NativeTools.commitVerificationCode(this.state.yanzhengma, this.props.param.phonenum, (error, events) => {
-                if (events[0] == '验证成功') {
-                    this.setState({loading:false})
-                    Toast.show("验证成功", 2000)
-                    {/*验证成功后直接跳转到首页，登录状态为YES，并且存储登录的状态和账号密码*/}
-                    
-
-
-
-
-                    {this._backToHome()}
-                } else {
+                if (events[0] != '验证成功') {
                     this.setState({loading:false})
                     Toast.show("验证失败", 2000)
+                    return;
+                } 
+                {/*验证成功后注册*/}
+                var PostData ={
+                    data:{
+                        userphone:this.props.param.phonenum,
+                        userpwd:this.props.param.pwd,
+                        username:this.props.param.username,
+                        isLogin:true
+                    }
                 }
+                Tools.postNotBase64(IPAddr+"/reigster/register.php", PostData,(ret)=>{
+                    console.log("====dadadada=="+JSON.stringify(ret))
+                        if(ret.message == "注册成功")
+                        {
+                            // 注册成功后，状态为登陆状态，存储登陆信息，并pop到首页
+                            this.setState({loading:false})
+                            Toast.show("注册成功！", 2000)
+                            Tools.setStorage("maincfg", JSON.stringify(PostData));
+                            {this._backToHome()}
+                        }
+                        else if(ret.message == "该手机号已注册")
+                        {
+                            this.setState({loading:false})
+                            Toast.show("该手机号已注册!", 2000)
+                        }else{
+                            this.setState({loading:false})
+                            Toast.show("注册失败!", 2000)
+                        }
+                    }, (err)=>{
+                        this.setState({loading:false})
+                        Toast.show(err);
+                        console.log("====444444==="+err)
+                });
             });
         }
     }
@@ -128,11 +155,11 @@ export default class Register extends React.Component{
                 </View>
                 <View style={styles.yzm}>
                     <TextInput
-                    placeholder='请输入验证码'
-                    style={styles.inputView}
-                    clearButtonMode='while-editing'
-                    onChangeText={(text) => this.setState({yanzhengma:text})}
-                    keyboardType='numeric'/>
+                        placeholder='请输入验证码'
+                        style={styles.inputView}
+                        clearButtonMode='while-editing'
+                        onChangeText={(text) => this.setState({yanzhengma:text})}
+                        keyboardType='numeric'/>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._resend()}}>
                         <View style={[styles.countDown, {backgroundColor:this.state.counting?'#C8C8C8':'#48B9A9'}]}>
                             <Text style={{color:'#FFF', fontSize:14}}>{this.state.counting?this.state.countDown+'秒':'重发'}</Text>

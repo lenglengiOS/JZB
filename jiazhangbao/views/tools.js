@@ -274,7 +274,8 @@ var Tools = {
             return false;
         }
     },
-    dopost:function(url, data, successCallBaack, errCallBack,showokMsg){        
+    dopost:function(url, data, successCallBaack, errCallBack,showokMsg){   
+         console.log("data==="+data)
         var fetchOptions = {
             method: 'POST',
             headers: {
@@ -292,7 +293,9 @@ var Tools = {
         fetch(url, fetchOptions)
             .then((response) => response.text())
             .then((responseText) => {
-                this.doResult(responseText,successCallBaack, errCallBack,showokMsg)
+                //this.doResult(responseText,successCallBaack, errCallBack,showokMsg)
+                var responseData=eval("(" + responseText + ")")
+                successCallBaack(responseData)
             })
             .catch((error) => {
                 errCallBack("服务器访问失败"+error);
@@ -371,7 +374,8 @@ var Tools = {
                     if(returnType==-1){
                         successCallBack(eval("(" + responseText + ")"));
                     }else{
-                        this.doResult(responseText,successCallBack, errCallBack,showokMsg)
+                        //this.doResult(responseText,successCallBack, errCallBack,showokMsg)
+                        successCallBack(responseText)
                     }                    
                 }).catch((err)=> {
                     if(errCallBack){

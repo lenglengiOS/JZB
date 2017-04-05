@@ -35,6 +35,8 @@ var Size=function(font){
 	}
 }
 
+let IPAddr = "http://192.168.0.102";
+
 const isDebug=true;
 if(!isDebug){
 	console.log=function(text){}
@@ -75,6 +77,7 @@ const JZBImages = {
 	qq:require('../resources/login/share_qq.png'),
 	wb:require('../resources/login/share_sina.png'),
 	nicheng:require('../resources/login/login_user@2x.png'),
+	login_phone:require('../resources/login/login_phone@2x.png'),	
 	msg:require('../resources/home/main_mes@2x.png'),
 	userBg:require('../resources/home/home_userbg.png'),
 	userIcon:require('../resources/home/default_user.png'),
@@ -97,7 +100,7 @@ const JZBImages = {
 }
 
 
-module.exports ={Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,push,cgRoute}
+module.exports ={Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,push,cgRoute,IPAddr}
 
 
 

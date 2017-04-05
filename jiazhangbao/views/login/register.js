@@ -78,25 +78,19 @@ export default class Register extends React.Component{
             this.setState({
                 loading:true
             })
-            NativeTools.registerUSer(this.state.username, phone, this.state.pwd,(error, events) => {
-                if (events[0] == '手机号已被注册') {
-                    this.setState({loading:false})
-                    Toast.show("手机号已被注册", 2000)
-                } else {
-                    this.setState({loading:false})
-                    {/*跳转到验证码界面*/}
-                    let {route,navigator} = this.props;
-                    if(navigator){
-                        navigator.push({
-                            name:"yzm",
-                            param:{
-                                phonenum:phone,
-                                pwd:this.state.pwd
-                            }
-                        })
+            this.setState({loading:false})
+            {/*跳转到验证码界面*/}
+            let {route,navigator} = this.props;
+            if(navigator){
+                navigator.push({
+                    name:"yzm",
+                    param:{
+                        phonenum:phone,
+                        pwd:this.state.pwd,
+                        username:this.state.username
                     }
-                }
-            });
+                })
+            }
         }
     }
 
@@ -134,7 +128,7 @@ export default class Register extends React.Component{
                         </View>
                         <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                         <View style={styles.phone}>
-                            <Image source={JZBImages.phone} style={{width:25, height:25, marginLeft:20}}/>
+                            <Image source={JZBImages.login_phone} style={{width:25, height:25, marginLeft:20}}/>
                             <TextInput 
                                 ref={(o)=>this.inputphone=o}
                                 style={{flex:1, height: 40, marginLeft:20, marginTop:5}}

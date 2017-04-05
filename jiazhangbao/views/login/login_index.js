@@ -19,8 +19,6 @@ import {
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import Toast from '../tools/Toast';
 
-
-
 var NativeTools = NativeModules.NativeTools;
 
 export default class Login extends React.Component{
@@ -95,7 +93,7 @@ export default class Login extends React.Component{
                     <View style={{width:screenWidth, height:103, marginTop:40, marginBottom:40}}>
                     	<View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                     	<View style={styles.phone}>
-                    		<Image source={JZBImages.phone} style={{width:25, height:25, marginLeft:20}}/>
+                    		<Image source={JZBImages.login_phone} style={{width:25, height:25, marginLeft:20}}/>
                     		<TextInput 
                                 ref={(o)=>this.inputphone=o}
                                 onFocus={() => {this.inputphone.focus()}}

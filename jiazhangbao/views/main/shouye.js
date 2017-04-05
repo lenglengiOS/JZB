@@ -16,10 +16,11 @@ import {
     NativeModules
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LoadingShow  from '../component/react-native-loading';
-
+import Toast from '../tools/Toast';
+import Tools from '../tools';
 
 var NativeTools = NativeModules.NativeTools;
 var phonenum= '15680222613';
@@ -29,18 +30,27 @@ export default class Home extends React.Component{
 		super(props);
 		this.state={
             network:true,
-            isLogin:true
+            isLogin:false,
 		}
 	}
+
     componentDidMount(){
+        this.login();
+        this.listener = RCTDeviceEventEmitter.addListener('undateUserInfo',(value)=>{  
+            // 接受到通知后的处理  
+            this.login();
+        }); 
+
+        
         // 获取用户数据
         NativeTools.getUserInfo(phonenum,(error, events) => {
             if (events[0] == '获取用户失败') {
                     Toast.show("获取用户失败", 2000)
                 } else {
-                    this.setState({username:events[0],
-                                   userIcon:events[1]
-                                   })
+                    //this.setState({username:events[0],
+                    //              userIcon:events[1],
+
+                     //              })
                 }       
         });
         // 获取推荐新闻
@@ -51,6 +61,43 @@ export default class Home extends React.Component{
                 this.setState({events:events})
             }   
         });
+    }
+
+    componentWillUnmount(){  
+      // 移除监听 一定要写  
+      this.listener.remove();  
+    }  
+
+    login(){
+        Tools.getStorage("maincfg",(resData)=>{
+            if(Tools.isDataValid(resData))
+            {
+                this.setState({isLogin:true})
+                var maincfgData=JSON.parse(resData)
+                console.log("====maincfgData=="+maincfgData)
+                var PostData ={
+                    data:{
+                        userphone:maincfgData.data.userphone,
+                        userpwd:maincfgData.data.userpwd
+                    }
+                }
+                Tools.postNotBase64("http://192.168.0.102/login/login.php", PostData,(ret)=>{
+                    console.log("====dadadada=="+JSON.stringify(ret))
+                        if(ret.message == "登陆成功")
+                        {
+                            this.setState({
+                                username:ret.data[0].user_name,
+                                userIcon:ret.user_icon
+                            })
+                        }else{
+                            Toast.show("获取用户信息失败", 2000)
+                        }
+                    }, (err)=>{
+                        Toast.show(err);
+                        console.log("====444444==="+err)
+                });
+            }
+        });  
     }
 
     pressUserIcon() {

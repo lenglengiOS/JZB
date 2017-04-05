@@ -24,6 +24,7 @@ import Home from './shouye';
 import JiaZhang from './jiazhang';
 import BaoBan from './baoban';
 import WoDe from './wode';
+import PageLoading from '../tools/Loading' 
 
 const HOMETITLE = '首页';
 const HOMETAG = 'home';
