@@ -79,6 +79,7 @@ export default class NewsDetail extends React.Component{
             navigator.push({
                 name:"baidumap",
                 param:{
+                    label:'666'
                 }
             })
         }
@@ -167,7 +168,7 @@ export default class NewsDetail extends React.Component{
                         <Text style={{fontSize:14, color:'#A1A0A1'}}>机构简介</Text>
                         <Text style={{fontSize:15, marginTop:10, marginLeft:5, marginRight:5}}  numberOfLines={this.state.isShowMore?0:4}>EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)</Text>
                         <View style={{alignItems:'center'}}>
-                            <Image source={!this.state.isShowMore?JZBImages.showMoreNor:JZBImages.showMore} style={{width:20, height:20}} />
+                            <Image source={!this.state.isShowMore?JZBImages.common_getinNor:JZBImages.showMore} style={{width:20, height:20}} />
                         </View>
                     </TouchableOpacity>
                     <View style={styles.photo}>

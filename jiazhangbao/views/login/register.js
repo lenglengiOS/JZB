@@ -71,7 +71,7 @@ export default class Register extends React.Component{
         }else if (pPhone.indexOf("+86")>=0) {
             phone =pPhone.split("+86")[1];
         }else if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(phone))){
-                Toast.show("非法的手机号", 2000);
+            Toast.show("非法的手机号", 2000);
         }else if (!this.state.pwd) {
             Toast.show("请输入密码", 2000);
         }else{

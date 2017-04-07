@@ -155,7 +155,7 @@ var styles = StyleSheet.create({
         paddingTop:10,
         paddingLeft:15,
         paddingBottom:10,
-        paddingRight:15,
+        paddingRight:10,
         justifyContent:'space-between'
     },
     child:{
@@ -175,7 +175,7 @@ var styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'space-between', 
         flex:1, 
-        paddingRight:15, 
+        paddingRight:10, 
         borderBottomWidth:1, 
         borderBottomColor:'#E8E8E8'
     }

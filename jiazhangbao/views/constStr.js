@@ -97,6 +97,27 @@ const JZBImages = {
 	BBIcon_sel:require('../resources/Main/tab_graduation-on@2x.png'),
 	WDIcon:require('../resources/Main/tab_user@2x.png'),
 	WDIcon_sel:require('../resources/Main/tab_user-on@2x.png'),
+	gc_beauty_v1:require('../resources/wode/gc_beauty_v1.png'),
+	gc_beauty_v2:require('../resources/wode/gc_beauty_v2.png'),
+	gc_beauty_v3:require('../resources/wode/gc_beauty_v3.png'),
+	gc_beauty_v4:require('../resources/wode/gc_beauty_v4.png'),
+	gc_beauty_v5:require('../resources/wode/gc_beauty_v5.png'),
+	gc_beauty_v6:require('../resources/wode/gc_beauty_v6.png'),
+	gc_beauty_v7:require('../resources/wode/gc_beauty_v7.png'),
+	gc_beauty_v8:require('../resources/wode/gc_beauty_v8.png'),
+	gc_beauty_v9:require('../resources/wode/gc_beauty_v9.png'),
+	gc_beauty_v10:require('../resources/wode/gc_beauty_v10.png'),
+	gc_beauty_v12:require('../resources/wode/gc_beauty_v12.png'),
+	gc_beauty_v13:require('../resources/wode/gc_beauty_v13.png'),
+	gc_beauty_v14:require('../resources/wode/gc_beauty_v14.png'),
+	gc_beauty_v15:require('../resources/wode/gc_beauty_v15.png'),
+	user_follow:require('../resources/wode/user_follow.png'),
+	user_friend:require('../resources/wode/user_friend.png'),
+	user_post:require('../resources/wode/user_post.png'),
+	user_setting:require('../resources/wode/user_setting.png'),
+	user_store:require('../resources/wode/user_store.png'),
+	user_take_class:require('../resources/wode/user_take_class.png'),
+
 }
 
 

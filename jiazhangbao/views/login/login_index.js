@@ -16,16 +16,20 @@ import {
     NativeModules,
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
+import Tools from '../tools';
 
-var NativeTools = NativeModules.NativeTools;
+//var NativeTools = NativeModules.NativeTools;
 
 export default class Login extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-           
+            loading:false,
+            loadingWaitText:"注册中..",
 		}
 	}
     
@@ -34,6 +38,8 @@ export default class Login extends React.Component{
     }
 
     _cancel(){
+        let value = 'value';
+        RCTDeviceEventEmitter.emit('undateUserInfo',value); 
     	const { navigator } = this.props;
         //为什么这里可以取得 props.navigator?请看上文:
         //<Component {...route.param} navigator={navigator} />
@@ -66,14 +72,55 @@ export default class Login extends React.Component{
 
 
 
-        NativeTools.registerUSer((error, events) => {
-              if (error) {
-                console.error(error);
-              } else {
-                this.setState({events: events});
-                alert(events[1])
-              }
-            });
+        //NativeTools.registerUSer((error, events) => {
+        //      if (error) {
+        //        console.error(error);
+        //      } else {
+        //        this.setState({events: events});
+        //        alert(events[1])
+        //      }
+        //    });
+        var check = Tools.checkPhone(this.state.phone);
+        if(check)
+        {
+            Toast.show(check, 2000);
+            return;
+        }
+        if(!this.state.password)
+        {
+            Toast.show('请输入密码', 2000);return;
+        }
+        this.setState({loading:true})
+        //登陆
+        var PostData ={
+                    data:{
+                        userphone:this.state.phone,
+                        userpwd:this.state.password,
+                        isLogin:true
+                    }
+                }
+        Tools.postNotBase64(IPAddr+"/login/login.php", PostData,(ret)=>{
+            console.log("====dadadada=="+JSON.stringify(ret))
+                if(ret.message == "登陆成功")
+                {
+                    this.setState({loading:false})
+                    Toast.show("登陆成功", 2000)
+                    Tools.setStorage("maincfg", JSON.stringify(PostData));
+                    this._cancel();
+                }
+                else if(ret.message == "密码错误")
+                {
+                    this.setState({loading:false})
+                    Toast.show("密码错误!", 2000)
+                }else{
+                    this.setState({loading:false})
+                    Toast.show("该用户不存在！!", 2000)
+                }
+            }, (err)=>{
+                this.setState({loading:false})
+                Toast.show(err);
+                console.log("====444444==="+err)
+        });
     }
 
 	render(){
@@ -143,6 +190,7 @@ export default class Login extends React.Component{
             			<Text style={{color:'#8A8A8A', fontSize:18, marginTop:3}}>先去逛逛</Text>
             		</TouchableOpacity>
             	</View>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
 			</View>
 		  )
 	}

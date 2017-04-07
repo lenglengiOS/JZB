@@ -21,8 +21,9 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
+import PageLoading from '../tools/Loading' ;
 
-var NativeTools = NativeModules.NativeTools;
+//var NativeTools = NativeModules.NativeTools;
 var phonenum= '15680222613';
 
 export default class Home extends React.Component{
@@ -42,25 +43,25 @@ export default class Home extends React.Component{
         }); 
 
         
-        // 获取用户数据
-        NativeTools.getUserInfo(phonenum,(error, events) => {
-            if (events[0] == '获取用户失败') {
-                    Toast.show("获取用户失败", 2000)
-                } else {
-                    //this.setState({username:events[0],
-                    //              userIcon:events[1],
+        //// 获取用户数据
+        //NativeTools.getUserInfo(phonenum,(error, events) => {
+        //    if (events[0] == '获取用户失败') {
+        //            Toast.show("获取用户失败", 2000)
+        //        } else {
+        //            //this.setState({username:events[0],
+        //            //              userIcon:events[1],
 
-                     //              })
-                }       
-        });
-        // 获取推荐新闻
-        NativeTools.getRecomNews((error, events) => {
-            if (events[0] == '获取推荐新闻失败') {
-                Toast.show("获取推荐新闻失败", 2000)
-            } else {
-                this.setState({events:events})
-            }   
-        });
+        //             //              })
+        //        }       
+        //});
+        //// 获取推荐新闻
+        //NativeTools.getRecomNews((error, events) => {
+        //    if (events[0] == '获取推荐新闻失败') {
+        //        Toast.show("获取推荐新闻失败", 2000)
+        //    } else {
+        //        this.setState({events:events})
+        //    }   
+        //});
     }
 
     componentWillUnmount(){  
@@ -81,7 +82,7 @@ export default class Home extends React.Component{
                         userpwd:maincfgData.data.userpwd
                     }
                 }
-                Tools.postNotBase64("http://192.168.0.102/login/login.php", PostData,(ret)=>{
+                Tools.postNotBase64(IPAddr+"/login/login.php", PostData,(ret)=>{
                     console.log("====dadadada=="+JSON.stringify(ret))
                         if(ret.message == "登陆成功")
                         {
