@@ -121,7 +121,7 @@ export default class NewsDetail extends React.Component{
         var margin = 3;
         return arr.map((item, index) => {
             return(
-                <View style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25, marginRight:3, marginTop:3}} >
+                <View key={index} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25, marginRight:3, marginTop:3}} >
                      <Image source={JZBImages.nav} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25}} />
                 </View>
             )
