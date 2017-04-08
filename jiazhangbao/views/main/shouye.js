@@ -23,7 +23,6 @@ import Toast from '../tools/Toast';
 import Tools from '../tools';
 import PageLoading from '../tools/Loading' ;
 
-//var NativeTools = NativeModules.NativeTools;
 var phonenum= '15680222613';
 
 export default class Home extends React.Component{
@@ -32,6 +31,7 @@ export default class Home extends React.Component{
 		this.state={
             network:true,
             isLogin:false,
+            loading:true
 		}
 	}
 
@@ -41,33 +41,39 @@ export default class Home extends React.Component{
             // 接受到通知后的处理  
             this.login();
         }); 
-
-        
-        //// 获取用户数据
-        //NativeTools.getUserInfo(phonenum,(error, events) => {
-        //    if (events[0] == '获取用户失败') {
-        //            Toast.show("获取用户失败", 2000)
-        //        } else {
-        //            //this.setState({username:events[0],
-        //            //              userIcon:events[1],
-
-        //             //              })
-        //        }       
-        //});
-        //// 获取推荐新闻
-        //NativeTools.getRecomNews((error, events) => {
-        //    if (events[0] == '获取推荐新闻失败') {
-        //        Toast.show("获取推荐新闻失败", 2000)
-        //    } else {
-        //        this.setState({events:events})
-        //    }   
-        //});
+        // 获取页面数据
+        this.getData();
     }
 
     componentWillUnmount(){  
       // 移除监听 一定要写  
       this.listener.remove();  
     }  
+
+    getData(){
+        this.setState({loading:true})
+       Tools.get(IPAddr+"/home/home.php",(data)=>{
+                console.log("==homedata===="+(data));
+                this.setState({
+                    recomedNews:data.recomedNews,
+                    recomedCourse:data.recomedCourse,
+                    recomedOrg:data.recomedOrg,
+                    network:true,
+                    isLogin:true,
+                    loading:false
+                })
+                
+        },(err)=>{
+            this.setState({
+              loadingWait:false,
+              loaderr:true,
+              network:false,
+              isLogin:false,
+              loading:false
+            })
+            Toast.show(err)
+        })
+    }
 
     login(){
         Tools.getStorage("maincfg",(resData)=>{
@@ -88,13 +94,15 @@ export default class Home extends React.Component{
                         {
                             this.setState({
                                 username:ret.data[0].user_name,
-                                userIcon:ret.user_icon
+                                userIcon:ret.user_icon,
+                                isLogin:true
                             })
                         }else{
                             Toast.show("获取用户信息失败", 2000)
                         }
                     }, (err)=>{
                         Toast.show(err);
+                        this.setState({isLogin:false})
                         console.log("====444444==="+err)
                 });
             }else{
@@ -148,62 +156,6 @@ export default class Home extends React.Component{
         }
     }
 
-    _renderNav(){
-        return(
-            <View>
-                <View style={{width:screenWidth, height:64}}>
-                    <Image source={JZBImages.nav} style={styles.nav} resizeMode={Image.resizeMode.stretch}>
-
-                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._search()}}>
-                            <Image source={JZBImages.search} style={{width:30, height:30, marginRight:30, tintColor:'#FFF'}}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._showMsg()}}>
-                            <Image source={JZBImages.msg} style={{width:30, height:30}}/>
-                        </TouchableOpacity>
-                    </Image>
-                </View>
-            </View>
-        )
-    }
-
-    _renderCell(ICON, TITLE, INDEX){
-        return(
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressOrg(TITLE, INDEX)} style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
-                <View style={{alignItems:'center'}}>
-                    <Image source={ICON} style={{width:50, height:50, borderRadius:25, marginBottom:10}}/>
-                    <Text style={{fontSize:16}}>{TITLE}</Text>
-                </View>
-            </TouchableOpacity>
-        )
-    }
-
-    _renderHeader(){
-        return(
-            <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
-                <Image source={JZBImages.userBg} style={{width:screenWidth, height:140}} resizeMode={Image.resizeMode.stretch}>
-                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
-                        <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
-                        <Text style={styles.login} >{this.state.isLogin?this.state.username:'登录/注册'}</Text>
-                    </TouchableOpacity>
-                </Image>
-                <View style={{width:screenWidth, height:180}}>
-                    <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
-                        {this._renderCell(JZBImages.youeryuan,'幼儿园',1)}
-                        {this._renderCell(JZBImages.xiaoxue,'小学',2)}
-                        {this._renderCell(JZBImages.peixunban,'培训班',3)}
-                        {this._renderCell(JZBImages.tuoguanban,'托管班',4)}
-                    </View>
-                    <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
-                        {this._renderCell(JZBImages.jiaoyu,'教育升学',5)}
-                        {this._renderCell(JZBImages.zhishi,'家长知识',6)}
-                        {this._renderCell(JZBImages.jiazhangquan,'家长圈',7)}
-                        {this._renderCell(JZBImages.taolun,'热门讨论',8)}
-                    </View>
-                </View>
-            </View>
-        )
-    }
-
     _goToNewsDetail(TITLE, URL) {
         const { navigator } = this.props;
         if(navigator) {
@@ -242,10 +194,22 @@ export default class Home extends React.Component{
                 })
             }
         }
-        
-
-        
     }
+
+   
+
+    _renderCell(ICON, TITLE, INDEX){
+        return(
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressOrg(TITLE, INDEX)} style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
+                <View style={{alignItems:'center'}}>
+                    <Image source={ICON} style={{width:50, height:50, borderRadius:25, marginBottom:10}}/>
+                    <Text style={{fontSize:16}}>{TITLE}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
+  
 
     _renderBodyCell(ICON, TITLT, COLOR, TEXT, URL){
         return(
@@ -262,23 +226,23 @@ export default class Home extends React.Component{
         )
     }
 
-    _renderRecommendCell(IMG, TITLE, SUBTITLE, PRICE, DISTANCE){
+    _renderRecommendCell(ICON, TITLE, SUBTITLE, PRICE, DISTANCE){
         return(
             <View>
                 <TouchableOpacity activeOpacity={0.8} onPress={()=>this.goToCourseDetails(PRICE)}>
                     <View style={{flexDirection:'row'}}>
-                        <Image source={IMG} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
+                        <Image source={{uri: ICON}} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
                         <View style={styles.recommendCell}>
                             <View>
                                 <View style={{justifyContent:'space-between', flexDirection:'row'}}>
-                                    <Text style={{fontSize:18}}>{TITLE}</Text>
+                                    <Text style={{fontSize:16}}>{TITLE}</Text>
                                     <Text style={{fontSize:18, color:'#F87B00'}}>{PRICE}</Text>
                                 </View>
-                                <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>{SUBTITLE}</Text>
+                                <Text style={{fontSize:13, color:'#9B9B9B', marginTop:5}}>{SUBTITLE}</Text>
                             </View>
                             <View style={{flexDirection:'row'}}>
                                 <Image source={JZBImages.location} style={{width:8, height:12}}/>
-                                <Text style={{fontSize:13, color:'#9B9B9B'}}> {DISTANCE}km</Text>
+                                <Text style={{fontSize:12, color:'#9B9B9B'}}> {DISTANCE}km</Text>
                             </View>
                         </View>
                     </View>
@@ -304,41 +268,74 @@ export default class Home extends React.Component{
         if (!this.state.network) {
             return(
                 <View style={{alignItems:'center', marginTop:10}}>
-                    <Text style={{color:'#272822'}} onPress={()=>{alert('点击加载')}}>点击加载</Text>
+                    <Text style={{color:'#272822'}} onPress={()=>this.getData()}>点击加载</Text>
                 </View>
             )
         }
         return(
             <View style={{backgroundColor:'#FFF', marginTop:20}}>
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
-                {this._renderBodyCell(this.state.events?this.state.events[0].icon:'http://', this.state.events?this.state.events[0].typeName:'', '#E8E8E8', this.state.events?this.state.events[0].title:'', this.state.events?this.state.events[0].pageUrl:'')}
-                {this._renderBodyCell(this.state.events?this.state.events[1].icon:'http://', this.state.events?this.state.events[1].typeName:'', '#E8E8E8', this.state.events?this.state.events[1].title:'', this.state.events?this.state.events[1].pageUrl:'')}
-                {this._renderBodyCell(this.state.events?this.state.events[2].icon:'http://', this.state.events?this.state.events[2].typeName:'', '#E8E8E8', this.state.events?this.state.events[2].title:'', this.state.events?this.state.events[2].pageUrl:'')}
-                {this._renderBodyCell(this.state.events?this.state.events[3].icon:'http://', this.state.events?this.state.events[3].typeName:'', '#FFF', this.state.events?this.state.events[3].title:'', this.state.events?this.state.events[3].pageUrl:'')}
+                {this._renderBodyCell(this.state.recomedNews?IPAddr+this.state.recomedNews[0].img:'http://', this.state.recomedNews?this.state.recomedNews[0].title:'', '#E8E8E8', this.state.recomedNews?this.state.recomedNews[0].subtitle:'', this.state.recomedNews?this.state.recomedNews[0].url:'')}
+                {this._renderBodyCell(this.state.recomedNews?IPAddr+this.state.recomedNews[1].img:'http://', this.state.recomedNews?this.state.recomedNews[1].title:'', '#E8E8E8', this.state.recomedNews?this.state.recomedNews[1].subtitle:'', this.state.recomedNews?this.state.recomedNews[1].url:'')}
+                {this._renderBodyCell(this.state.recomedNews?IPAddr+this.state.recomedNews[2].img:'http://', this.state.recomedNews?this.state.recomedNews[2].title:'', '#E8E8E8', this.state.recomedNews?this.state.recomedNews[2].subtitle:'', this.state.recomedNews?this.state.recomedNews[2].url:'')}
+                {this._renderBodyCell(this.state.recomedNews?IPAddr+this.state.recomedNews[3].img:'http://', this.state.recomedNews?this.state.recomedNews[3].title:'', '#FFF', this.state.recomedNews?this.state.recomedNews[3].subtitle:'', this.state.recomedNews?this.state.recomedNews[3].url:'')}
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐课程')}
-                {this._renderRecommendCell(JZBImages.nav, '钢琴度套餐', '星萌艺校', '¥ 39', '1.54')}
-                {this._renderRecommendCell(JZBImages.nav, '钢琴季度冷洪林餐', '星萌艺校', '¥ 19', '1.54')}
-                {this._renderRecommendCell(JZBImages.nav, '钢玩到无餐', '星萌艺校', '¥ 229', '1.54')}
-                {this._renderRecommendCell(JZBImages.nav, '分瓦达季度套餐', '星萌艺校', '¥ 34', '1.54')}
+                {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[0].img:'http://', this.state.recomedCourse?this.state.recomedCourse[0].title:'', this.state.recomedCourse?this.state.recomedCourse[0].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[0].price:'', this.state.recomedCourse?this.state.recomedCourse[0].location:'')}
+                {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[1].img:'http://', this.state.recomedCourse?this.state.recomedCourse[1].title:'', this.state.recomedCourse?this.state.recomedCourse[1].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[1].price:'', this.state.recomedCourse?this.state.recomedCourse[1].location:'')}
+                {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[2].img:'http://', this.state.recomedCourse?this.state.recomedCourse[2].title:'', this.state.recomedCourse?this.state.recomedCourse[2].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[2].price:'', this.state.recomedCourse?this.state.recomedCourse[2].location:'')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐机构')}
-                {this._renderRecommendCell(JZBImages.nav, '钢威锋网无法季度套餐', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(JZBImages.nav, '钢企鹅王发季度套餐', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(JZBImages.nav, '钢琴培驱蚊器翁', '星萌艺校', '', '1.54')}
-                {this._renderRecommendCell(JZBImages.nav, '钢请问我去餐', '星萌艺校', '', '1.54')}
+                {this._renderRecommendCell(this.state.recomedOrg?IPAddr+this.state.recomedOrg[0].img:'http://', this.state.recomedOrg?this.state.recomedOrg[0].title:'', this.state.recomedOrg?this.state.recomedOrg[0].position:'', '', this.state.recomedOrg?this.state.recomedOrg[0].location:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?IPAddr+this.state.recomedOrg[1].img:'http://', this.state.recomedOrg?this.state.recomedOrg[1].title:'', this.state.recomedOrg?this.state.recomedOrg[1].position:'', '', this.state.recomedOrg?this.state.recomedOrg[1].location:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?IPAddr+this.state.recomedOrg[2].img:'http://', this.state.recomedOrg?this.state.recomedOrg[2].title:'', this.state.recomedOrg?this.state.recomedOrg[2].position:'', '', this.state.recomedOrg?this.state.recomedOrg[2].location:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?IPAddr+this.state.recomedOrg[3].img:'http://', this.state.recomedOrg?this.state.recomedOrg[3].title:'', this.state.recomedOrg?this.state.recomedOrg[3].position:'', '', this.state.recomedOrg?this.state.recomedOrg[3].location:'')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
             </View>
         )
     }
 
 	render(){
+        if(this.state.loading)
+        {
+            return PageLoading.loadingContent();
+        }
 		return(
 			<View style={styles.container}>
-                {this._renderNav()}
+                <View style={{width:screenWidth, height:64}}>
+                    <Image source={JZBImages.nav} style={styles.nav} resizeMode={Image.resizeMode.stretch}>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._search()}}>
+                            <Image source={JZBImages.search} style={{width:30, height:30, marginRight:30, tintColor:'#FFF'}}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._showMsg()}}>
+                            <Image source={JZBImages.msg} style={{width:30, height:30}}/>
+                        </TouchableOpacity>
+                    </Image>
+                </View>
                 <ScrollView>
-                    {this._renderHeader()}
+                    <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
+                        <Image source={JZBImages.userBg} style={{width:screenWidth, height:140}} resizeMode={Image.resizeMode.stretch}>
+                            <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
+                                <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
+                                <Text style={styles.login} >{this.state.isLogin?this.state.username:'登录/注册'}</Text>
+                            </TouchableOpacity>
+                        </Image>
+                        <View style={{width:screenWidth, height:180}}>
+                            <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
+                                {this._renderCell(JZBImages.youeryuan,'幼儿园',1)}
+                                {this._renderCell(JZBImages.xiaoxue,'小学',2)}
+                                {this._renderCell(JZBImages.peixunban,'培训班',3)}
+                                {this._renderCell(JZBImages.tuoguanban,'托管班',4)}
+                            </View>
+                            <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
+                                {this._renderCell(JZBImages.jiaoyu,'教育升学',5)}
+                                {this._renderCell(JZBImages.zhishi,'家长知识',6)}
+                                {this._renderCell(JZBImages.jiazhangquan,'家长圈',7)}
+                                {this._renderCell(JZBImages.taolun,'热门讨论',8)}
+                            </View>
+                        </View>
+                    </View>
                     {this._renderBody()}
                 </ScrollView>
 			</View>

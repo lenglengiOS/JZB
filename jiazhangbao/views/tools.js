@@ -375,7 +375,7 @@ var Tools = {
                         successCallBack(eval("(" + responseText + ")"));
                     }else{
                         //this.doResult(responseText,successCallBack, errCallBack,showokMsg)
-                        successCallBack(responseText)
+                        successCallBack(eval("(" + responseText + ")").data);
                     }                    
                 }).catch((err)=> {
                     if(errCallBack){

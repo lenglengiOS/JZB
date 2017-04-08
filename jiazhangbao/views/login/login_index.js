@@ -29,7 +29,7 @@ export default class Login extends React.Component{
 		super(props);
 		this.state={
             loading:false,
-            loadingWaitText:"注册中..",
+            loadingWaitText:"登录中..",
 		}
 	}
     
