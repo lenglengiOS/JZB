@@ -27,6 +27,18 @@ export default class WoDe extends React.Component{
        
     }
 
+    setting(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'setting',
+                param:{
+                    
+                }
+            })
+        }
+    }
+
     renderNameView(){
     	if(!this.state.isLogin)
     	{
@@ -109,11 +121,13 @@ export default class WoDe extends React.Component{
                 		</View>
                 	</View>
                 	<View style={styles.commCell}>
-                		<View style={{height:44, width:screenWidth,flexDirection:'row', alignItems:'center', paddingLeft:15, paddingRight:10}}>
-                			<Image source={JZBImages.user_setting} style={styles.image} />
-                			<Text style={{color:'#000', fontSize:16, flex:1}}>设置</Text>
-                			<Image source={JZBImages.chose} style={{width:20, height:20}} />
-                		</View>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.setting()}}>
+                    		<View style={{height:44, width:screenWidth,flexDirection:'row', alignItems:'center', paddingLeft:15, paddingRight:10}}>
+                    			<Image source={JZBImages.user_setting} style={styles.image} />
+                    			<Text style={{color:'#000', fontSize:16, flex:1}}>设置</Text>
+                    			<Image source={JZBImages.chose} style={{width:20, height:20}} />
+                    		</View>
+                        </TouchableOpacity>
                 	</View>
 
 

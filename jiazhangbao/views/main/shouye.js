@@ -97,6 +97,8 @@ export default class Home extends React.Component{
                         Toast.show(err);
                         console.log("====444444==="+err)
                 });
+            }else{
+                this.setState({isLogin:false})
             }
         });  
     }
@@ -178,10 +180,10 @@ export default class Home extends React.Component{
     _renderHeader(){
         return(
             <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
-                <Image source={JZBImages.userBg} style={{width:screenWidth, height:140, alignItems:'center'}} resizeMode={Image.resizeMode.stretch}>
-                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}}>
+                <Image source={JZBImages.userBg} style={{width:screenWidth, height:140}} resizeMode={Image.resizeMode.stretch}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
                         <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
-                        <Text style={styles.login} >{this.state.username?this.state.username:'登录/注册'}</Text>
+                        <Text style={styles.login} >{this.state.isLogin?this.state.username:'登录/注册'}</Text>
                     </TouchableOpacity>
                 </Image>
                 <View style={{width:screenWidth, height:180}}>

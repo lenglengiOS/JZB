@@ -37,6 +37,10 @@ export default class Login extends React.Component{
        
     }
 
+    componentWillUnmount() {
+
+    }
+
     _cancel(){
         let value = 'value';
         RCTDeviceEventEmitter.emit('undateUserInfo',value); 
@@ -46,6 +50,13 @@ export default class Login extends React.Component{
         //这里传递了navigator作为props
         if(navigator) {
             navigator.pop();
+        }
+    }
+
+    popToTop(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.popToTop();
         }
     }
 
@@ -132,7 +143,7 @@ export default class Login extends React.Component{
                          animated={true}/>
                 <ScrollView scrollEnabled={false} style={{height:200}}>
                     <View style={styles.cancel}>
-                    	<TouchableOpacity activeOpacity={0.8} onPress={()=>{this._cancel()}}>
+                    	<TouchableOpacity activeOpacity={0.8} onPress={()=>{this.popToTop()}}>
                     	<Image source={JZBImages.cancel} />
                     	</TouchableOpacity>
                     </View>

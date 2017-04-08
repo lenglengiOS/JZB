@@ -43,6 +43,7 @@ import CourseDetail from '../home/courseDetails'; //
 import JigouInfo from '../home/jigouInfo'; // 
 import HomeJiazhangquan from '../home/home_jiazhangquan'; // 
 import ChatGroupInfo from '../parents/cahtGroupInfo'; // 
+import Setting from '../wode/setting';
 
 
 var _navigator,_route;
@@ -134,6 +135,11 @@ export default class MainIndex extends React.Component {
             case "chatgroupinfo":
                 Component=ChatGroupInfo;
                 break;
+            case "setting":
+                Component=Setting;
+                break;
+
+                
             default: //default view
                 Component = TabMain;
                 route.name='tabmain'
