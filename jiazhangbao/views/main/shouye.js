@@ -59,7 +59,6 @@ export default class Home extends React.Component{
                     recomedCourse:data.recomedCourse,
                     recomedOrg:data.recomedOrg,
                     network:true,
-                    isLogin:true,
                     loading:false
                 })
                 
@@ -68,7 +67,6 @@ export default class Home extends React.Component{
               loadingWait:false,
               loaderr:true,
               network:false,
-              isLogin:false,
               loading:false
             })
             Toast.show(err)
@@ -196,8 +194,6 @@ export default class Home extends React.Component{
         }
     }
 
-   
-
     _renderCell(ICON, TITLE, INDEX){
         return(
             <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressOrg(TITLE, INDEX)} style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
@@ -208,8 +204,6 @@ export default class Home extends React.Component{
             </TouchableOpacity>
         )
     }
-
-  
 
     _renderBodyCell(ICON, TITLT, COLOR, TEXT, URL){
         return(
@@ -318,7 +312,7 @@ export default class Home extends React.Component{
                         <Image source={JZBImages.userBg} style={{width:screenWidth, height:140}} resizeMode={Image.resizeMode.stretch}>
                             <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
                                 <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
-                                <Text style={styles.login} >{this.state.isLogin?this.state.username:'登录/注册'}</Text>
+                                <Text style={styles.login}>{this.state.isLogin?this.state.username:'登录/注册'}</Text>
                             </TouchableOpacity>
                         </Image>
                         <View style={{width:screenWidth, height:180}}>
