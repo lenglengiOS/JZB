@@ -15,9 +15,10 @@ import {
     StatusBar
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
 import MyListView from '../component/MyListView';
-
+import LoadingShow  from '../component/react-native-loading';
+import Tools from '../tools';
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -27,13 +28,41 @@ export default class WoDe extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-           dataSource:defaultData.cloneWithRows(['','','']),
-           dataSize:5,
-           count:3
+            loading:false,
+            loadingWaitText:"正在获取数据...",
+            dataSource:defaultData,
+            dataSize:5,
+            count:3
 		}
 	}
     componentDidMount(){
-       
+        this.setState({loading:true})
+        this.loadData();
+    }
+
+    loadData(){
+        var tags = '';
+        if(this.props.param.INDEX == 5)
+        {
+            tags = '?tag=0&tag1=1';
+        }
+        if(this.props.param.INDEX == 6)
+        {
+            tags = '?tag=2&tag1=3';
+        }
+        Tools.get(IPAddr+this.props.param.topItems.jiaoyu_jiazhang+tags,(data)=>{
+                console.log("==allNews===="+JSON.stringify(data));
+                this.setState({
+                    dataSource:defaultData.cloneWithRows(data.allNews),
+                    loading:false
+                })
+                
+        },(err)=>{
+            this.setState({
+                loading:false
+            })
+            Toast.show(err)
+        })
     }
 
     _back(){
@@ -43,14 +72,14 @@ export default class WoDe extends React.Component{
         }
     }
 
-    goToNewsDetail(){
+    goToNewsDetail(url){
         let {route,navigator} = this.props;
         if(navigator){
             navigator.push({
                 name:"newsdetail",
                 param:{
                     title:"金苹果天府国际幼儿园",
-                    url:'http://www.baidu.com'
+                    url:url
                 }
             })
         }
@@ -75,40 +104,36 @@ export default class WoDe extends React.Component{
                     renderRow={this.renderRow.bind(this)}
                     dataSize={this.state.dataSize}
                     count={this.state.count}/>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
 			</View>
 		  )
 	}
 
-    renderRow(){
+    renderRow(rowData){
         return(
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.goToNewsDetail()}}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.goToNewsDetail(rowData.url)}}>
                 <View style={{flexDirection:'row', backgroundColor:'#FFF', paddingTop:15, paddingBottom:15, paddingLeft:10, paddingRight:10, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
                     <View style={styles.recommendCell}>
                         <View>
                             <View style={{justifyContent:'space-between', flexDirection:'row'}}>
-                                <Text style={{fontSize:18}}>金苹果天府国际幼儿园</Text>
+                                <Text style={{fontSize:16}}>{rowData.subtitle}</Text>
                             </View>
                         </View>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
                             <Image source={JZBImages.edite} style={{width:13, height:13}}/>
                             <Text style={{fontSize:13, color:'#9B9B9B'}}> 家长宝</Text>
-                            <View style={{backgroundColor:'#9B9B9B', height:10, width:1, marginLeft:5}}/>
-                            <Text style={{fontSize:13, color:'#9B9B9B'}}> 今日知识</Text>
+                            <View style={{backgroundColor:'#9B9B9B', height:10, width:1, marginLeft:5, marginRight:5}}/>
+                            <Text style={{fontSize:13, color:'#9B9B9B'}}>{rowData.title}</Text>
                         </View>
                     </View>
-                    <Image source={JZBImages.nav} style={{width:85, height:70}}/>
+                    <Image source={{uri: IPAddr+rowData.facepic}} style={{width:85, height:70}}/>
                 </View>
             </TouchableOpacity>
         )
     }
 
     _onRefresh() {  
-        this.page=1;
-        var firstData=[];
-        if(this.state.isLocationSearch){
-            this.loadManualFwqData()
-            return;
-        }
+        this.loadData();
     }
 
 }

@@ -52,14 +52,15 @@ export default class Home extends React.Component{
 
     getData(){
         this.setState({loading:true})
-       Tools.get(IPAddr+"/home/home.php",(data)=>{
+        Tools.get(IPAddr+"/home/home.php",(data)=>{
                 console.log("==homedata===="+(data));
                 this.setState({
                     recomedNews:data.recomedNews,
                     recomedCourse:data.recomedCourse,
                     recomedOrg:data.recomedOrg,
                     network:true,
-                    loading:false
+                    loading:false,
+                    topItems:data.topItems
                 })
                 
         },(err)=>{
@@ -148,7 +149,9 @@ export default class Home extends React.Component{
             navigator.push({
                 name: INDEX<=4?'org':com,
                 param:{
-                    TITLE:TITLE
+                    TITLE:TITLE,
+                    INDEX:INDEX,
+                    topItems:this.state.topItems
                 }
             })
         }
