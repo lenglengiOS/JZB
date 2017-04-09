@@ -201,8 +201,8 @@ export default class Home extends React.Component{
         return(
             <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressOrg(TITLE, INDEX)} style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
                 <View style={{alignItems:'center'}}>
-                    <Image source={ICON} style={{width:50, height:50, borderRadius:25, marginBottom:10}}/>
-                    <Text style={{fontSize:16}}>{TITLE}</Text>
+                    <Image source={ICON} style={{width:42, height:42, borderRadius:21, marginBottom:5}}/>
+                    <Text style={{fontSize:14}}>{TITLE}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -270,7 +270,7 @@ export default class Home extends React.Component{
             )
         }
         return(
-            <View style={{backgroundColor:'#FFF', marginTop:20}}>
+            <View style={{backgroundColor:'#FFF', marginTop:15}}>
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                 {this._renderBodyCell(this.state.recomedNews?IPAddr+this.state.recomedNews[0].img:'http://', this.state.recomedNews?this.state.recomedNews[0].title:'', '#E8E8E8', this.state.recomedNews?this.state.recomedNews[0].subtitle:'', this.state.recomedNews?this.state.recomedNews[0].url:'')}
                 {this._renderBodyCell(this.state.recomedNews?IPAddr+this.state.recomedNews[1].img:'http://', this.state.recomedNews?this.state.recomedNews[1].title:'', '#E8E8E8', this.state.recomedNews?this.state.recomedNews[1].subtitle:'', this.state.recomedNews?this.state.recomedNews[1].url:'')}
@@ -303,22 +303,22 @@ export default class Home extends React.Component{
                 <View style={{width:screenWidth, height:64}}>
                     <Image source={JZBImages.nav} style={styles.nav} resizeMode={Image.resizeMode.stretch}>
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._search()}}>
-                            <Image source={JZBImages.search} style={{width:30, height:30, marginRight:30, tintColor:'#FFF'}}/>
+                            <Image source={JZBImages.search} style={{width:25, height:25, marginRight:30, tintColor:'#FFF'}}/>
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._showMsg()}}>
-                            <Image source={JZBImages.msg} style={{width:30, height:30}}/>
+                            <Image source={JZBImages.msg} style={{width:25, height:25}}/>
                         </TouchableOpacity>
                     </Image>
                 </View>
                 <ScrollView>
                     <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
-                        <Image source={JZBImages.userBg} style={{width:screenWidth, height:140}} resizeMode={Image.resizeMode.stretch}>
+                        <Image source={JZBImages.userBg} style={{width:screenWidth, height:100}} resizeMode={Image.resizeMode.stretch}>
                             <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
-                                <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:80, height:80, borderRadius:40, marginTop:10}}/>
+                                <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:70, height:70, borderRadius:35}}/>
                                 <Text style={styles.login}>{this.state.isLogin?this.state.username:'登录/注册'}</Text>
                             </TouchableOpacity>
                         </Image>
-                        <View style={{width:screenWidth, height:180}}>
+                        <View style={{width:screenWidth, height:150, marginTop:10}}>
                             <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
                                 {this._renderCell(JZBImages.youeryuan,'幼儿园',1)}
                                 {this._renderCell(JZBImages.xiaoxue,'小学',2)}
@@ -374,7 +374,7 @@ var styles = StyleSheet.create({
         width:screenWidth-65, 
         marginLeft:50, 
         marginTop:10, 
-        fontSize:18
+        fontSize:16
     },
     recommendHeader:{
         width:screenWidth, 
