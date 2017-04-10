@@ -27,6 +27,9 @@ var cgRoute={
 	isRestore:false
 }
 
+var BimgURL = 'http://og2lz4ktk.bkt.clouddn.com/';
+var LimgURL = '?imageView2/1/';
+
 var Size=function(font){
 	if(pixe<=2){
 		return font;
@@ -121,7 +124,7 @@ const JZBImages = {
 }
 
 
-module.exports ={Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,push,cgRoute,IPAddr}
+module.exports ={Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,push,cgRoute,IPAddr,BimgURL,LimgURL}
 
 
 

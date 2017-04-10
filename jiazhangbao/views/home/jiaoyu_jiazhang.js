@@ -19,6 +19,7 @@ import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackg
 import MyListView from '../component/MyListView';
 import LoadingShow  from '../component/react-native-loading';
 import Tools from '../tools';
+import Toast from '../tools/Toast';
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -72,13 +73,13 @@ export default class WoDe extends React.Component{
         }
     }
 
-    goToNewsDetail(url){
+    goToNewsDetail(url,subtitle){
         let {route,navigator} = this.props;
         if(navigator){
             navigator.push({
                 name:"newsdetail",
                 param:{
-                    title:"金苹果天府国际幼儿园",
+                    title:subtitle,
                     url:url
                 }
             })
@@ -111,7 +112,7 @@ export default class WoDe extends React.Component{
 
     renderRow(rowData){
         return(
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.goToNewsDetail(rowData.url)}}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.goToNewsDetail(rowData.url, rowData.subtitle)}}>
                 <View style={{flexDirection:'row', backgroundColor:'#FFF', paddingTop:15, paddingBottom:15, paddingLeft:10, paddingRight:10, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
                     <View style={styles.recommendCell}>
                         <View>

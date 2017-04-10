@@ -15,30 +15,91 @@ import {
     StatusBar
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import MyListView from '../component/MyListView';
+import LoadingShow  from '../component/react-native-loading';
+import Tools from '../tools';
+import Toast from '../tools/Toast';
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
 });
+var listdata = [];
 
 export default class WoDe extends React.Component{
 	constructor(props){
 		super(props);
+        this.page = 1;
+        this.pageSize = 20;
 		this.state={
-           dataSource:defaultData.cloneWithRows(['','','']),
-           dataSize:5,
-           count:3
+            loading:false,
+            loadingWaitText:"正在获取数据...",
+            dataSource:defaultData,
 		}
 	}
     componentDidMount(){
-       
+        this.setState({loading:true})
+        this.loadData();
+    }
+
+    loadData(){
+        var tag = '';
+        if(this.props.param.INDEX == 1)
+        {
+            tag = '?tag=0';
+        }
+        if(this.props.param.INDEX == 2)
+        {
+            tag = '?tag=1';
+        }
+        if(this.props.param.INDEX == 3)
+        {
+            tag = '?tag=2';
+        }
+        if(this.props.param.INDEX == 4)
+        {
+            tag = '?tag=3';
+        }
+        Tools.get(IPAddr+this.props.param.topItems.jigou+tag+'&page='+this.page+'&pageSize='+this.pageSize,(data)=>{
+                console.log("==jigouData===="+JSON.stringify(data));
+
+                if(this.page == 1)
+                {
+                    listdata = data.allOrgs;
+                }else{
+                    listdata = listdata.concat(data.allOrgs);
+                }
+                this.setState({
+                    dataSource:defaultData.cloneWithRows(listdata),
+                    loading:false,
+                    count:data.count,
+                    dataSize:listdata.length
+                })
+                
+        },(err)=>{
+            this.setState({
+                loading:false
+            })
+            Toast.show(err)
+        })
     }
 
     _back(){
         const { navigator } = this.props;
         if(navigator) {
             navigator.pop() 
+        }
+    }
+
+    _onRefresh() {
+        this.loadData();
+    }
+
+    loadMore(){
+        console.log("==dataSize===="+this.state.dataSize+"********count********"+this.state.count);
+        if(this.state.dataSize < this.state.count){
+            this.page=this.page+1;
+            this.loadData();
         }
     }
 
@@ -60,39 +121,34 @@ export default class WoDe extends React.Component{
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}
                     dataSize={this.state.dataSize}
-                    count={this.state.count}/>
+                    count={this.state.count}
+                    loadMore={this.loadMore.bind(this)}/>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
 			</View>
 		  )
 	}
 
-    renderRow(){
+    renderRow(rowData){
         return(
             <View style={{flexDirection:'row', backgroundColor:'#FFF', paddingTop:15, paddingBottom:15, paddingLeft:10, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
-                <Image source={JZBImages.nav} style={{width:85, height:70}}/>
+                <Image source={{uri: BimgURL+rowData.logo+LimgURL}} style={{width:85, height:70}}/>
                 <View style={styles.recommendCell}>
                     <View>
                         <View style={{justifyContent:'space-between', flexDirection:'row'}}>
-                            <Text style={{fontSize:18}}>金苹果天府国际幼儿园</Text>
+                            <Text style={{fontSize:16}}>{rowData.name}</Text>
                         </View>
-                        <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>四川省成都市武侯区</Text>
+                        <Text style={{fontSize:13, color:'#9B9B9B', marginTop:5}}>{rowData.address}</Text>
                     </View>
                     <View style={{flexDirection:'row'}}>
                         <Image source={JZBImages.location} style={{width:8, height:12}}/>
-                        <Text style={{fontSize:13, color:'#9B9B9B'}}> 1.26km</Text>
+                        <Text style={{fontSize:13, color:'#9B9B9B'}}> {rowData.distance}</Text>
                     </View>
                 </View>
             </View>
         )
     }
 
-    _onRefresh() {  
-        this.page=1;
-        var firstData=[];
-        if(this.state.isLocationSearch){
-            this.loadManualFwqData()
-            return;
-        }
-    }
+
 
 }
 

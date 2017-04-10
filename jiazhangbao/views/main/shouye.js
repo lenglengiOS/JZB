@@ -16,14 +16,20 @@ import {
     NativeModules
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
 import PageLoading from '../tools/Loading' ;
 
-var phonenum= '15680222613';
+
+//import {org} from './youeryuan.js';
+//import {org} from './xiaoxue.js';
+//import {org} from './peixunban.js';
+//import {org} from './tuoguanban.js';
+
+
 
 export default class Home extends React.Component{
 	constructor(props){
@@ -35,7 +41,39 @@ export default class Home extends React.Component{
 		}
 	}
 
+    /////////////////////////////////////////////////////////////
+    //insertData(){
+
+    //    for(var i = 0; i < org.length; i++){
+
+    //        var PostData ={
+    //                    data:{
+    //                        id: org[i].id,
+    //                        name: org[i].name,
+    //                        address: org[i].address,
+    //                        shortName: org[i].shortName,
+    //                        logo: org[i].logo,
+    //                        lng: org[i].lng,
+    //                        lat: org[i].lat,
+    //                        isIdentify: org[i].isIdentify,
+    //                        viewNum: org[i].viewNum,
+    //                        distance: org[i].distance,
+    //                        tag:3
+    //                    }
+    //                }
+    //        Tools.postNotBase64(IPAddr+"/saveData.php", PostData,(ret)=>{
+    //            console.log("====insertdadadada=="+JSON.stringify(ret))
+                    
+    //            }, (err)=>{
+    //                console.log("====insert444444==="+err)
+    //        });
+    //    }
+    //}
+
+    //////////////////////////////////////////////////////////
+
     componentDidMount(){
+        //this.insertData();
         this.login();
         this.listener = RCTDeviceEventEmitter.addListener('undateUserInfo',(value)=>{  
             // 接受到通知后的处理  
@@ -53,7 +91,7 @@ export default class Home extends React.Component{
     getData(){
         this.setState({loading:true})
         Tools.get(IPAddr+"/home/home.php",(data)=>{
-                console.log("==homedata===="+(data));
+                console.log("==homedata===="+JSON.stringify(data));
                 this.setState({
                     recomedNews:data.recomedNews,
                     recomedCourse:data.recomedCourse,
@@ -239,7 +277,7 @@ export default class Home extends React.Component{
                             </View>
                             <View style={{flexDirection:'row'}}>
                                 <Image source={JZBImages.location} style={{width:8, height:12}}/>
-                                <Text style={{fontSize:12, color:'#9B9B9B'}}> {DISTANCE}km</Text>
+                                <Text style={{fontSize:12, color:'#9B9B9B'}}> {DISTANCE}</Text>
                             </View>
                         </View>
                     </View>
@@ -284,10 +322,10 @@ export default class Home extends React.Component{
                 {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[2].img:'http://', this.state.recomedCourse?this.state.recomedCourse[2].title:'', this.state.recomedCourse?this.state.recomedCourse[2].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[2].price:'', this.state.recomedCourse?this.state.recomedCourse[2].location:'')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐机构')}
-                {this._renderRecommendCell(this.state.recomedOrg?IPAddr+this.state.recomedOrg[0].img:'http://', this.state.recomedOrg?this.state.recomedOrg[0].title:'', this.state.recomedOrg?this.state.recomedOrg[0].position:'', '', this.state.recomedOrg?this.state.recomedOrg[0].location:'')}
-                {this._renderRecommendCell(this.state.recomedOrg?IPAddr+this.state.recomedOrg[1].img:'http://', this.state.recomedOrg?this.state.recomedOrg[1].title:'', this.state.recomedOrg?this.state.recomedOrg[1].position:'', '', this.state.recomedOrg?this.state.recomedOrg[1].location:'')}
-                {this._renderRecommendCell(this.state.recomedOrg?IPAddr+this.state.recomedOrg[2].img:'http://', this.state.recomedOrg?this.state.recomedOrg[2].title:'', this.state.recomedOrg?this.state.recomedOrg[2].position:'', '', this.state.recomedOrg?this.state.recomedOrg[2].location:'')}
-                {this._renderRecommendCell(this.state.recomedOrg?IPAddr+this.state.recomedOrg[3].img:'http://', this.state.recomedOrg?this.state.recomedOrg[3].title:'', this.state.recomedOrg?this.state.recomedOrg[3].position:'', '', this.state.recomedOrg?this.state.recomedOrg[3].location:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[0].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[0].name:'', this.state.recomedOrg?this.state.recomedOrg[0].address:'', '', this.state.recomedOrg?this.state.recomedOrg[0].distance:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[1].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[1].name:'', this.state.recomedOrg?this.state.recomedOrg[1].address:'', '', this.state.recomedOrg?this.state.recomedOrg[1].distance:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[2].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[2].name:'', this.state.recomedOrg?this.state.recomedOrg[2].address:'', '', this.state.recomedOrg?this.state.recomedOrg[2].distance:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[3].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[3].name:'', this.state.recomedOrg?this.state.recomedOrg[3].address:'', '', this.state.recomedOrg?this.state.recomedOrg[3].distance:'')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
             </View>
         )
@@ -312,13 +350,13 @@ export default class Home extends React.Component{
                 </View>
                 <ScrollView>
                     <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
-                        <Image source={JZBImages.userBg} style={{width:screenWidth, height:100}} resizeMode={Image.resizeMode.stretch}>
+                        <Image source={JZBImages.userBg} style={{width:screenWidth, height:113}} resizeMode={Image.resizeMode.stretch}>
                             <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
                                 <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:70, height:70, borderRadius:35}}/>
                                 <Text style={styles.login}>{this.state.isLogin?this.state.username:'登录/注册'}</Text>
                             </TouchableOpacity>
                         </Image>
-                        <View style={{width:screenWidth, height:150, marginTop:10}}>
+                        <View style={{width:screenWidth, height:150}}>
                             <View style={{width:screenWidth, flex:1, flexDirection:'row'}}>
                                 {this._renderCell(JZBImages.youeryuan,'幼儿园',1)}
                                 {this._renderCell(JZBImages.xiaoxue,'小学',2)}
