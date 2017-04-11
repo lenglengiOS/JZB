@@ -17,16 +17,40 @@ import {
     Linking
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
-
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
+import LoadingShow  from '../component/react-native-loading';
+import Toast from '../tools/Toast';
+import Tools from '../tools';
 export default class NewsDetail extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            loading:false,
+            loadingWaitText:"获取数据...",
         }
     }
     componentDidMount(){
+        this.getData();
 
+    }
+
+    getData(){
+        this.setState({loading:true})
+        Tools.get(IPAddr+"/home/coursedetail.php"+'?name='+this.props.param.name,(data)=>{
+                console.log("==courseDetailData===="+JSON.stringify(data));
+                this.setState({
+                    coursedetail:data.coursedetail,
+                    isInsurance:data.coursedetail.isInsurance,
+                    photos:data.coursedetail.photos.split(","),
+                    loading:false
+                })
+                
+        },(err)=>{
+            this.setState({
+                loading:false
+            })
+            Toast.show(err)
+        })
     }
 
     _back(){
@@ -57,6 +81,10 @@ export default class NewsDetail extends React.Component{
         alert('报班')
     }
 
+    showImages(){
+        alert('showImages')
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -75,18 +103,20 @@ export default class NewsDetail extends React.Component{
                 </View>
                 <View style={{width:screenWidth, height:screenHeight-64-47}}>
                     <ScrollView>
-                        <Image source={JZBImages.nav} style={{width:screenWidth, height:180}}>
-                            <View style={{width:screenWidth, height:30, backgroundColor:'rgba(0,0,0, 0.6)' , position:'absolute', bottom:0, justifyContent:'center'}}>
-                                <Text style={{color:'#FFF', fontSize:16, marginLeft:10}}>钢琴培训季度套餐</Text>
-                            </View>
-                        </Image>
+                        <TouchableOpacity activeOpacity={0.95} onPress={()=>{this.showImages()}}>
+                            <Image source={this.state.photos?{uri: BimgURL+this.state.photos[0]+LimgURL}:JZBImages.default_holder} style={{width:screenWidth, height:180}}>
+                                <View style={{width:screenWidth, height:30, backgroundColor:'rgba(0,0,0, 0.6)' , position:'absolute', bottom:0, justifyContent:'center'}}>
+                                    <Text style={{color:'#FFF', fontSize:16, marginLeft:10}}>{this.state.coursedetail?this.state.coursedetail.name:''}</Text>
+                                </View>
+                            </Image>
+                        </TouchableOpacity>
                         <View style={{backgroundColor:'#FFF'}}>
                             <View style={styles.price}>
                                 <View>
-                                    <Text style={{fontSize:15, color:'#FE7400'}}>优惠价：¥3999</Text>
-                                    <Text style={{fontSize:15, color:'#BCBCBC', textDecorationLine:'line-through'}}>现场价：¥5940</Text>
+                                    <Text style={{fontSize:15, color:'#FE7400'}}>优惠价：¥{this.state.coursedetail?this.state.coursedetail.price:''}</Text>
+                                    <Text style={{fontSize:15, color:'#BCBCBC', textDecorationLine:'line-through'}}>现场价：¥{this.state.coursedetail?this.state.coursedetail.originalPrice:''}</Text>
                                 </View>
-                                <Text style={{fontSize:15, color:'#FE7400'}}>预交费：¥100</Text>
+                                <Text style={{fontSize:15, color:'#FE7400'}}>预交费：¥{this.state.coursedetail?this.state.coursedetail.prePrice:''}</Text>
                             </View>
                             <View style={{width:screenWidth-10, height:1, backgroundColor:'#E8E8E8', marginLeft:10}}/>
                             <View style={[styles.price,{justifyContent:'flex-start', height:40}]}>
@@ -141,17 +171,17 @@ export default class NewsDetail extends React.Component{
                             <Text style={{fontSize:14, color:'#989898'}}>课程信息</Text>
                         </View>
                         <View style={styles.kechengInfo}>
-                            <Text style={{fontSize:14, color:'#989898', marginRight:10}}>课程信息：<Text style={{fontSize:14, color:'#000'}}>钢琴培训季度套餐</Text></Text>
-                            <Text style={{fontSize:14, color:'#989898', marginRight:10, marginTop:10}}>开课人数：<Text style={{fontSize:14, color:'#000'}}>100人</Text></Text>
-                            <Text style={{fontSize:14, color:'#989898', marginRight:10, marginTop:10}}>试听信息：<Text style={{fontSize:14, color:'#000'}}>不支持试听</Text></Text>
+                            <Text style={{fontSize:14, color:'#989898', marginRight:10}}>课程信息：<Text style={{fontSize:14, color:'#000'}}>{this.state.coursedetail?this.state.coursedetail.name:''}</Text></Text>
+                            <Text style={{fontSize:14, color:'#989898', marginRight:10, marginTop:10}}>开课人数：<Text style={{fontSize:14, color:'#000'}}>{this.state.coursedetail?this.state.coursedetail.openNum:''}人</Text></Text>
+                            <Text style={{fontSize:14, color:'#989898', marginRight:10, marginTop:10}}>试听信息：<Text style={{fontSize:14, color:'#000'}}>{this.state.coursedetail?this.state.coursedetail.isPreLearn:''}</Text></Text>
                             <View style={{flexDirection:'row'}}>
                                 <Text style={{fontSize:14, color:'#989898', marginTop:10}}>课程介绍：</Text>
-                                <Text style={{fontSize:14, color:'#000',flex:1, marginTop:10, marginRight:5}}>缉拿额覅偶叫饿哦我司法局我就微积分我我of奇偶文件佛七微积分我减肥哦文件而非违法批今儿我if额外围殴积分任务</Text>
+                                <Text style={{fontSize:14, color:'#000',flex:1, marginTop:10, marginRight:5}}>{this.state.coursedetail?this.state.coursedetail.description:''}</Text>
                             </View>
                             <View style={{width:screenWidth-10, height:1, backgroundColor:'#E8E8E8'}}/>
                             <View style={{flexDirection:'row', height:35, justifyContent:'center'}}>
                                 <Text style={{fontSize:14, color:'#989898', marginTop:10}}>课程教师：</Text>
-                                <Text style={{fontSize:14, color:'#000',flex:1, marginTop:10, marginRight:5}}>陆彦雪 冷洪林</Text>
+                                <Text style={{fontSize:14, color:'#000',flex:1, marginTop:10, marginRight:5}}>{this.state.coursedetail?this.state.coursedetail.teacher:''}</Text>
                             </View>
                             <View style={{width:screenWidth-10, height:1, backgroundColor:'#E8E8E8'}}/>
                             <View style={{justifyContent:'center', height:35}}>
@@ -162,10 +192,13 @@ export default class NewsDetail extends React.Component{
                             <Text style={{fontSize:14, color:'#989898'}}>购买须知</Text>
                         </View>
                         <View style={styles.kechengInfo}>
-                            <Text style={{fontSize:14, color:'#FE8702', marginRight:10}}>有效期：<Text style={{fontSize:14, color:'#989898'}}>钢琴培训季度套餐</Text></Text>
-                            <View style={{flexDirection:'row'}}>
+                            <Text style={{fontSize:14, color:'#FE8702', marginRight:10}}>有效期：<Text style={{fontSize:14, color:'#989898'}}>从 {this.state.coursedetail?this.state.coursedetail.orderStartDate:''} 至 {this.state.coursedetail?this.state.coursedetail.refundDeadlineTime:''}</Text></Text>
+                            <View style={{flexDirection:'row', width:screenWidth}}>
                                 <Text style={{fontSize:14, color:'#FE8702', marginTop:10}}>注意事项：</Text>
-                                <Text style={{fontSize:14, color:'#989898',flex:1, marginTop:10, marginRight:5}}>缉拿额覅偶叫饿哦我司法局我就微积分我我of奇偶文件佛七微积分我减肥哦文件而非违法批今儿我if额外围殴积分任务</Text>
+                                <View style={{flex:1, paddingRight:10}}>
+                                    {this.state.isInsurance?<Text style={{fontSize:14, color:'#989898', marginTop:10, marginRight:5, marginBottom:-8}}>{this.state.coursedetail?this.state.coursedetail.isInsurance:null}</Text>:null}
+                                    <Text style={{fontSize:14, color:'#989898', marginTop:10, marginRight:5}}>{this.state.coursedetail?this.state.coursedetail.notes:''}</Text>
+                                </View>
                             </View>
                             <Text style={{fontSize:14, color:'#FE8702', marginRight:10, marginTop:10, marginBottom:10}}>其他优惠：<Text style={{fontSize:14, color:'#989898'}}></Text></Text>
                             <View style={{width:screenWidth-10, height:1, backgroundColor:'#E8E8E8'}}/>
@@ -197,6 +230,7 @@ export default class NewsDetail extends React.Component{
                         <Text style={{color:'#FFF', fontSize:16}}>立即报班</Text>
                     </TouchableOpacity>
                 </View>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
             </View>
           )
     }

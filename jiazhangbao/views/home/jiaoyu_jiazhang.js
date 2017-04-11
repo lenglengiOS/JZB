@@ -95,9 +95,9 @@ export default class WoDe extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
-                        <Image source={JZBImages.back} style={{width:30, height:30}} />
+                        <Image source={JZBImages.back} style={{width:25, height:25}} />
                     </TouchableOpacity>
-                    <Text style={{fontSize:20, color:'#00B09D'}}>{this.props.param.TITLE}</Text>
+                    <Text style={{fontSize:18, fontWeight: 'bold', color:'#00B09D'}}>{this.props.param.TITLE}</Text>
                 </View>
                 <MyListView
                     onRefresh={this._onRefresh.bind(this)}

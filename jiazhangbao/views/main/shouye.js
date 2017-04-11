@@ -41,46 +41,43 @@ export default class Home extends React.Component{
 		}
 	}
 
-    /////////////////////////////////////////////////////////////
-    //insertData(){
+    /////////////////////////////录入数据库////////////////////////////////
+    insertData(){
 
-    //    for(var i = 0; i < org.length; i++){
+        for(var i = 0; i < org.length; i++){
 
-    //        var PostData ={
-    //                    data:{
-    //                        id: org[i].id,
-    //                        name: org[i].name,
-    //                        address: org[i].address,
-    //                        shortName: org[i].shortName,
-    //                        logo: org[i].logo,
-    //                        lng: org[i].lng,
-    //                        lat: org[i].lat,
-    //                        isIdentify: org[i].isIdentify,
-    //                        viewNum: org[i].viewNum,
-    //                        distance: org[i].distance,
-    //                        tag:3
-    //                    }
-    //                }
-    //        Tools.postNotBase64(IPAddr+"/saveData.php", PostData,(ret)=>{
-    //            console.log("====insertdadadada=="+JSON.stringify(ret))
+            var PostData ={
+                        data:{
+                            name: org[i].name,
+                            address: org[i].address,
+                            shortName: org[i].shortName,
+                            logo: org[i].logo,
+                            lng: org[i].lng,
+                            lat: org[i].lat,
+                            isIdentify: org[i].isIdentify,
+                            viewNum: org[i].viewNum,
+                            distance: org[i].distance,
+                            tag:3
+                        }
+                    }
+            Tools.postNotBase64(IPAddr+"/saveData.php", PostData,(ret)=>{
+                console.log("====insertdadadada=="+JSON.stringify(ret))
                     
-    //            }, (err)=>{
-    //                console.log("====insert444444==="+err)
-    //        });
-    //    }
-    //}
-
+                }, (err)=>{
+                    console.log("====insert444444==="+err)
+            });
+        }
+    }
     //////////////////////////////////////////////////////////
 
     componentDidMount(){
-        //this.insertData();
+        //his.insertData();
+        this.goLocation();
         this.login();
         this.listener = RCTDeviceEventEmitter.addListener('undateUserInfo',(value)=>{  
             // 接受到通知后的处理  
             this.login();
         }); 
-        // 获取页面数据
-        this.getData();
     }
 
     componentWillUnmount(){  
@@ -88,9 +85,27 @@ export default class Home extends React.Component{
       this.listener.remove();  
     }  
 
+    goLocation(){
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+                console.log("==position===="+JSON.stringify(position));
+                this.setState({
+                    longitude:position.coords.longitude,
+                    latitude:position.coords.latitude
+                })
+                this.getData();
+            },
+            (error) =>{
+                console.log("==error.message===="+error.message);
+                Toast.show("获取定位失败！", 2000)
+                this.getData();
+            }
+        );
+    }
+
     getData(){
         this.setState({loading:true})
-        Tools.get(IPAddr+"/home/home.php",(data)=>{
+        Tools.get(IPAddr+"/home/home.php"+'?longitude='+this.state.longitude+'&latitude='+this.state.latitude,(data)=>{
                 console.log("==homedata===="+JSON.stringify(data));
                 this.setState({
                     recomedNews:data.recomedNews,
@@ -208,7 +223,7 @@ export default class Home extends React.Component{
         }
     }
 
-    goToCourseDetails(PRICE){
+    goToCourseDetails(PRICE, NAME){
         var TITLE = '';
         if (PRICE) {
             TITLE = "课程详情";
@@ -218,6 +233,7 @@ export default class Home extends React.Component{
                     name: 'coursedetail',
                     param: {
                         title:TITLE,
+                        name:NAME
                     }
                 })
             }
@@ -262,11 +278,12 @@ export default class Home extends React.Component{
     }
 
     _renderRecommendCell(ICON, TITLE, SUBTITLE, PRICE, DISTANCE){
+        var icon = this.state.recomedOrg?{uri: ICON}:JZBImages.default_holder;
         return(
             <View>
-                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.goToCourseDetails(PRICE)}>
+                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.goToCourseDetails(PRICE, TITLE)}>
                     <View style={{flexDirection:'row'}}>
-                        <Image source={{uri: ICON}} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
+                        <Image source={icon} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
                         <View style={styles.recommendCell}>
                             <View>
                                 <View style={{justifyContent:'space-between', flexDirection:'row'}}>
@@ -317,9 +334,8 @@ export default class Home extends React.Component{
                 <View style={{height:1, width:screenWidth, backgroundColor:'#E8E8E8'}}/>
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐课程')}
-                {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[0].img:'http://', this.state.recomedCourse?this.state.recomedCourse[0].title:'', this.state.recomedCourse?this.state.recomedCourse[0].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[0].price:'', this.state.recomedCourse?this.state.recomedCourse[0].location:'')}
-                {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[1].img:'http://', this.state.recomedCourse?this.state.recomedCourse[1].title:'', this.state.recomedCourse?this.state.recomedCourse[1].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[1].price:'', this.state.recomedCourse?this.state.recomedCourse[1].location:'')}
-                {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[2].img:'http://', this.state.recomedCourse?this.state.recomedCourse[2].title:'', this.state.recomedCourse?this.state.recomedCourse[2].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[2].price:'', this.state.recomedCourse?this.state.recomedCourse[2].location:'')}
+                {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[0].img:JZBImages.default_holder, this.state.recomedCourse?this.state.recomedCourse[0].title:'', this.state.recomedCourse?this.state.recomedCourse[0].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[0].price:'', this.state.recomedCourse?this.state.recomedCourse[0].location:'')}
+                {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[2].img:JZBImages.default_holder, this.state.recomedCourse?this.state.recomedCourse[2].title:'', this.state.recomedCourse?this.state.recomedCourse[2].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[2].price:'', this.state.recomedCourse?this.state.recomedCourse[2].location:'')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐机构')}
                 {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[0].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[0].name:'', this.state.recomedOrg?this.state.recomedOrg[0].address:'', '', this.state.recomedOrg?this.state.recomedOrg[0].distance:'')}

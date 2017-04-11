@@ -61,6 +61,7 @@ const JZBImages = {
 	zhifu:require('../resources/home/agency_tag_zhifu@2x.png'),
 	money:require('../resources/home/agency_tag_jigou@2x.png'),
 	location:require('../resources/home/location@2x.png'),
+	default_holder:require('../resources/home/default_holder.png'),
 	showMoreNor:require('../resources/home/main_showMoreNor@2x.png'),
 	search:require('../resources/home/lxr_icon_search@2x.png'),
 	search_history:require('../resources/home/search_history@2x.png'),

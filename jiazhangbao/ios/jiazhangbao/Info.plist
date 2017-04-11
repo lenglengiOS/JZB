@@ -42,7 +42,7 @@
 	<key>NSContactsUsageDescription</key>
 	<string>contactsDesciption</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>我们想要使用您的定位功能</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>我们想要使用您的手机照片</string>
 	<key>NSPhotoLibraryUsageDescription</key>

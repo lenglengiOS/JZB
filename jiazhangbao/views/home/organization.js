@@ -33,13 +33,31 @@ export default class WoDe extends React.Component{
         this.pageSize = 20;
 		this.state={
             loading:false,
-            loadingWaitText:"正在获取数据...",
+            loadingWaitText:"获取数据...",
             dataSource:defaultData,
 		}
 	}
     componentDidMount(){
+        this.goLocation();
         this.setState({loading:true})
-        this.loadData();
+    }
+
+    goLocation(){
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+                console.log("==position===="+JSON.stringify(position));
+                this.setState({
+                    longitude:position.coords.longitude,
+                    latitude:position.coords.latitude
+                })
+                this.loadData();
+            },
+            (error) =>{
+                console.log("==error.message===="+error.message);
+                Toast.show("获取定位失败！", 2000)
+                this.loadData();
+            }
+        );
     }
 
     loadData(){
@@ -60,7 +78,8 @@ export default class WoDe extends React.Component{
         {
             tag = '?tag=3';
         }
-        Tools.get(IPAddr+this.props.param.topItems.jigou+tag+'&page='+this.page+'&pageSize='+this.pageSize,(data)=>{
+        var url = IPAddr+this.props.param.topItems.jigou+tag+'&page='+this.page+'&pageSize='+this.pageSize+'&longitude='+this.state.longitude+'&latitude='+this.state.latitude;
+        Tools.get(url,(data)=>{
                 console.log("==jigouData===="+JSON.stringify(data));
 
                 if(this.page == 1)
@@ -123,7 +142,6 @@ export default class WoDe extends React.Component{
                     dataSize={this.state.dataSize}
                     count={this.state.count}
                     loadMore={this.loadMore.bind(this)}/>
-                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
 			</View>
 		  )
 	}
