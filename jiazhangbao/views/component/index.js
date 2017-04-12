@@ -7,12 +7,14 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
   ScrollView,
-  ActionSheetIOS
+  ActionSheetIOS,
+  CameraRoll
 } from 'react-native'
 import Swiper from 'react-native-swiper'
 import PhotoView from 'react-native-photo-view'
 const { width, height } = Dimensions.get('window')
 import {BimgURL,LimgURL} from '../constStr';
+import Toast from '../tools/Toast';
 
 var styles = {
   wrapper: {
@@ -86,7 +88,7 @@ const Viewer = props => <Swiper index={props.index} loop={false} bounces={true} 
                 minimumZoomScale={3}>
                 <TouchableWithoutFeedback
                     onPress={e => props.hiden()}
-                    onLongPress={e => props.save()}>
+                    onLongPress={e => saveImg(BimgURL+item+LimgURL)}>
                     <Image 
                       source={{uri: BimgURL+item+LimgURL}}
                       onTap={e => props.hiden()}
@@ -103,6 +105,34 @@ const Viewer = props => <Swiper index={props.index} loop={false} bounces={true} 
   }
 </Swiper>
 
+
+const saveImg = (img) =>{
+  var BUTTONS = [
+      '存储',
+      '取消',
+    ];
+    var CANCEL_INDEX = 1;
+
+    ActionSheetIOS.showActionSheetWithOptions({
+      message: '您想要保存图片到相册吗？',
+      options: BUTTONS,
+      destructiveButtonIndex: CANCEL_INDEX,
+    },
+    (buttonIndex) => {
+        if(buttonIndex == 0)
+        {
+          // 保存照片到相册
+          var promise = CameraRoll.saveToCameraRoll(img);
+          promise.then(function(result) {
+            alert('保存成功！');
+          }).catch(function(error) {
+            alert('保存失败！');
+          });
+        }
+    });
+    return;
+}
+
 export default class extends Component {
   constructor (props) {
     super(props)
@@ -114,7 +144,6 @@ export default class extends Component {
     this.viewerPressHandle = this.viewerPressHandle.bind(this)
     this.thumbPressHandle = this.thumbPressHandle.bind(this)
     this.hiden = this.hiden.bind(this)
-    this.save = this.save.bind(this)
   }
 
   viewerPressHandle () {
@@ -136,28 +165,7 @@ export default class extends Component {
     }
   }
 
-  save(){
-    var BUTTONS = [
-      '存储',
-      '取消',
-    ];
-    var CANCEL_INDEX = 1;
 
-    ActionSheetIOS.showActionSheetWithOptions({
-      message: '您想要保存照片到相册吗？',
-      options: BUTTONS,
-      destructiveButtonIndex: CANCEL_INDEX,
-    },
-    (buttonIndex) => {
-        if(buttonIndex == 0)
-        {
-          // 保存照片到相册
-        }
-    });
-
-
-
-  }
 
   render () {
     return (
@@ -166,7 +174,6 @@ export default class extends Component {
         index={this.state.showIndex}
         pressHandle={this.viewerPressHandle}
         hiden={this.hiden}
-        save={this.save}
         imgList={this.state.imgList} />}
 
       <View style={styles.thumbWrap}>

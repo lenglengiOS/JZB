@@ -70,7 +70,7 @@ export default class NewsDetail extends React.Component{
     call(){
         Linking.canOpenURL('tel:18202853094').then(supported => {
             if (!supported) {
-                alert('该设备不支持拨打电话')
+                Toast.show("该设备不支持拨打电话", 2000)
             } else {
                 return Linking.openURL('tel:18202853094')
             }
