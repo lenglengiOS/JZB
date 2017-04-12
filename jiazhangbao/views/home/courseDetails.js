@@ -14,19 +14,23 @@ import {
     Image,
     WebView,
     StatusBar,
-    Linking
+    Linking,
+    Modal
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
+import PhotoView from '../component/'
+
 export default class NewsDetail extends React.Component{
     constructor(props){
         super(props);
         this.state={
             loading:false,
             loadingWaitText:"获取数据...",
+            modalVisible:false
         }
     }
     componentDidMount(){
@@ -82,7 +86,7 @@ export default class NewsDetail extends React.Component{
     }
 
     showImages(){
-        alert('showImages')
+        this.setState({modalVisible:true})
     }
 
     render(){
@@ -178,7 +182,7 @@ export default class NewsDetail extends React.Component{
                                 <Text style={{fontSize:14, color:'#989898', marginTop:10}}>课程介绍：</Text>
                                 <Text style={{fontSize:14, color:'#000',flex:1, marginTop:10, marginRight:5}}>{this.state.coursedetail?this.state.coursedetail.description:''}</Text>
                             </View>
-                            <View style={{width:screenWidth-10, height:1, backgroundColor:'#E8E8E8'}}/>
+                            <View style={{width:screenWidth-10, height:1, backgroundColor:'#E8E8E8', marginTop:10}}/>
                             <View style={{flexDirection:'row', height:35, justifyContent:'center'}}>
                                 <Text style={{fontSize:14, color:'#989898', marginTop:10}}>课程教师：</Text>
                                 <Text style={{fontSize:14, color:'#000',flex:1, marginTop:10, marginRight:5}}>{this.state.coursedetail?this.state.coursedetail.teacher:''}</Text>
@@ -230,6 +234,18 @@ export default class NewsDetail extends React.Component{
                         <Text style={{color:'#FFF', fontSize:16}}>立即报班</Text>
                     </TouchableOpacity>
                 </View>
+                <Modal
+                    animationType={"none"}
+                    transparent={false}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {alert("Modal has been closed.")}}
+                    >
+                    <TouchableOpacity style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'#000'}} activeOpacity={1} onPress={() => {
+                        this.setState({modalVisible:!this.state.modalVisible})
+                    }}> 
+                        <PhotoView hiden={()=>this.setState({modalVisible:!this.state.modalVisible})} photos={this.state.photos?this.state.photos:[]}/>
+                    </TouchableOpacity>
+                </Modal>
                 <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
             </View>
           )
