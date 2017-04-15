@@ -12,19 +12,27 @@ import {
     Alert,
     ScrollView,
     Image,
-    StatusBar
+    StatusBar,
+    ActionSheetIOS
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
+import ImagePicker from 'react-native-image-crop-picker';
+import LoadingShow  from '../component/react-native-loading';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import Toast from '../tools/Toast';
+import Tools from '../tools';
 
 export default class WoDe extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
+            loading:false,
+            loadingWaitText:"正在上传..."
 		}
 	}
     componentDidMount(){
-       
+
     }
 
     _back(){
@@ -32,6 +40,66 @@ export default class WoDe extends React.Component{
         if(navigator) {
             navigator.pop() 
         }
+    }
+
+    changeIcon(){
+        ActionSheetIOS.showActionSheetWithOptions({
+            title:"更换头像",
+            options: ["拍照","相册","取消"],
+            cancelButtonIndex: 2,
+            destructiveButtonIndex:0
+        },
+        (buttonIndex) => {
+            if (buttonIndex == 0) {
+                ImagePicker.openCamera({
+                    includeBase64:true,
+                    cropping:true,
+                    cropperCircleOverlay:true
+                }).then(image => {
+                    console.log(image);
+                    this.setState({
+                        loading:true,
+                        image:image.path
+                    })
+                    this.uploadImg(image.data);
+                });
+            }
+            if (buttonIndex == 1) {
+                ImagePicker.openPicker({
+                    includeBase64:true,
+                    cropping:true,
+                    cropperCircleOverlay:true
+                }).then(image => {
+                    console.log(image);
+                    this.setState({
+                        loading:true,
+                        image:image.path
+                    })
+                    this.uploadImg(image.data);
+                });
+            }
+        });
+    }
+
+    uploadImg(image){
+        var PostData ={
+            data:{
+               base64:image,
+               id:this.props.param.id
+            }
+        }
+        Tools.postNotBase64(IPAddr+"/user/updateUserInfo.php", PostData,(ret)=>{
+            console.log("====dadadada=="+ret)
+                this.setState({loading:false})
+                Toast.show("头像上传成功！", 2000)
+                let value = 'value';
+                RCTDeviceEventEmitter.emit('undateUserInfo',value); 
+                
+            }, (err)=>{
+                this.setState({loading:false})
+                Toast.show(err);
+                console.log("====444444==="+err)
+        });
     }
 
 	render(){
@@ -48,13 +116,13 @@ export default class WoDe extends React.Component{
                     <Text style={{fontSize:20, color:'#00B09D'}}>我的资料</Text>
                 </View>
                 <ScrollView>
-                    <View style={styles.icon}>
+                    <TouchableOpacity style={styles.icon} activeOpacity={0.8} onPress={()=>{this.changeIcon()}}>
                         <Text style={{fontSize:16}}>我的头像</Text>
                         <View style={{width:80, height:60, flexDirection:'row', alignItems:'center'}}>
-                            <Image source={JZBImages.nav} style={{width:60, height:60, borderRadius:30}} />
+                            <Image source={{uri: !this.state.image?IPAddr+this.props.param.user_icon:this.state.image}} style={{width:60, height:60, borderRadius:30}} />
                             <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.child}>
                         <View style={styles.cell}>
                             <Text style={{fontSize:16}}>孩子学段</Text>
@@ -104,6 +172,7 @@ export default class WoDe extends React.Component{
                         </View>
                     </View>
                 </ScrollView>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
 			</View>
 		)
 	}

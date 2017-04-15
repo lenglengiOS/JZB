@@ -21,13 +21,14 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
-import PageLoading from '../tools/Loading' ;
+import PageLoading from '../tools/Loading';
 
 
 //import {org} from './youeryuan.js';
 //import {org} from './xiaoxue.js';
 //import {org} from './peixunban.js';
 //import {org} from './tuoguanban.js';
+import {org} from './jigouInfo.js';
 
 
 
@@ -41,13 +42,12 @@ export default class Home extends React.Component{
 		}
 	}
 
-    /////////////////////////////录入数据库////////////////////////////////
+    /////////////////////////////录入机构总览到数据库////////////////////////////////
     insertData(){
-
         for(var i = 0; i < org.length; i++){
-
             var PostData ={
                         data:{
+                            orgId: org[i].id,
                             name: org[i].name,
                             address: org[i].address,
                             shortName: org[i].shortName,
@@ -70,8 +70,43 @@ export default class Home extends React.Component{
     }
     //////////////////////////////////////////////////////////
 
+
+    /////////////////////////////录入所有机构信息到数据库////////////////////////////////
+    insertJigouInfo(){
+        for(var i = 0; i < org.length; i++){
+            var PostData ={
+                        data:{
+                            logo:org[i].ext.logo,
+                            album:org[i].ext.album,
+                            viewNum:org[i].ext.viewNum,
+                            id:org[i].ext.id,
+                            orgUserId:org[i].ext.orgUserId,
+                            groupId:org[i].ext.groupId,
+                            shareNum:org[i].ext.shareNum,
+                            isIdentify:org[i].ext.isIdentify,
+                            telPhone:'18202853094',
+                            address:org[i].ext.address,
+                            description:org[i].ext.description,
+                            name:org[i].ext.name,
+                            imGroupId:org[i].ext.imGroupId,
+                            teacher:"冷洪林，陆彦雪",
+                            circleId:org[i].ext.circleId,
+                            isAgreement:org[i].ext.isAgreement
+                        }
+                    }
+            Tools.postNotBase64(IPAddr+"/saveJigouInfoData.php", PostData,(ret)=>{
+                console.log("====saveJigouInfoData=="+JSON.stringify(ret))
+                    
+                }, (err)=>{
+                    console.log("====saveJigouInfoData444444==="+err)
+            });
+        }
+    }
+
     componentDidMount(){
-        //his.insertData();
+        //this.insertData();
+        //this.insertJigouInfo();
+
         this.goLocation();
         this.login();
         this.listener = RCTDeviceEventEmitter.addListener('undateUserInfo',(value)=>{  
@@ -106,7 +141,7 @@ export default class Home extends React.Component{
     getData(){
         this.setState({loading:true})
         Tools.get(IPAddr+"/home/home.php"+'?longitude='+this.state.longitude+'&latitude='+this.state.latitude,(data)=>{
-                console.log("==homedata===="+JSON.stringify(data));
+                console.log("==getData===="+JSON.stringify(data));
                 this.setState({
                     recomedNews:data.recomedNews,
                     recomedCourse:data.recomedCourse,
@@ -146,7 +181,8 @@ export default class Home extends React.Component{
                         {
                             this.setState({
                                 username:ret.data[0].user_name,
-                                userIcon:ret.user_icon,
+                                id:ret.data[0].id,
+                                user_icon:ret.data[0].user_icon,
                                 isLogin:true
                             })
                         }else{
@@ -167,7 +203,11 @@ export default class Home extends React.Component{
             let {route,navigator} = this.props;
             if(navigator) {
                 navigator.push({
-                    name: this.state.isLogin?'userinfo':'login'
+                    name: this.state.isLogin?'userinfo':'login',
+                    param:{
+                        id:this.state.id?this.state.id:'',
+                        user_icon:this.state.user_icon
+                    }
                 })
             }
     }
@@ -281,7 +321,7 @@ export default class Home extends React.Component{
         var icon = this.state.recomedOrg?{uri: ICON}:JZBImages.default_holder;
         return(
             <View>
-                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.goToCourseDetails(PRICE, TITLE)}>
+                <TouchableOpacity activeOpacity={1} onPress={()=>this.goToCourseDetails(PRICE, TITLE)}>
                     <View style={{flexDirection:'row'}}>
                         <Image source={icon} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
                         <View style={styles.recommendCell}>
@@ -368,7 +408,7 @@ export default class Home extends React.Component{
                     <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                         <Image source={JZBImages.userBg} style={{width:screenWidth, height:113}} resizeMode={Image.resizeMode.stretch}>
                             <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
-                                <Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:70, height:70, borderRadius:35}}/>
+                                <Image source={this.state.user_icon?{uri:IPAddr+this.state.user_icon}:JZBImages.userIcon} style={{width:70, height:70, borderRadius:35}}/>
                                 <Text style={styles.login}>{this.state.isLogin?this.state.username:'登录/注册'}</Text>
                             </TouchableOpacity>
                         </Image>
