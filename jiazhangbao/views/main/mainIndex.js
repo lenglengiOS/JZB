@@ -37,6 +37,7 @@ import Login from '../login/login_index'; //
 import Search from '../home/search'; // 
 import SysMsg from '../home/sysMsg'; // 
 import UserInfo from '../user/userInfo'; // 
+import PostAddress from '../user/postAddress'; // 
 import Org from '../home/organization'; // 
 import JiaoYu from '../home/jiaoyu_jiazhang'; // 
 import CourseDetail from '../home/courseDetails'; // 
@@ -117,6 +118,9 @@ export default class MainIndex extends React.Component {
             case "userinfo":
                 Component=UserInfo;
                 break;
+            case "postaddress":
+                Component=PostAddress;
+                break;  
             case "org":
                 Component=Org;
                 break;

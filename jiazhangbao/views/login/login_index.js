@@ -49,7 +49,7 @@ export default class Login extends React.Component{
         //<Component {...route.param} navigator={navigator} />
         //这里传递了navigator作为props
         if(navigator) {
-            navigator.pop();
+            navigator.popToTop();
         }
     }
 

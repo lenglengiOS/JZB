@@ -38,7 +38,8 @@ var Size=function(font){
 	}
 }
 
-let IPAddr = "http://192.168.0.103";
+let IPAddr = "http://192.168.0.104";
+//let IPAddr = "http://172.27.35.1";
 
 const isDebug=true;
 if(!isDebug){
@@ -121,7 +122,6 @@ const JZBImages = {
 	user_setting:require('../resources/wode/user_setting.png'),
 	user_store:require('../resources/wode/user_store.png'),
 	user_take_class:require('../resources/wode/user_take_class.png'),
-
 }
 
 

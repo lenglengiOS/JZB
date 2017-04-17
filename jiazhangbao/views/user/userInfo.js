@@ -20,6 +20,7 @@ import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackg
 import ImagePicker from 'react-native-image-crop-picker';
 import LoadingShow  from '../component/react-native-loading';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import Picker from 'react-native-picker';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
 
@@ -56,6 +57,11 @@ export default class WoDe extends React.Component{
                     cropping:true,
                     cropperCircleOverlay:true
                 }).then(image => {
+
+
+
+
+
                     console.log(image);
                     this.setState({
                         loading:true,
@@ -70,6 +76,11 @@ export default class WoDe extends React.Component{
                     cropping:true,
                     cropperCircleOverlay:true
                 }).then(image => {
+
+
+
+
+
                     console.log(image);
                     this.setState({
                         loading:true,
@@ -102,6 +113,67 @@ export default class WoDe extends React.Component{
         });
     }
 
+    uploadInfo(INDEX){
+        var data = [];
+        var pickerTitleText = '';
+        var selectedValue = [];
+        switch(INDEX){
+            case 1:
+                data = ['未入园','幼儿园','一年级','二年级','三年级','四年级','五年级','六年级','初中及以上'];
+                //data = [1,2,3,4];
+                pickerTitleText = '请选择孩子学段';
+                selectedValue = ['未入园'];
+            break;
+            case 2:
+                data = ['未出生','1岁以下','1岁','2岁','3岁','4岁','5岁','6岁','7岁','8岁','9岁','10岁','11岁','12岁','12岁以上'];
+                pickerTitleText = '请选择孩子年龄';
+                selectedValue = ['未出生'];
+            break;
+            case 3:
+                data = ['男孩','女孩'];
+                pickerTitleText = '请选择孩子性别';
+                selectedValue = ['男孩'];
+            break;
+            case 4:
+                data = ['男','女'];
+                pickerTitleText = '请选择性别';
+                selectedValue = ['男'];
+            break;
+        }
+
+
+        Picker.init({
+            pickerData: data,
+            pickerConfirmBtnText:'确定',
+            pickerCancelBtnText:'取消',
+            pickerTitleText:pickerTitleText,
+            pickerConfirmBtnColor:[0,116,251,1], 
+            pickerCancelBtnColor:[107,107,107,1],   
+            pickerTitleColor:[161,161,161,1],
+            selectedValue: selectedValue,
+
+            onPickerConfirm: data => {
+                alert(data);
+            },
+            onPickerCancel: data => {
+                //alert(data);
+            },
+            onPickerSelect: data => {
+                //alert(data);
+            }
+        });
+        Picker.show();
+    }
+
+    gotoAddress(){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'postaddress',
+            })
+        }
+    }
+
 	render(){
 		return(
 			<View style={styles.container}>
@@ -111,9 +183,9 @@ export default class WoDe extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}} style={{width:30, height:30, position:'absolute', top:27, left:10}}>
-                        <Image source={JZBImages.back} style={{width:30, height:30}} />
+                        <Image source={JZBImages.back} style={{width:25, height:25}} />
                     </TouchableOpacity>
-                    <Text style={{fontSize:20, color:'#00B09D'}}>我的资料</Text>
+                    <Text style={{fontSize:18, color:'#00B09D'}}>我的资料</Text>
                 </View>
                 <ScrollView>
                     <TouchableOpacity style={styles.icon} activeOpacity={0.8} onPress={()=>{this.changeIcon()}}>
@@ -124,52 +196,53 @@ export default class WoDe extends React.Component{
                         </View>
                     </TouchableOpacity>
                     <View style={styles.child}>
-                        <View style={styles.cell}>
+                        <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.uploadInfo(1)}}>
                             <Text style={{fontSize:16}}>孩子学段</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>二年级</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.c_grade?this.props.param.data.c_grade:'请选择'}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
-                        </View>
-                        <View style={styles.cell}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.uploadInfo(2)}}>
                             <Text style={{fontSize:16}}>孩子年龄</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>12岁以上</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.c_age?this.props.param.data.c_age:'请选择'}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
-                        </View>
-                        <View style={[styles.cell, {borderBottomWidth:0}]}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.cell, {borderBottomWidth:0}]} activeOpacity={0.8} onPress={()=>{this.uploadInfo(3)}}>
                             <Text style={{fontSize:16}}>孩子性别</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>男孩</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.c_sex?this.props.param.data.c_sex:'请选择'}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.child}>
                         <View style={styles.cell}>
                             <Text style={{fontSize:16}}>昵称</Text>
-                            <View style={{height:44, flexDirection:'row', alignItems:'center', paddingRight:20}}>
+                            <View style={{height:44, flexDirection:'row', alignItems:'center', paddingRight:20, flex:1}}>
                                 <TextInput
-                                    style={{width:50, height:44, color:'#9A9A9A'}}
+                                    style={{flex:1,height:44, color:'#9A9A9A'}}
                                     textAlign='right'
-                                    defaultValue = "冷冷"/>
+                                    placeholder='请输入昵称'
+                                    defaultValue = {this.props.param.data.name?this.props.param.data.name:'请输入'}/>
                             </View>
                         </View>
-                        <View style={styles.cell}>
+                        <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.uploadInfo(4)}}>
                             <Text style={{fontSize:16}}>性别</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>男</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.sex?this.props.param.data.sex:'请选择'}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
-                        </View>
-                        <View style={[styles.cell, {borderBottomWidth:0}]}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.cell, {borderBottomWidth:0}]} activeOpacity={0.8} onPress={()=>{this.gotoAddress()}}>
                             <Text style={{fontSize:16}}>邮寄地址</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>填写地址,邮寄奖品</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.address?this.props.param.data.address:'填写地址,邮寄奖品'}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
                 <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>

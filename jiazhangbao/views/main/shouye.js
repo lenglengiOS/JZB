@@ -183,6 +183,7 @@ export default class Home extends React.Component{
                                 username:ret.data[0].user_name,
                                 id:ret.data[0].id,
                                 user_icon:ret.data[0].user_icon,
+                                data:ret.data[0],
                                 isLogin:true
                             })
                         }else{
@@ -194,7 +195,10 @@ export default class Home extends React.Component{
                         console.log("====444444==="+err)
                 });
             }else{
-                this.setState({isLogin:false})
+                this.setState({
+                    isLogin:false,
+                    user_icon:null
+                })
             }
         });  
     }
@@ -206,7 +210,8 @@ export default class Home extends React.Component{
                     name: this.state.isLogin?'userinfo':'login',
                     param:{
                         id:this.state.id?this.state.id:'',
-                        user_icon:this.state.user_icon
+                        user_icon:this.state.user_icon,
+                        data:this.state.data
                     }
                 })
             }

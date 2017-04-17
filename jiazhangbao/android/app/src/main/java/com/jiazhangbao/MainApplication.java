@@ -4,6 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.beefe.picker.PickerViewPackage;
+import com.reactnative.photoview.PhotoViewPackage;
+import org.lovebing.reactnative.baidumap.BaiduMapPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +29,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new PickerViewPackage(),
+            new PhotoViewPackage(),
+            new BaiduMapPackage(),
             new PickerPackage()
       );
     }
