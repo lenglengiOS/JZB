@@ -29,11 +29,24 @@ export default class WoDe extends React.Component{
 		super(props);
 		this.state={
             loading:false,
-            loadingWaitText:"正在上传..."
+            loadingWaitText:"正在上传...",
+            image:IPAddr+this.props.param.user_icon,
+            flag:this.props.param.user_icon,
+            info_1:'请输入',
+            info_2:'请输入',
+            info_3:'请输入',
+            info_4:'请输入',
+            info_5:'请输入',
 		}
 	}
     componentDidMount(){
-
+        this.setState({
+            info_1:this.props.param.data.c_grade?this.props.param.data.c_grade:'请输入',
+            info_2:this.props.param.data.c_age?this.props.param.data.c_age:'请输入',
+            info_3:this.props.param.data.c_sex?this.props.param.data.c_sex:'请输入',
+            info_4:this.props.param.data.sex?this.props.param.data.sex:'请输入',
+            info_5:this.props.param.data.user_name?this.props.param.data.user_name:'请输入',
+        })
     }
 
     _back(){
@@ -57,11 +70,6 @@ export default class WoDe extends React.Component{
                     cropping:true,
                     cropperCircleOverlay:true
                 }).then(image => {
-
-
-
-
-
                     console.log(image);
                     this.setState({
                         loading:true,
@@ -76,11 +84,6 @@ export default class WoDe extends React.Component{
                     cropping:true,
                     cropperCircleOverlay:true
                 }).then(image => {
-
-
-
-
-
                     console.log(image);
                     this.setState({
                         loading:true,
@@ -101,13 +104,19 @@ export default class WoDe extends React.Component{
         }
         Tools.postNotBase64(IPAddr+"/user/updateUserInfo.php", PostData,(ret)=>{
             console.log("====dadadada=="+ret)
-                this.setState({loading:false})
+                this.setState({
+                    loading:false,
+                    flag:'http://'
+                    })
                 Toast.show("头像上传成功！", 2000)
                 let value = 'value';
                 RCTDeviceEventEmitter.emit('undateUserInfo',value); 
                 
             }, (err)=>{
-                this.setState({loading:false})
+                this.setState({
+                    loading:false,
+                    flag:'http://'
+                    })
                 Toast.show(err);
                 console.log("====444444==="+err)
         });
@@ -153,7 +162,7 @@ export default class WoDe extends React.Component{
             selectedValue: selectedValue,
 
             onPickerConfirm: data => {
-                alert(data);
+                this.post(INDEX, data[0]);
             },
             onPickerCancel: data => {
                 //alert(data);
@@ -165,11 +174,70 @@ export default class WoDe extends React.Component{
         Picker.show();
     }
 
+    post(INDEX, data){
+        this.setState({
+                    loading:true,
+                    loadingWaitText:'正在上传...'
+                })
+                var PostData ={
+                    data:{
+                        index:INDEX,
+                        info:data,
+                        user_phone:this.props.param.data.user_phone
+                    }
+                }
+                Tools.postNotBase64(IPAddr+"/user/updateUserInfo.php", PostData,(ret)=>{
+                    console.log("====dadadada=="+ret)
+                        switch(INDEX){
+                            case 1:
+                                this.setState({
+                                    loading:false,
+                                    info_1:data
+                                })
+                            break;
+                            case 2:
+                                this.setState({
+                                    loading:false,
+                                    info_2:data
+                                })
+                            break;
+                            case 3:
+                                this.setState({
+                                    loading:false,
+                                    info_3:data
+                                })
+                            break;
+                            case 4:
+                                this.setState({
+                                    loading:false,
+                                    info_4:data
+                                })
+                            break;
+                            case 5:
+                                this.setState({
+                                    loading:false,
+                                })
+                            break;
+                        }
+                        Toast.show("更新成功！", 2000)
+                        let value = 'value';
+                        RCTDeviceEventEmitter.emit('undateUserInfo',value);
+                        
+                    }, (err)=>{
+                        this.setState({loading:false})
+                        Toast.show(err);
+                        console.log("====444444==="+err)
+                });
+    }
+
     gotoAddress(){
         const { navigator } = this.props;
         if(navigator) {
             navigator.push({
                 name: 'postaddress',
+                param:{
+                    data:this.props.param.data
+                }
             })
         }
     }
@@ -191,7 +259,7 @@ export default class WoDe extends React.Component{
                     <TouchableOpacity style={styles.icon} activeOpacity={0.8} onPress={()=>{this.changeIcon()}}>
                         <Text style={{fontSize:16}}>我的头像</Text>
                         <View style={{width:80, height:60, flexDirection:'row', alignItems:'center'}}>
-                            <Image source={{uri: !this.state.image?IPAddr+this.props.param.user_icon:this.state.image}} style={{width:60, height:60, borderRadius:30}} />
+                            <Image source={this.state.flag?{uri: this.state.image}:JZBImages.userIcon} style={{width:60, height:60, borderRadius:30}} />
                             <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                         </View>
                     </TouchableOpacity>
@@ -199,21 +267,21 @@ export default class WoDe extends React.Component{
                         <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.uploadInfo(1)}}>
                             <Text style={{fontSize:16}}>孩子学段</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.c_grade?this.props.param.data.c_grade:'请选择'}</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.state.info_1}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.uploadInfo(2)}}>
                             <Text style={{fontSize:16}}>孩子年龄</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.c_age?this.props.param.data.c_age:'请选择'}</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.state.info_2}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.cell, {borderBottomWidth:0}]} activeOpacity={0.8} onPress={()=>{this.uploadInfo(3)}}>
                             <Text style={{fontSize:16}}>孩子性别</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.c_sex?this.props.param.data.c_sex:'请选择'}</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.state.info_3}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
                         </TouchableOpacity>
@@ -226,13 +294,17 @@ export default class WoDe extends React.Component{
                                     style={{flex:1,height:44, color:'#9A9A9A'}}
                                     textAlign='right'
                                     placeholder='请输入昵称'
-                                    defaultValue = {this.props.param.data.name?this.props.param.data.name:'请输入'}/>
+                                    fontSize={16}
+                                    onSubmitEditing={(event)=>this.post(5,event.nativeEvent.text)}
+                                    clearButtonMode='while-editing'
+                                    onChangeText = {(text) => this.setState({info_5:text})}
+                                    defaultValue = {this.state.info_5}/>
                             </View>
                         </View>
                         <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.uploadInfo(4)}}>
                             <Text style={{fontSize:16}}>性别</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.sex?this.props.param.data.sex:'请选择'}</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.state.info_4}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
                         </TouchableOpacity>

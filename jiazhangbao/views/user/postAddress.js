@@ -34,7 +34,13 @@ export default class WoDe extends React.Component{
 		}
 	}
     componentDidMount(){
-
+        alert(JSON.stringify(this.props.param.data))
+        this.setState({
+            name:this.props.param.data.name?this.props.param.data.name:'',
+            contact_tel:this.props.param.data.contact_tel?this.props.param.data.name:'',
+            region:this.props.param.data.name?this.props.param.data.region:'',
+            address:this.props.param.data.name?this.props.param.data.address:'',
+        })
     }
 
     _back(){
@@ -44,57 +50,7 @@ export default class WoDe extends React.Component{
         }
     }
 
-    uploadInfo(INDEX){
-        var data = [];
-        var pickerTitleText = '';
-        var selectedValue = [];
-        switch(INDEX){
-            case 1:
-                data = ['未入园','幼儿园','一年级','二年级','三年级','四年级','五年级','六年级','初中及以上'];
-                //data = [1,2,3,4];
-                pickerTitleText = '请选择孩子学段';
-                selectedValue = ['未入园'];
-            break;
-            case 2:
-                data = ['未出生','1岁以下','1岁','2岁','3岁','4岁','5岁','6岁','7岁','8岁','9岁','10岁','11岁','12岁','12岁以上'];
-                pickerTitleText = '请选择孩子年龄';
-                selectedValue = ['未出生'];
-            break;
-            case 3:
-                data = ['男孩','女孩'];
-                pickerTitleText = '请选择孩子性别';
-                selectedValue = ['男孩'];
-            break;
-            case 4:
-                data = ['男','女'];
-                pickerTitleText = '请选择性别';
-                selectedValue = ['男'];
-            break;
-        }
-
-
-        Picker.init({
-            pickerData: data,
-            pickerConfirmBtnText:'确定',
-            pickerCancelBtnText:'取消',
-            pickerTitleText:pickerTitleText,
-            pickerConfirmBtnColor:[0,116,251,1], 
-            pickerCancelBtnColor:[107,107,107,1],   
-            pickerTitleColor:[161,161,161,1],
-            selectedValue: selectedValue,
-
-            onPickerConfirm: data => {
-                alert(data);
-            },
-            onPickerCancel: data => {
-                //alert(data);
-            },
-            onPickerSelect: data => {
-                //alert(data);
-            }
-        });
-        Picker.show();
-    }
+   
 
     selectAddr(){
         var pickerData = CityData.data;
@@ -143,7 +99,7 @@ export default class WoDe extends React.Component{
                             onChangeText={(text) => this.setState({name:text})}
                             value={this.state.name}
                             clearButtonMode='while-editing'
-                            defaultValue='6878'
+                            defaultValue={this.state.name}
                             placeholder='请输入姓名'
                             />
                         </View>
@@ -154,8 +110,8 @@ export default class WoDe extends React.Component{
                             style={styles.info}
                             onChangeText={(text) => this.setState({tel:text})}
                             value={this.state.tel}
+                            defaultValue={this.state.contact_tel}
                             clearButtonMode='while-editing'
-                            defaultValue='6878'
                             placeholder='请输入电话'
                             />
                         </View>
@@ -163,7 +119,7 @@ export default class WoDe extends React.Component{
                         <View style={styles.cellS}>
                             <Text style={styles.name}>地区：</Text>
                             <TouchableOpacity  activeOpacity={1} style={{flex:1, justifyContent:'center'}} onPress={()=>{this.selectAddr()}}>
-                                <Text style={{color:'#C7C6CD', fontSize:16}}>请选择地区</Text>
+                                <Text style={{color:this.state.region?'#000':'#C7C6CD', fontSize:16}}>{this.state.region?this.state.region:'请选择地区'}</Text>
                             </TouchableOpacity>
                             <Image source={JZBImages.chose} style={{width:20, height:20, marginRight:15}} />
                         </View>
@@ -175,7 +131,7 @@ export default class WoDe extends React.Component{
                             onChangeText={(text) => this.setState({addr:text})}
                             value={this.state.addr}
                             clearButtonMode='while-editing'
-                            defaultValue='6878'
+                            defaultValue={this.state.address}
                             placeholder='请输入地址'
                             />
                         </View>
