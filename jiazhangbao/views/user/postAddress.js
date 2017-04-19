@@ -34,12 +34,13 @@ export default class WoDe extends React.Component{
 		}
 	}
     componentDidMount(){
-        alert(JSON.stringify(this.props.param.data))
+        //alert(JSON.stringify(this.props.param.data))
         this.setState({
             name:this.props.param.data.name?this.props.param.data.name:'',
-            contact_tel:this.props.param.data.contact_tel?this.props.param.data.name:'',
+            contact_tel:this.props.param.data.contact_tel?this.props.param.data.contact_tel:'',
             region:this.props.param.data.name?this.props.param.data.region:'',
             address:this.props.param.data.name?this.props.param.data.address:'',
+            user_phone:this.props.param.data.user_phone
         })
     }
 
@@ -49,8 +50,6 @@ export default class WoDe extends React.Component{
             navigator.pop() 
         }
     }
-
-   
 
     selectAddr(){
         var pickerData = CityData.data;
@@ -65,7 +64,7 @@ export default class WoDe extends React.Component{
             pickerTitleColor:[161,161,161,1],
 
             onPickerConfirm: data => {
-                alert(data);
+                this.setState({region:data.join(' ')})
             },
             onPickerCancel: data => {
                 //alert(data);
@@ -75,6 +74,54 @@ export default class WoDe extends React.Component{
             }
         });
         Picker.show();
+    }
+
+    upLoadInfo(){
+        if(!this.state.name)
+        {
+            Toast.show("请输入姓名",2000);
+            return;
+        }
+        var check = Tools.checkPhone(this.state.contact_tel);
+        if(check)
+        {
+            Toast.show(check,2000);
+            return;
+        }
+        if(!this.state.region)
+        {
+            Toast.show("请选择地区！",2000);
+            return;
+        }
+        if(!this.state.address)
+        {
+            Toast.show("请输入地址！",2000);
+            return;
+        }
+        this.setState({
+            loading:true,
+        })
+        var PostData ={
+            data:{
+               name:this.state.name,
+               contact_tel:this.state.contact_tel,
+               region:this.state.region,
+               address:this.state.address,
+               user_phone:this.state.user_phone
+            }
+        }
+        Tools.postNotBase64(IPAddr+"/user/updateUserInfo.php", PostData,(ret)=>{
+            console.log("====dadadada=="+ret)
+                this.setState({loading:false})
+                Toast.show("修改成功！", 2000)
+                let value = this.state.address;
+                RCTDeviceEventEmitter.emit('undateUserInfo',value); 
+                this._back();
+            }, (err)=>{
+                this.setState({loading:false})
+                Toast.show(err);
+                console.log("====444444==="+err)
+        });
     }
 
 	render(){
@@ -108,8 +155,8 @@ export default class WoDe extends React.Component{
                             <Text style={styles.name}>电话：</Text>
                             <TextInput 
                             style={styles.info}
-                            onChangeText={(text) => this.setState({tel:text})}
-                            value={this.state.tel}
+                            onChangeText={(text) => this.setState({contact_tel:text})}
+                            value={this.state.contact_tel}
                             defaultValue={this.state.contact_tel}
                             clearButtonMode='while-editing'
                             placeholder='请输入电话'
@@ -119,17 +166,17 @@ export default class WoDe extends React.Component{
                         <View style={styles.cellS}>
                             <Text style={styles.name}>地区：</Text>
                             <TouchableOpacity  activeOpacity={1} style={{flex:1, justifyContent:'center'}} onPress={()=>{this.selectAddr()}}>
-                                <Text style={{color:this.state.region?'#000':'#C7C6CD', fontSize:16}}>{this.state.region?this.state.region:'请选择地区'}</Text>
+                                <Text style={{color:this.state.region?'#000':'#C7C6CD', fontSize:16, lineHeight:18}}>{this.state.region?this.state.region:'请选择地区'}</Text>
                             </TouchableOpacity>
-                            <Image source={JZBImages.chose} style={{width:20, height:20, marginRight:15}} />
+                            <Image source={JZBImages.chose} style={{width:20, height:20, marginRight:15, marginTop:2}} />
                         </View>
                         <View style={{width:screenWidth-15,height:1, backgroundColor:'#E8E8E8'}}/>
                         <View style={styles.cellS}>
                             <Text style={[styles.name, {marginRight:10}]}>详细地址：</Text>
                             <TextInput 
                             style={styles.info}
-                            onChangeText={(text) => this.setState({addr:text})}
-                            value={this.state.addr}
+                            onChangeText={(text) => this.setState({address:text})}
+                            value={this.state.address}
                             clearButtonMode='while-editing'
                             defaultValue={this.state.address}
                             placeholder='请输入地址'
@@ -137,7 +184,7 @@ export default class WoDe extends React.Component{
                         </View>
                     </View>
                     <Text style={styles.note}>家长大人，我们会按照此地址为您邮寄奖品，请确保您的信息准确哦！</Text>
-                    <TouchableOpacity style={styles.save} activeOpacity={0.8} onPress={()=>alert('保存')}>
+                    <TouchableOpacity style={styles.save} activeOpacity={0.8} onPress={()=>this.upLoadInfo()}>
                         <Text style={{color:'#FFF', fontSize:18}}>保存</Text>
                     </TouchableOpacity>
 

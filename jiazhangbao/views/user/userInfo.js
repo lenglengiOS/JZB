@@ -46,8 +46,18 @@ export default class WoDe extends React.Component{
             info_3:this.props.param.data.c_sex?this.props.param.data.c_sex:'请输入',
             info_4:this.props.param.data.sex?this.props.param.data.sex:'请输入',
             info_5:this.props.param.data.user_name?this.props.param.data.user_name:'请输入',
+            address:this.props.param.data.address
         })
+        this.listener = RCTDeviceEventEmitter.addListener('undateUserInfo',(value)=>{  
+            // 接受到通知后的处理  
+            this.setState({address:value})
+        });
     }
+
+    componentWillUnmount(){  
+      // 移除监听 一定要写  
+      this.listener.remove();  
+    } 
 
     _back(){
         const { navigator } = this.props;
@@ -311,7 +321,7 @@ export default class WoDe extends React.Component{
                         <TouchableOpacity style={[styles.cell, {borderBottomWidth:0}]} activeOpacity={0.8} onPress={()=>{this.gotoAddress()}}>
                             <Text style={{fontSize:16}}>邮寄地址</Text>
                             <View style={{height:44, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.props.param.data.address?this.props.param.data.address:'填写地址,邮寄奖品'}</Text>
+                                <Text style={{fontSize:16, color:'#9A9A9A'}}>{this.state.address?this.state.address:'填写地址,邮寄奖品'}</Text>
                                 <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                             </View>
                         </TouchableOpacity>
