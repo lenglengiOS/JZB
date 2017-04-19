@@ -15,7 +15,11 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
-
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import Tools from '../tools';
+import LoadingShow  from '../component/react-native-loading';
+import Toast from '../tools/Toast';
+import { MapView, MapTypes, MapModule, Geolocation } from 'react-native-baidu-map';
 export default class WoDe extends React.Component{
 	constructor(props){
 		super(props);
@@ -24,7 +28,73 @@ export default class WoDe extends React.Component{
 		}
 	}
     componentDidMount(){
-       
+        this.goLocation();
+        this.login();
+        this.listener = RCTDeviceEventEmitter.addListener('undateUserInfo',(value)=>{  
+            // 接受到通知后的处理  
+            this.login();
+        }); 
+    }
+
+    componentWillUnmount(){  
+        // 移除监听 一定要写  
+        this.listener.remove();  
+    }
+
+    goLocation(){
+        Geolocation.getCurrentPosition().then(data => {
+                console.log("====Geolocation=="+JSON.stringify(data))
+                Geolocation.reverseGeoCode(data.latitude, data.longitude).then(res => {
+                        console.log("====reverseGeoCode=="+JSON.stringify(res))
+                        this.setState({location:res.city})
+                    }).catch(e =>{
+                    console.warn(e, 'error');
+                  })
+
+          }).catch(e =>{
+            console.warn(e, 'error');
+          })
+    }
+
+    login(){
+        Tools.getStorage("maincfg",(resData)=>{
+            if(Tools.isDataValid(resData))
+            {
+                this.setState({isLogin:true})
+                var maincfgData=JSON.parse(resData)
+                console.log("====maincfgData=="+maincfgData)
+                var PostData ={
+                    data:{
+                        userphone:maincfgData.data.userphone,
+                        userpwd:maincfgData.data.userpwd
+                    }
+                }
+                Tools.postNotBase64(IPAddr+"/login/login.php", PostData,(ret)=>{
+                    console.log("====dadadada=="+JSON.stringify(ret))
+                        if(ret.message == "登陆成功")
+                        {
+                            this.setState({
+                                username:ret.data[0].user_name,
+                                id:ret.data[0].id,
+                                user_icon:ret.data[0].user_icon,
+                                data:ret.data[0],
+                                isLogin:true
+                            })
+                        }else{
+                            Toast.show("获取用户信息失败", 2000)
+                        }
+                    }, (err)=>{
+                        Toast.show(err);
+                        this.setState({isLogin:false})
+                        console.log("====444444==="+err)
+                });
+            }else{
+                this.setState({
+                    isLogin:false,
+                    user_icon:''
+                })
+            }
+        });  
     }
 
     setting(){
@@ -39,18 +109,39 @@ export default class WoDe extends React.Component{
         }
     }
 
+    goToLogin(){
+        let {route,navigator} = this.props;
+        if(navigator) {
+            navigator.push({
+                name: this.state.isLogin?'userinfo':'login',
+                param:{
+                    id:this.state.id?this.state.id:'',
+                    user_icon:this.state.user_icon,
+                    data:this.state.data
+                }
+            })
+        }
+    }
+
     renderNameView(){
-    	if(!this.state.isLogin)
+    	if(this.state.isLogin)
     	{
     		return(
-    			<View style={{height:60, flex:1, flexDirection:'row'}}>
-    				<Text style={{color:'#FB5441', fontSize:16, marginLeft:15, marginRight:10}}>青春</Text>
-    				<Image source={JZBImages.gc_beauty_v1} style={{width:18, height:18}} />
-    			</View>
+                <View style={{flex:1, height:60}} activeOpacity={1} onPress={()=>this.gotoUserInfo()}>
+        			<View style={{flexDirection:'row', marginTop:5}}>
+        				<Text style={{color:'#FB5441', fontSize:16, marginLeft:15, marginRight:10}}>{this.state.username}</Text>
+        				<Image source={JZBImages.gc_beauty_v1} style={{width:18, height:18}} />
+        			</View>
+                    <View style={{flexDirection:'row', marginTop:10}}>
+                        <Image source={JZBImages.location} style={{width:10, height:14, marginLeft:15}}/>
+                        <Text style={{marginLeft:3, color:'#717171', fontSize:14}}>{this.state.location}</Text>
+                    </View>
+                    
+                </View>
 	    	)
     	}
     	return(
-    		<View style={{height:60, flex:1, flexDirection:'row',alignItems:'center'}}>
+    		<View style={{height:60, flex:1, flexDirection:'row',alignItems:'center'}} activeOpacity={1} onPress={()=>this.goToLogin()}>
     			<Text style={{color:'#969696', fontSize:16, marginLeft:15}}>登陆/注册</Text>
     		</View>
     	)
@@ -65,12 +156,11 @@ export default class WoDe extends React.Component{
                 </View>
                 <ScrollView>
                 	<View style={styles.userInfo}>
-                		<View style={{height:90,marginLeft:15, paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E8E8E8', alignItems:'center',flexDirection:'row'}}>
-                			<Image source={this.state.userIcon?{uri: this.state.userIcon}:JZBImages.userIcon} style={{width:60, height:60, borderRadius:30}}/>
+                		<TouchableOpacity style={{height:90,marginLeft:15, paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E8E8E8', alignItems:'center',flexDirection:'row'}} activeOpacity={1} onPress={()=>this.goToLogin()}>
+                			<Image source={this.state.user_icon?{uri: IPAddr+this.state.user_icon}:JZBImages.userIcon} style={{width:60, height:60, borderRadius:30}}/>
                 			{this.renderNameView()}
                 			<Image source={JZBImages.chose} style={{width:20, height:20}} />
-
-                		</View>
+                		</TouchableOpacity>
                 		<View style={{width:screenWidth, height:64, backgroundColor:'#FFF', paddingLeft:15, paddingRight:15,flexDirection:'row'}}>
                 			<View style={styles.jifen}>
                 				<Text style={{color:'#717171', fontSize:15}}>0</Text>
@@ -78,11 +168,11 @@ export default class WoDe extends React.Component{
                 			</View>
                 			<View style={styles.jifen}>
                 				<Text style={{color:'#717171', fontSize:15}}>0</Text>
-                				<Text style={{color:'#717171', fontSize:14}}>我的积分</Text>
+                				<Text style={{color:'#717171', fontSize:14}}>签到天数</Text>
                 			</View>
                 			<View style={styles.jifen}>
                 				<Text style={{color:'#717171', fontSize:15}}>0</Text>
-                				<Text style={{color:'#717171', fontSize:14}}>我的积分</Text>
+                				<Text style={{color:'#717171', fontSize:14}}>活跃指数</Text>
                 			</View>
                 		</View>
                 	</View>

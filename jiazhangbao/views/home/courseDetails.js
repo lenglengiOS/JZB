@@ -98,9 +98,9 @@ export default class NewsDetail extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
-                        <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
+                        <Image source={JZBImages.back} style={{width:25, height:25, marginLeft:10}} />
                     </TouchableOpacity>
-                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.param.title}</Text>
+                    <Text numberOfLines={1} style={{fontSize:18, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.param.title}</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
                     	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>

@@ -111,7 +111,7 @@ export default class Login extends React.Component{
                     }
                 }
         Tools.postNotBase64(IPAddr+"/login/login.php", PostData,(ret)=>{
-            console.log("====dadadada=="+JSON.stringify(ret))
+            console.log("====login---dadadada=="+JSON.stringify(ret))
                 if(ret.message == "登陆成功")
                 {
                     this.setState({loading:false})

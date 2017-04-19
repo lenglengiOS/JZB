@@ -46,11 +46,16 @@ export default class WoDe extends React.Component{
             info_3:this.props.param.data.c_sex?this.props.param.data.c_sex:'请输入',
             info_4:this.props.param.data.sex?this.props.param.data.sex:'请输入',
             info_5:this.props.param.data.user_name?this.props.param.data.user_name:'请输入',
-            address:this.props.param.data.address
+            address:this.props.param.data.address,
+            data:this.props.param.data
         })
         this.listener = RCTDeviceEventEmitter.addListener('undateUserInfo',(value)=>{  
             // 接受到通知后的处理  
-            this.setState({address:value})
+            this.setState({
+                address:value
+            })
+            // 重新获取新的数据
+            this.login();
         });
     }
 
@@ -58,6 +63,47 @@ export default class WoDe extends React.Component{
       // 移除监听 一定要写  
       this.listener.remove();  
     } 
+
+    login(){
+        Tools.getStorage("maincfg",(resData)=>{
+            if(Tools.isDataValid(resData))
+            {
+                this.setState({isLogin:true})
+                var maincfgData=JSON.parse(resData)
+                console.log("====maincfgData=="+maincfgData)
+                var PostData ={
+                    data:{
+                        userphone:maincfgData.data.userphone,
+                        userpwd:maincfgData.data.userpwd
+                    }
+                }
+                Tools.postNotBase64(IPAddr+"/login/login.php", PostData,(ret)=>{
+                    console.log("====dadadada=="+JSON.stringify(ret))
+                        if(ret.message == "登陆成功")
+                        {
+                            this.setState({
+                                username:ret.data[0].user_name,
+                                id:ret.data[0].id,
+                                user_icon:ret.data[0].user_icon,
+                                data:ret.data[0],
+                                isLogin:true
+                            })
+                        }else{
+                            Toast.show("获取用户信息失败", 2000)
+                        }
+                    }, (err)=>{
+                        Toast.show(err);
+                        this.setState({isLogin:false})
+                        console.log("====444444==="+err)
+                });
+            }else{
+                this.setState({
+                    isLogin:false,
+                    user_icon:null
+                })
+            }
+        });  
+    }
 
     _back(){
         const { navigator } = this.props;
@@ -246,7 +292,7 @@ export default class WoDe extends React.Component{
             navigator.push({
                 name: 'postaddress',
                 param:{
-                    data:this.props.param.data
+                    data:this.state.data
                 }
             })
         }
