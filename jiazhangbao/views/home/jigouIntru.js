@@ -14,24 +14,42 @@ import {
     Image,
     WebView,
     StatusBar,
-    Linking
+    Linking,
+    Modal
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {
+  MapView,
+  MapTypes,
+  Geolocation
+} from 'react-native-baidu-map';
 
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
+import PhotoView from '../component/'
 
-const arr = ['','','','','','','','','','',''];
+const margin = 3;
 
 
 export default class NewsDetail extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            isShowMore:false
+            isShowMore:false,
+            modalVisible:false
         }
     }
     componentDidMount(){
-
+        //alert(JSON.stringify(this.props.param.data.jigouInfo.lng))
+        this.setState({data:this.props.param.data})
+        Geolocation.getCurrentPosition().then(data => {
+              console.log("====BAIDUMAPGeolocation=="+JSON.stringify(data))
+              this.setState({
+                       longitude: data.longitude,
+                       latitude: data.latitude
+                })
+        }).catch(e =>{
+          console.warn(e, 'error');
+        })
     }
 
     _back(){
@@ -79,7 +97,12 @@ export default class NewsDetail extends React.Component{
             navigator.push({
                 name:"baidumap",
                 param:{
-                    label:'666'
+                    lng:this.props.param.data.jigouInfo.lng,
+                    lat:this.props.param.data.jigouInfo.lat,
+                    name:this.props.param.data.jigouInfo.name,
+                    address:this.props.param.data.jigouInfo.address,
+                    longitude: this.state.longitude,
+                    latitude: this.state.latitude
                 }
             })
         }
@@ -117,13 +140,20 @@ export default class NewsDetail extends React.Component{
         }).catch(err => console.error('An error occurred', err));
     }
 
+    openAlbum(INDEX, ARR){
+        this.setState({
+            modalVisible:true,
+            index:INDEX
+        })
+    }
+
     renderPhotoCell(){
-        var margin = 3;
+        var arr = this.state.data?this.state.data.jigouInfo.album.split(","):[];
         return arr.map((item, index) => {
             return(
-                <View key={index} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25, marginRight:3, marginTop:3}} >
-                     <Image source={JZBImages.nav} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25}} />
-                </View>
+                <TouchableOpacity key={index} style={styles.cell} activeOpacity={0.8} onPress={()=>this.openAlbum(index, arr)}>
+                     <Image source={{uri: BimgURL+item+LimgURL}} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25}} />
+                </TouchableOpacity>
             )
         })
     }
@@ -138,35 +168,35 @@ export default class NewsDetail extends React.Component{
                      animated={true}/>
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
-                        <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
+                        <Image source={JZBImages.back} style={{width:25, height:25, marginLeft:10}} />
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={styles.title}>机构介绍</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
-                        <Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
+                        <Image source={JZBImages.common_more} style={{width:25, height:25, marginRight:10}} />
                     </TouchableOpacity>
                 </View>
                 <ScrollView>
                     <View style={styles.school}>
-                        <Image source={JZBImages.nav} style={{width:90, height:73, marginRight:10}} />
-                        <Text style={{fontSize:16}}>成都市盐道街小学</Text>
+                        <Image source={{uri: this.state.data?BimgURL+this.state.data.jigouInfo.logo+LimgURL:'http://'}} style={{width:90, height:73, marginRight:10}} />
+                        <Text style={{fontSize:16}}>{this.state.data?this.state.data.jigouInfo.name:''}</Text>
                     </View>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.gotoLocation()} style={styles.location}>
-                        <View style={{flexDirection:'row', alignItems:'center'}}>
+                        <View style={{flexDirection:'row', alignItems:'center', width:screenWidth-50}}>
                             <Image source={JZBImages.location} style={{width:17, height:17}} />
-                            <Text style={{fontSize:16, marginLeft:10}}>盐道街2号</Text>
+                            <Text style={{fontSize:16, marginLeft:10}}>{this.state.data?this.state.data.jigouInfo.address:''}</Text>
                         </View>
                         <Image source={JZBImages.chose} style={{width:20, height:20}} />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.callPhone()} style={styles.location}>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
                             <Image source={JZBImages.phone} style={{width:17, height:17}} />
-                            <Text style={{fontSize:16, marginLeft:10}}>18202853094</Text>
+                            <Text style={{fontSize:16, marginLeft:10}}>{this.state.data?this.state.data.jigouInfo.telPhone:''}</Text>
                         </View>
                         <Image source={JZBImages.chose} style={{width:20, height:20}} />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={()=>this.setState({isShowMore:!this.state.isShowMore})} style={styles.jigou}>
                         <Text style={{fontSize:14, color:'#A1A0A1'}}>机构简介</Text>
-                        <Text style={{fontSize:15, marginTop:10, marginLeft:5, marginRight:5}}  numberOfLines={this.state.isShowMore?0:4}>EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)EF英孚教育青少儿英语(优品道中心)</Text>
+                        <Text style={{fontSize:15, marginTop:10, marginLeft:5, marginRight:5}}  numberOfLines={this.state.isShowMore?0:4}>{this.state.data?this.state.data.jigouInfo.description:''}</Text>
                         <View style={{alignItems:'center'}}>
                             <Image source={!this.state.isShowMore?JZBImages.common_getinNor:JZBImages.showMore} style={{width:20, height:20}} />
                         </View>
@@ -191,6 +221,18 @@ export default class NewsDetail extends React.Component{
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
+                <Modal
+                    animationType={"none"}
+                    transparent={false}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {alert("Modal has been closed.")}}
+                    >
+                    <TouchableOpacity style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'#000'}} activeOpacity={1} onPress={() => {
+                        this.setState({modalVisible:!this.state.modalVisible})
+                    }}> 
+                        <PhotoView hiden={()=>this.setState({modalVisible:!this.state.modalVisible})} index={this.state.index} photos={this.state.data?this.state.data.jigouInfo.album.split(","):[]}/>
+                    </TouchableOpacity>
+                </Modal>
             </View>
           )
     }
@@ -277,6 +319,12 @@ var styles = StyleSheet.create({
         width:screenWidth,
         borderBottomWidth:1,
         borderBottomColor:'#E8E8E8'
+    },
+    cell:{
+        width:(screenWidth-20-margin*3)*0.25, 
+        height:(screenWidth-20-margin*3)*0.25, 
+        marginRight:3, 
+        marginTop:3
     }
 
 });

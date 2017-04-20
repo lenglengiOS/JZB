@@ -139,7 +139,7 @@ export default class extends Component {
     this.state = {
       imgList: props.photos,
       showViewer: true,
-      showIndex: 0
+      showIndex: props.index
     }
     this.viewerPressHandle = this.viewerPressHandle.bind(this)
     this.thumbPressHandle = this.thumbPressHandle.bind(this)

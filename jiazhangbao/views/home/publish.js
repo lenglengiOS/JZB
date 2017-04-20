@@ -97,7 +97,7 @@ export default class WoDe extends React.Component{
         if (this.state.images.length>0) {
             return this.state.images.map((item, index) => {
                 return(
-                    <View>
+                    <View key={index}>
                         <Image source={{uri:item.path}} style={{width:80, height:80, marginRight:5}} />
                     </View>
                 )

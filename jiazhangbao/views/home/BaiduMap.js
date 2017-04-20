@@ -18,66 +18,92 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  TouchableOpacity,
+  StatusBar,
+  Image,
+  ActionSheetIOS,
+  Alert
 } from 'react-native';
 
-import Dimensions from 'Dimensions';
-
-class Buttton extends Component {
-  static propTypes = {
-    label: PropTypes.string,
-    onPress: PropTypes.func
-  };
-
-  static defaultProps = {
-    label: 'Buttton',
-    onPress() {
-
-    }
-  };
-  render() {
-    return (
-      <TouchableHighlight 
-        style={styles.btn}
-        onPress={this.props.onPress}>
-        <Text style={{color: 'white'}}>'888'</Text>
-      </TouchableHighlight>
-    );
-  }
-};
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 
 export default class BaiduMapDemo extends Component {
 
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
     this.state = {
+      name:props.param.name,
+      address:props.param.address,
       mayType: MapTypes.NORMAL,
       zoom: 15,
       center: {
-        longitude: 113.981718,
-        latitude: 22.542449
+        longitude: props.param.lng*1,
+        latitude: props.param.lat*1
       },
       trafficEnabled: false,
       baiduHeatMapEnabled: false,
-      markers: [{
-        longitude: 113.981718,
-        latitude: 22.542449,
-        title: "Window of the world"
-      },{
-        longitude: 113.995516,
-        latitude: 22.537642,
-        title: ""
-      }]
+      markers: [
+        {
+          longitude: props.param.lng*1,
+          latitude: props.param.lat*1,
+          title: props.param.name
+        },
+        {
+          longitude: props.param.longitude,
+          latitude: props.param.latitude,
+          title: '我的位置'
+        }
+      ]
     };
   }
 
   componentDidMount() {
+    
+  }
+
+  back(){
+      const { navigator } = this.props;
+      if(navigator) {
+          navigator.pop() 
+      }
+  }
+
+  gotoOtherMap(){
+    var BUTTONS = [
+      '百度地图',
+      '自带地图',
+      '取消',
+    ];
+    var CANCEL_INDEX = 2;
+    ActionSheetIOS.showActionSheetWithOptions({
+      message: '用以下地图打开',
+      options: BUTTONS,
+      cancelButtonIndex: CANCEL_INDEX,
+    },
+    (buttonIndex) => {
+        if(buttonIndex == 0)
+        {
+          var alertMessage = '';
+          Alert.alert(
+            '未安装百度地图',
+            alertMessage,
+            [
+              {text: '确定'},
+            ]
+          )
+        }
+        if(buttonIndex == 1)
+        {
+          alert('自带地图')
+        }
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar
+          hidden={true}/>
         <MapView 
           trafficEnabled={this.state.trafficEnabled}
           baiduHeatMapEnabled={this.state.baiduHeatMapEnabled}
@@ -91,70 +117,16 @@ export default class BaiduMapDemo extends Component {
           }}
         >
         </MapView>
+        <TouchableOpacity style={styles.back} activeOpacity={1} onPress={()=>this.back()}>
+          <Image source={JZBImages.back} style={{width:25, height:25}} />
+        </TouchableOpacity>
 
         <View style={styles.row}>
-          <Buttton label="Normal" onPress={() => {
-            this.setState({
-              mapType: MapTypes.NORMAL
-            });
-          }} />
-          <Buttton label="Satellite" onPress={() => {
-            this.setState({
-              mapType: MapTypes.SATELLITE
-            });
-          }} />
-
-          <Buttton label="Locate" onPress={() => {
-            Geolocation.getCurrentPosition()
-              .then(data => {
-                this.setState({
-                  zoom: 15,
-                  marker: {
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                    title: 'Your location'
-                  },
-                  center: {
-                    latitude: data.latitude,
-                    longitude: data.longitude
-                  }
-                });
-              })
-              .catch(e =>{
-                console.warn(e, 'error');
-              })
-          }} />
-        </View>
-
-        <View style={styles.row}>
-          <Buttton label="Zoom+" onPress={() => {
-            this.setState({
-              zoom: this.state.zoom + 1
-            });
-          }} />
-          <Buttton label="Zoom-" onPress={() => {
-            if(this.state.zoom > 0) {
-              this.setState({
-                zoom: this.state.zoom - 1
-              });
-            }
-            
-          }} />
-        </View>
-
-        <View style={styles.row}>
-          <Buttton label="Traffic" onPress={() => {
-            this.setState({
-              trafficEnabled: !this.state.trafficEnabled
-            });
-          }} />
-
-          <Buttton label="Baidu HeatMap" onPress={() => {
-            this.setState({
-              baiduHeatMapEnabled: !this.state.baiduHeatMapEnabled
-            });
-          }} />
-
+          <Text style={{fontSize:14, marginTop:15, marginLeft:10}}>{this.state.name}</Text>
+          <Text style={{fontSize:13, color:'#A1A1A1', marginTop:15, marginLeft:10}}>{this.state.address}</Text>
+          <TouchableOpacity style={styles.other} activeOpacity={1} onPress={()=>this.gotoOtherMap()}>
+            <Text style={{fontSize:14, color:'#A1A1A1'}}>其他地图</Text>
+          </TouchableOpacity>
 
         </View>
 
@@ -166,18 +138,9 @@ export default class BaiduMapDemo extends Component {
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start'
-  },
-  btn: {
-    height: 24,
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#cccccc',
-    paddingLeft: 8,
-    paddingRight: 8,
-    margin: 4
+    width:screenWidth,
+    height:80,
+    backgroundColor:'#FFFFFF'
   },
   container: {
     flex: 1,
@@ -186,8 +149,50 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 200,
-    marginBottom: 16
+    flex:1,
+    width:screenWidth
+  },
+  back:{
+    width:44,
+    height:44,
+    backgroundColor:'#FFF',
+    justifyContent:'center',
+    alignItems:'center',
+    position:'absolute',
+    top:20,
+    left:0
+  },
+  other:{
+    width:70, 
+    height:28, 
+    position:'absolute', 
+    right:10, 
+    top:10, 
+    borderWidth:1, 
+    borderColor:'#E8E8E8', 
+    borderRadius:4, 
+    backgroundColor:'#FFF',
+    justifyContent:'center',
+    alignItems:'center'
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

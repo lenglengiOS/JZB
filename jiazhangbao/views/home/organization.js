@@ -146,9 +146,23 @@ export default class WoDe extends React.Component{
 		  )
 	}
 
+    gotoJigouInfo(ID){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'jigouinfo',
+                param: {
+                    title:'机构信息',
+                    id:ID,
+                    userIcon:this.props.param.userIcon
+                }
+            })
+        }
+    }
+
     renderRow(rowData){
         return(
-            <View style={{flexDirection:'row', backgroundColor:'#FFF', paddingTop:15, paddingBottom:15, paddingLeft:10, borderBottomWidth:1, borderBottomColor:'#E8E8E8'}}>
+            <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.gotoJigouInfo(rowData.orgId)}}>
                 <Image source={{uri: BimgURL+rowData.logo+LimgURL}} style={{width:85, height:70}}/>
                 <View style={styles.recommendCell}>
                     <View>
@@ -162,7 +176,7 @@ export default class WoDe extends React.Component{
                         <Text style={{fontSize:13, color:'#9B9B9B'}}> {rowData.distance}</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -201,5 +215,14 @@ var styles = StyleSheet.create({
         marginLeft:10, 
         marginRight:10, 
         justifyContent:'space-between'
+    },
+    cell:{
+        flexDirection:'row', 
+        backgroundColor:'#FFF', 
+        paddingTop:15, 
+        paddingBottom:15, 
+        paddingLeft:10, 
+        borderBottomWidth:1, 
+        borderBottomColor:'#E8E8E8'
     }
 });

@@ -91,7 +91,9 @@ export default class Home extends React.Component{
                             imGroupId:org[i].ext.imGroupId,
                             teacher:"冷洪林，陆彦雪",
                             circleId:org[i].ext.circleId,
-                            isAgreement:org[i].ext.isAgreement
+                            isAgreement:org[i].ext.isAgreement,
+                            lng:org[i].ext.lng,
+                            lat:org[i].ext.lat
                         }
                     }
             Tools.postNotBase64(IPAddr+"/saveJigouInfoData.php", PostData,(ret)=>{
@@ -103,9 +105,36 @@ export default class Home extends React.Component{
         }
     }
 
+    insertPostEvent(){
+        for(var i = 0; i < org.length; i++){
+            var PostData ={
+                        data:{
+                            content:org[i].ext.posts[0].content,
+                            id:org[i].ext.posts[0].id,
+                            createTime:org[i].ext.posts[0].createTime,
+                            title:org[i].ext.posts[0].title,
+                            likeNum:org[i].ext.posts[0].likeNum,
+                            childGrade:org[i].ext.posts[0].childGrade,
+                            name:org[i].ext.posts[0].name,
+                            userId:org[i].ext.posts[0].userId,
+                            avatar:org[i].ext.posts[0].avatar,
+                            replyNum:org[i].ext.posts[0].replyNum,
+                            photos:org[i].ext.event.photos
+                        }
+                    }
+            Tools.postNotBase64(IPAddr+"/jigouInfo.php", PostData,(ret)=>{
+                console.log("====jigouInfo=="+JSON.stringify(ret))
+                    
+                }, (err)=>{
+                    console.log("====jigouInfo444444==="+err)
+            });
+        }
+    }
+
     componentDidMount(){
         //this.insertData();
         //this.insertJigouInfo();
+        //this.insertPostEvent();
 
         this.goLocation();
         this.login();
@@ -249,7 +278,8 @@ export default class Home extends React.Component{
                 param:{
                     TITLE:TITLE,
                     INDEX:INDEX,
-                    topItems:this.state.topItems
+                    topItems:this.state.topItems,
+                    userIcon:this.state.user_icon
                 }
             })
         }
@@ -268,7 +298,7 @@ export default class Home extends React.Component{
         }
     }
 
-    goToCourseDetails(PRICE, NAME){
+    goToCourseDetails(PRICE, NAME, ID){
         var TITLE = '';
         if (PRICE) {
             TITLE = "课程详情";
@@ -290,6 +320,8 @@ export default class Home extends React.Component{
                     name: 'jigouinfo',
                     param: {
                         title:TITLE,
+                        id:ID,
+                        userIcon:this.state.user_icon
                     }
                 })
             }
@@ -322,11 +354,11 @@ export default class Home extends React.Component{
         )
     }
 
-    _renderRecommendCell(ICON, TITLE, SUBTITLE, PRICE, DISTANCE){
+    _renderRecommendCell(ICON, TITLE, SUBTITLE, PRICE, DISTANCE, ID){
         var icon = this.state.recomedOrg?{uri: ICON}:JZBImages.default_holder;
         return(
             <View>
-                <TouchableOpacity activeOpacity={1} onPress={()=>this.goToCourseDetails(PRICE, TITLE)}>
+                <TouchableOpacity activeOpacity={1} onPress={()=>this.goToCourseDetails(PRICE, TITLE, ID)}>
                     <View style={{flexDirection:'row'}}>
                         <Image source={icon} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
                         <View style={styles.recommendCell}>
@@ -383,10 +415,10 @@ export default class Home extends React.Component{
                 {this._renderRecommendCell(this.state.recomedCourse?IPAddr+this.state.recomedCourse[2].img:JZBImages.default_holder, this.state.recomedCourse?this.state.recomedCourse[2].title:'', this.state.recomedCourse?this.state.recomedCourse[2].school:'', this.state.recomedCourse?'¥ '+this.state.recomedCourse[2].price:'', this.state.recomedCourse?this.state.recomedCourse[2].location:'')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
                 {this._renderRecommendHeader('推荐机构')}
-                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[0].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[0].name:'', this.state.recomedOrg?this.state.recomedOrg[0].address:'', '', this.state.recomedOrg?this.state.recomedOrg[0].distance:'')}
-                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[1].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[1].name:'', this.state.recomedOrg?this.state.recomedOrg[1].address:'', '', this.state.recomedOrg?this.state.recomedOrg[1].distance:'')}
-                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[2].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[2].name:'', this.state.recomedOrg?this.state.recomedOrg[2].address:'', '', this.state.recomedOrg?this.state.recomedOrg[2].distance:'')}
-                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[3].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[3].name:'', this.state.recomedOrg?this.state.recomedOrg[3].address:'', '', this.state.recomedOrg?this.state.recomedOrg[3].distance:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[0].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[0].name:'', this.state.recomedOrg?this.state.recomedOrg[0].address:'', '', this.state.recomedOrg?this.state.recomedOrg[0].distance:'', this.state.recomedOrg?this.state.recomedOrg[0].orgId:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[1].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[1].name:'', this.state.recomedOrg?this.state.recomedOrg[1].address:'', '', this.state.recomedOrg?this.state.recomedOrg[1].distance:'', this.state.recomedOrg?this.state.recomedOrg[1].orgId:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[2].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[2].name:'', this.state.recomedOrg?this.state.recomedOrg[2].address:'', '', this.state.recomedOrg?this.state.recomedOrg[2].distance:'', this.state.recomedOrg?this.state.recomedOrg[2].orgId:'')}
+                {this._renderRecommendCell(this.state.recomedOrg?BimgURL+this.state.recomedOrg[3].logo+LimgURL:'http://', this.state.recomedOrg?this.state.recomedOrg[3].name:'', this.state.recomedOrg?this.state.recomedOrg[3].address:'', '', this.state.recomedOrg?this.state.recomedOrg[3].distance:'', this.state.recomedOrg?this.state.recomedOrg[3].orgId:'')}
                 <View style={{width:screenWidth, height:15, backgroundColor:'#F5F5F5'}}/>
             </View>
         )

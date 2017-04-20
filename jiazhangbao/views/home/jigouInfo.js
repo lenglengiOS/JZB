@@ -17,23 +17,42 @@ import {
     Linking
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
+import Tools from '../tools';
+import LoadingShow  from '../component/react-native-loading';
 
 export default class NewsDetail extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            loading:false,
+            loadingWaitText:"加载中...",
         }
     }
     componentDidMount(){
+        //alert(this.props.param.userIcon)
+        this.getData()
+    }
 
+    getData(){
+        this.setState({loading:true})
+        Tools.get(IPAddr+"/home/jigouInfo.php"+'?id='+this.props.param.id,(data)=>{
+                console.log("==getData===="+JSON.stringify(data));
+                this.setState({
+                    loading:false,
+                    data:data
+                })
+                
+        },(err)=>{
+            this.setState({
+              loading:false
+            })
+            Toast.show(err)
+        })
     }
 
     _back(){
         const { navigator } = this.props;
-        //为什么这里可以取得 props.navigator?请看上文:
-        //<Component {...route.param} navigator={navigator} />
-        //这里传递了navigator作为props
         if(navigator) {
             navigator.pop() 
         }
@@ -58,6 +77,7 @@ export default class NewsDetail extends React.Component{
             navigator.push({
                 name:"jigouintru",
                 param:{
+                    data:this.state.data
                 }
             })
         }
@@ -85,7 +105,7 @@ export default class NewsDetail extends React.Component{
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
                         <Image source={JZBImages.back} style={{width:25, height:25, marginLeft:10}} />
                     </TouchableOpacity>
-                    <Text numberOfLines={1} style={{fontSize:18, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.param.title}</Text>
+                    <Text numberOfLines={1} style={{fontSize:18, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>机构信息</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
                     	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>
@@ -93,13 +113,13 @@ export default class NewsDetail extends React.Component{
                 <View style={{width:screenWidth, height:screenHeight-64-47}}>
                     <ScrollView>
                         <View style={{flexDirection:'row', backgroundColor:'#FFF', borderBottomWidth:1, borderBottomColor:'#E8E8E8', paddingBottom:15}}>
-                            <Image source={JZBImages.nav} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
+                            <Image source={{uri: this.state.data?BimgURL+this.state.data.jigouInfo.logo+LimgURL:'http://'}} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
                             <View style={styles.recommendCell}>
                                 <View>
                                     <View style={{justifyContent:'space-between', flexDirection:'row'}}>
-                                        <Text style={{fontSize:18}}>EF音符教育青少儿英语（优品道中心）</Text>
+                                        <Text style={{fontSize:18}}>{this.state.data?this.state.data.jigouInfo.name:''}</Text>
                                     </View>
-                                    <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>成都市青羊区99号UI为hi武汉覅乌尔禾</Text>
+                                    <Text style={{fontSize:15, color:'#9B9B9B', marginTop:5}}>{this.state.data?this.state.data.jigouInfo.address:''}</Text>
                                 </View>
                             </View>
                         </View>
@@ -124,29 +144,30 @@ export default class NewsDetail extends React.Component{
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('帖子详情')} style={styles.cell}>
                             <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
                                 <View style={{flexDirection:'row'}}>
-                                    <Image source={JZBImages.nav} style={{width:40, height:40, borderRadius:20}} />
+                                    <Image source={{uri: this.state.data?BimgURL+this.state.data.post[0].avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20}} />
                                     <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
-                                        <Text style={{color:'#FAB665', fontSize:14}}>EF音符教育青少儿英语(优品道中心)</Text>
-                                        <Text style={{color:'#A5A5A5', fontSize:12}}>四年级家长</Text>
+                                        <Text style={{color:'#FAB665', fontSize:14}}>{this.state.data?this.state.data.post[0].name:''}</Text>
+                                        <Text style={{color:'#A5A5A5', fontSize:12}}>{this.state.data?this.state.data.post[0].childGrade:''}</Text>
                                     </View>
                                 </View>
                                 <View style={{flexDirection:'row'}}>
                                     <Image source={JZBImages.replyIco} style={{width:14, height:14}} />
-                                    <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>10</Text>
+                                    <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>{this.state.data?this.state.data.post[0].replyNum:0}</Text>
                                     <Image source={JZBImages.likeIcon} style={{width:14, height:14, marginLeft:10}} />
-                                    <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>8</Text>
+                                    <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>{this.state.data?this.state.data.post[0].likeNum:0}</Text>
                                 </View>
                             </View>
-                            <Text style={{fontSize:16, marginLeft:5, marginRight:5, marginTop:10}} numberOfLines={2}>欢迎关注我们</Text>
+                            <Text style={{fontSize:16, marginLeft:5, marginRight:5, marginTop:10}} numberOfLines={2}>{this.state.data?this.state.data.post[0].title:''}</Text>
                         </TouchableOpacity>
                     </ScrollView>
                 </View>
                 <View style={styles.bottomBar}>
-                    <Image source={JZBImages.nav} style={{width:38, height:38, marginLeft:8, borderRadius:19}} />
+                    <Image source={this.props.param.userIcon?{uri: IPAddr+this.props.param.userIcon}:JZBImages.userIcon} style={{width:38, height:38, marginLeft:8, borderRadius:19}} />
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.publish()} style={styles.touch}>
                         <Text style={styles.bottomText} numberOfLines={2}>对于这个机构，您有什么想了解的吗？</Text>
                     </TouchableOpacity>
                 </View>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
             </View>
           )
     }
