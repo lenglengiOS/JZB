@@ -38,7 +38,7 @@ var Size=function(font){
 	}
 }
 
-let IPAddr = "http://192.168.0.104";
+let IPAddr = "http://192.168.0.105";
 //let IPAddr = "http://172.27.35.1";
 
 const isDebug=true;

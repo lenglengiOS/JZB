@@ -132,12 +132,12 @@ export default class NewsDetail extends React.Component{
 
     callPhone(){
         Linking.canOpenURL('tel:18202853094').then(supported => {
-            if (!supported) {
-                alert('该设备不支持拨打电话')
-            } else {
+            if (supported) {
                 return Linking.openURL('tel:18202853094')
+            } else {
+                alert('该设备不支持拨打电话')
             }
-        }).catch(err => console.error('An error occurred', err));
+        }).catch(err => {return});
     }
 
     openAlbum(INDEX, ARR){

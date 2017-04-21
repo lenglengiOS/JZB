@@ -24,6 +24,11 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>baidumap</string>
+    <string>iosamap</string>
+  </array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

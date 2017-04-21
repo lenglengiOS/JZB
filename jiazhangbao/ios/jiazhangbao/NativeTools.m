@@ -9,6 +9,7 @@
 #import "NativeTools.h"
 #import <BmobSDK/Bmob.h>
 #import <SMS_SDK/SMSSDK.h>
+#import "LHLMapViewController.h"
 
 @implementation NativeTools
 
@@ -135,6 +136,60 @@ RCT_EXPORT_METHOD(getRecomNews:(RCTResponseSenderBlock)callback)
       callback(@[[NSNull null], events]);
     }
   }];
+}
+
+// 检测是否安装百度地图
+RCT_EXPORT_METHOD(checkBaiduMap:(RCTResponseSenderBlock)callback)
+{     
+  if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
+    NSArray *events = [NSArray arrayWithObjects:@"已安装", nil];
+    callback(@[[NSNull null], events]);
+  }else{
+    NSArray *events = [NSArray arrayWithObjects:@"未安装", nil];
+    callback(@[[NSNull null], events]);
+  }
+  
+}
+
+// 跳转到苹果自带地图
+//货运物流-城市选择
+RCT_EXPORT_METHOD(getLHLMap)
+{
+  //do smothing
+  LHLMapViewController *controller = [[LHLMapViewController alloc] init];
+  UIViewController *rootViewController = [self getCurrentVC];
+  [rootViewController presentViewController:controller animated:YES completion:NULL];
+}
+
+
+//获取当前View
+- (UIViewController *)getCurrentVC
+{
+  UIViewController *result = nil;
+  
+  UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+  if (window.windowLevel != UIWindowLevelNormal)
+  {
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    for(UIWindow * tmpWin in windows)
+    {
+      if (tmpWin.windowLevel == UIWindowLevelNormal)
+      {
+        window = tmpWin;
+        break;
+      }
+    }
+  }
+  
+  UIView *frontView = [[window subviews] objectAtIndex:0];
+  id nextResponder = [frontView nextResponder];
+  
+  if ([nextResponder isKindOfClass:[UIViewController class]])
+    result = nextResponder;
+  else
+    result = window.rootViewController;
+  
+  return result;
 }
 
 

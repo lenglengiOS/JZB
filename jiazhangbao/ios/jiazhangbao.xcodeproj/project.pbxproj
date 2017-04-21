@@ -64,6 +64,7 @@
 		9DE035631E690AAA00F8E46C /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355F1E690A2A00F8E46C /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DE035651E690AC700F8E46C /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355E1E690A2A00F8E46C /* QBImagePicker.framework */; };
 		9DE035661E690AC700F8E46C /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0355E1E690A2A00F8E46C /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DE629B61EA9C9DA0009A075 /* LHLMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE629B51EA9C9DA0009A075 /* LHLMapViewController.m */; };
 		9DEF0CCA1E4B1F6600AC0504 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEF0CC91E4B1F6600AC0504 /* QuartzCore.framework */; };
 		9DEF0CCC1E4B1F7000AC0504 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEF0CCB1E4B1F7000AC0504 /* OpenGLES.framework */; };
 		9DEF0CCE1E4B1F9D00AC0504 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEF0CCD1E4B1F9D00AC0504 /* libsqlite3.0.tbd */; };
@@ -363,6 +364,8 @@
 		9DD2BB4D1E6EA5450020EBEB /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		9DE0355E1E690A2A00F8E46C /* QBImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = "<group>"; };
 		9DE0355F1E690A2A00F8E46C /* RSKImageCropper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = "<group>"; };
+		9DE629B41EA9C9DA0009A075 /* LHLMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLMapViewController.h; sourceTree = "<group>"; };
+		9DE629B51EA9C9DA0009A075 /* LHLMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLMapViewController.m; sourceTree = "<group>"; };
 		9DEF0CC91E4B1F6600AC0504 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9DEF0CCB1E4B1F7000AC0504 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		9DEF0CCD1E4B1F9D00AC0504 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -532,6 +535,8 @@
 				9D8FE8211E309FE6007DEB6C /* NativeTools.h */,
 				9D8FE8221E309FE6007DEB6C /* NativeTools.m */,
 				9D8FE8241E309FF0007DEB6C /* lib */,
+				9DE629B41EA9C9DA0009A075 /* LHLMapViewController.h */,
+				9DE629B51EA9C9DA0009A075 /* LHLMapViewController.m */,
 			);
 			name = jiazhangbao;
 			sourceTree = "<group>";
@@ -1137,6 +1142,7 @@
 			files = (
 				9D8FE8231E309FE6007DEB6C /* NativeTools.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				9DE629B61EA9C9DA0009A075 /* LHLMapViewController.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

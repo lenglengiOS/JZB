@@ -22,13 +22,15 @@ import {
   StatusBar,
   Image,
   ActionSheetIOS,
-  Alert
+  Alert,
+  Linking,
+  NativeModules
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
+var NativeTools = NativeModules.NativeTools;
 
 export default class BaiduMapDemo extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -61,6 +63,10 @@ export default class BaiduMapDemo extends Component {
     
   }
 
+  componentWillUnmount() {
+      NativeTools = null;
+  }
+
   back(){
       const { navigator } = this.props;
       if(navigator) {
@@ -83,18 +89,27 @@ export default class BaiduMapDemo extends Component {
     (buttonIndex) => {
         if(buttonIndex == 0)
         {
-          var alertMessage = '';
-          Alert.alert(
-            '未安装百度地图',
-            alertMessage,
-            [
-              {text: '确定'},
-            ]
-          )
+          // 跳转到百度地图
+          Linking.canOpenURL('baidumap://').then(supported => { // weixin://  alipay://
+            if (supported) {
+              Linking.openURL('baidumap://');
+            } else {
+                var alertMessage = '';
+                Alert.alert(
+                  '未安装百度地图',
+                  alertMessage,
+                  [
+                    {text: '确定'},
+                  ]
+                )
+            }
+          }).catch(err => {return});
+          
         }
         if(buttonIndex == 1)
         {
-          alert('自带地图')
+          // 跳转到苹果自带的高德地图
+          NativeTools.getLHLMap();
         }
     });
   }
