@@ -113,7 +113,7 @@ export default class NewsDetail extends React.Component{
                 <View style={{width:screenWidth, height:screenHeight-64-47}}>
                     <ScrollView>
                         <View style={{flexDirection:'row', backgroundColor:'#FFF', borderBottomWidth:1, borderBottomColor:'#E8E8E8', paddingBottom:15}}>
-                            <Image source={{uri: this.state.data?BimgURL+this.state.data.jigouInfo.logo+LimgURL:'http://'}} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
+                            <Image source={{uri: this.state.data?BimgURL+this.state.data.jigouInfo.logo+LimgURL:'http://'}} style={{width:85, height:70, marginTop:15, marginLeft:10, backgroundColor:'#F5F5F5'}}/>
                             <View style={styles.recommendCell}>
                                 <View>
                                     <View style={{justifyContent:'space-between', flexDirection:'row'}}>
@@ -144,7 +144,7 @@ export default class NewsDetail extends React.Component{
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('帖子详情')} style={styles.cell}>
                             <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
                                 <View style={{flexDirection:'row'}}>
-                                    <Image source={{uri: this.state.data?BimgURL+this.state.data.post[0].avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20}} />
+                                    <Image source={{uri: this.state.data?BimgURL+this.state.data.post[0].avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
                                     <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
                                         <Text style={{color:'#FAB665', fontSize:14}}>{this.state.data?this.state.data.post[0].name:''}</Text>
                                         <Text style={{color:'#A5A5A5', fontSize:12}}>{this.state.data?this.state.data.post[0].childGrade:''}</Text>
@@ -162,7 +162,7 @@ export default class NewsDetail extends React.Component{
                     </ScrollView>
                 </View>
                 <View style={styles.bottomBar}>
-                    <Image source={this.props.param.userIcon?{uri: IPAddr+this.props.param.userIcon}:JZBImages.userIcon} style={{width:38, height:38, marginLeft:8, borderRadius:19}} />
+                    <Image source={this.props.param.userIcon?{uri: IPAddr+this.props.param.userIcon}:JZBImages.userIcon} style={{width:38, height:38, marginLeft:8, borderRadius:19, backgroundColor:'#F5F5F5'}} />
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.publish()} style={styles.touch}>
                         <Text style={styles.bottomText} numberOfLines={2}>对于这个机构，您有什么想了解的吗？</Text>
                     </TouchableOpacity>

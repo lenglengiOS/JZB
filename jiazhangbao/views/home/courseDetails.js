@@ -74,7 +74,7 @@ export default class NewsDetail extends React.Component{
             } else {
                 return Linking.openURL('tel:18202853094')
             }
-        }).catch(err => console.error('An error occurred', err));
+        }).catch(err => {return});
     }
 
     send(){

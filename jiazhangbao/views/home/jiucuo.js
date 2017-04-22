@@ -39,7 +39,7 @@ export default class NewsDetail extends React.Component{
     submit(){
         if(this.state.submitText)
         {   
-            alert(this.state.submitText)
+            this._back();
         }
     }
 

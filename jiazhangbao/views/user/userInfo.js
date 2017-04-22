@@ -49,7 +49,7 @@ export default class WoDe extends React.Component{
             address:this.props.param.data.address,
             data:this.props.param.data
         })
-        this.listener = RCTDeviceEventEmitter.addListener('undateUserInfo',(value)=>{  
+        this.listener = RCTDeviceEventEmitter.addListener('undateUserAddr',(value)=>{  
             // 接受到通知后的处理  
             this.setState({
                 address:value
@@ -315,7 +315,7 @@ export default class WoDe extends React.Component{
                     <TouchableOpacity style={styles.icon} activeOpacity={0.8} onPress={()=>{this.changeIcon()}}>
                         <Text style={{fontSize:16}}>我的头像</Text>
                         <View style={{width:80, height:60, flexDirection:'row', alignItems:'center'}}>
-                            <Image source={this.state.flag?{uri: this.state.image}:JZBImages.userIcon} style={{width:60, height:60, borderRadius:30}} />
+                            <Image source={this.state.flag?{uri: this.state.image}:JZBImages.userIcon} style={{width:60, height:60, borderRadius:30, backgroundColor:'#F5F5F5'}} />
                             <Image source={JZBImages.chose} style={{width:20, height:20,}} />
                         </View>
                     </TouchableOpacity>

@@ -157,7 +157,7 @@ export default class WoDe extends React.Component{
                 <ScrollView>
                 	<View style={styles.userInfo}>
                 		<TouchableOpacity style={{height:90,marginLeft:15, paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E8E8E8', alignItems:'center',flexDirection:'row'}} activeOpacity={1} onPress={()=>this.goToLogin()}>
-                			<Image source={this.state.user_icon?{uri: IPAddr+this.state.user_icon}:JZBImages.userIcon} style={{width:60, height:60, borderRadius:30}}/>
+                			<Image source={this.state.user_icon?{uri: IPAddr+this.state.user_icon}:JZBImages.userIcon} style={{width:60, height:60, borderRadius:30, backgroundColor:'#F5F5F5'}}/>
                 			{this.renderNameView()}
                 			<Image source={JZBImages.chose} style={{width:20, height:20}} />
                 		</TouchableOpacity>

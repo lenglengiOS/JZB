@@ -332,7 +332,7 @@ export default class Home extends React.Component{
         return(
             <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressOrg(TITLE, INDEX)} style={{width:screenWidth, flex:1, justifyContent:'center', alignItems:'center'}}>
                 <View style={{alignItems:'center'}}>
-                    <Image source={ICON} style={{width:42, height:42, borderRadius:21, marginBottom:5}}/>
+                    <Image source={ICON} style={{width:42, height:42, borderRadius:21, marginBottom:5, backgroundColor:'#F5F5F5'}}/>
                     <Text style={{fontSize:14}}>{TITLE}</Text>
                 </View>
             </TouchableOpacity>
@@ -360,7 +360,7 @@ export default class Home extends React.Component{
             <View>
                 <TouchableOpacity activeOpacity={1} onPress={()=>this.goToCourseDetails(PRICE, TITLE, ID)}>
                     <View style={{flexDirection:'row'}}>
-                        <Image source={icon} style={{width:85, height:70, marginTop:15, marginLeft:10}}/>
+                        <Image source={icon} style={{width:85, height:70, marginTop:15, marginLeft:10, backgroundColor:'#F5F5F5'}}/>
                         <View style={styles.recommendCell}>
                             <View>
                                 <View style={{justifyContent:'space-between', flexDirection:'row'}}>
@@ -445,7 +445,7 @@ export default class Home extends React.Component{
                     <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                         <Image source={JZBImages.userBg} style={{width:screenWidth, height:113}} resizeMode={Image.resizeMode.stretch}>
                             <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
-                                <Image source={this.state.user_icon?{uri:IPAddr+this.state.user_icon}:JZBImages.userIcon} style={{width:70, height:70, borderRadius:35}}/>
+                                <Image source={this.state.user_icon?{uri:IPAddr+this.state.user_icon}:JZBImages.userIcon} style={{width:70, height:70, borderRadius:35, backgroundColor:'#F5F5F5'}}/>
                                 <Text style={styles.login}>{this.state.isLogin?this.state.username:'登录/注册'}</Text>
                             </TouchableOpacity>
                         </Image>

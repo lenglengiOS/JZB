@@ -163,7 +163,7 @@ export default class WoDe extends React.Component{
     renderRow(rowData){
         return(
             <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.gotoJigouInfo(rowData.orgId)}}>
-                <Image source={{uri: BimgURL+rowData.logo+LimgURL}} style={{width:85, height:70}}/>
+                <Image source={{uri: BimgURL+rowData.logo+LimgURL}} style={{width:85, height:70, backgroundColor:'#F5F5F5'}}/>
                 <View style={styles.recommendCell}>
                     <View>
                         <View style={{justifyContent:'space-between', flexDirection:'row'}}>

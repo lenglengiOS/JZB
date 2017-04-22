@@ -64,7 +64,7 @@ export default class BaiduMapDemo extends Component {
   }
 
   componentWillUnmount() {
-      NativeTools = null;
+      //NativeTools = null;
   }
 
   back(){

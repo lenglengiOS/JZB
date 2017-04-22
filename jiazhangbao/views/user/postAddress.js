@@ -115,7 +115,7 @@ export default class WoDe extends React.Component{
                 this.setState({loading:false})
                 Toast.show("修改成功！", 2000)
                 let value = this.state.address;
-                RCTDeviceEventEmitter.emit('undateUserInfo',value); 
+                RCTDeviceEventEmitter.emit('undateUserAddr',value); 
                 this._back();
             }, (err)=>{
                 this.setState({loading:false})

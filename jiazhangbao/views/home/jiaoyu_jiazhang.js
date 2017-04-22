@@ -127,7 +127,7 @@ export default class WoDe extends React.Component{
                             <Text style={{fontSize:13, color:'#9B9B9B'}}>{rowData.title}</Text>
                         </View>
                     </View>
-                    <Image source={{uri: IPAddr+rowData.facepic}} style={{width:85, height:70}}/>
+                    <Image source={{uri: IPAddr+rowData.facepic}} style={{width:85, height:70, backgroundColor:'#F5F5F5'}}/>
                 </View>
             </TouchableOpacity>
         )

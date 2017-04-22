@@ -152,7 +152,7 @@ export default class NewsDetail extends React.Component{
         return arr.map((item, index) => {
             return(
                 <TouchableOpacity key={index} style={styles.cell} activeOpacity={0.8} onPress={()=>this.openAlbum(index, arr)}>
-                     <Image source={{uri: BimgURL+item+LimgURL}} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25}} />
+                     <Image source={{uri: BimgURL+item+LimgURL}} style={{width:(screenWidth-20-margin*3)*0.25, height:(screenWidth-20-margin*3)*0.25, backgroundColor:'#F5F5F5'}} />
                 </TouchableOpacity>
             )
         })
@@ -177,7 +177,7 @@ export default class NewsDetail extends React.Component{
                 </View>
                 <ScrollView>
                     <View style={styles.school}>
-                        <Image source={{uri: this.state.data?BimgURL+this.state.data.jigouInfo.logo+LimgURL:'http://'}} style={{width:90, height:73, marginRight:10}} />
+                        <Image source={{uri: this.state.data?BimgURL+this.state.data.jigouInfo.logo+LimgURL:'http://'}} style={{width:90, height:73, marginRight:10, backgroundColor:'#F5F5F5'}} />
                         <Text style={{fontSize:16}}>{this.state.data?this.state.data.jigouInfo.name:''}</Text>
                     </View>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.gotoLocation()} style={styles.location}>
