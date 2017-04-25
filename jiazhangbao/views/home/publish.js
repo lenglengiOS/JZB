@@ -16,20 +16,36 @@ import {
     ActionSheetIOS
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
 import ImagePicker from 'react-native-image-crop-picker';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
+import Tools from '../tools';
 
 export default class WoDe extends React.Component{
     constructor(props){
         super(props);
         this.state={
-           images:[]
+            images:[],
+            loading:false,
+            loadingWaitText:"发布中...",
         }
     }
     componentDidMount(){
-       
+        //alert(this.props.param.circleId)maincfgData
+        //var timestamp=new Date().getTime();
+        //alert(timestamp)
+        //console.log("======circleId====="+this.props.param.circleId);
+        //console.log("======userIcon====="+this.props.param.userIcon);
+        //console.log("======userId====="+this.props.param.userId);
+        //console.log("======userphone====="+this.props.param.userphone);
+        //console.log("======username====="+this.props.param.username);
+        //console.log("======timestamp====="+timestamp);
+        //var createTime = this.getNowFormatDate();
     }
+
+     
 
     goBack(){
         const { navigator } = this.props;
@@ -58,7 +74,56 @@ export default class WoDe extends React.Component{
             Toast.show('请输入正文');
             return;
         }
-        alert('发布')
+        // 发布帖子，发布完了之后发送一个通知
+        this.setState({loading:true})
+        var timestamp=new Date().getTime();
+        var createTime = this.getNowFormatDate();
+        var PostData ={
+                    data:{
+                        id: timestamp,
+                        circleId: this.props.param.circleId,
+                        userIcon: this.props.param.userIcon,
+                        userphone: this.props.param.userphone,
+                        username: this.props.param.username,
+                        title: this.state.title,
+                        content: this.state.topic,
+                        images: this.state.uploadImgs,
+                        sizeArr:this.state.sizeArr,
+                        createTime: createTime,
+                        c_grade:this.props.param.c_grade
+                    }
+                }
+        Tools.postNotBase64(IPAddr+"/jigou/postData.php", PostData,(ret)=>{
+                console.log("====postData=="+JSON.stringify(ret))
+                this.setState({loading:false})
+                Toast.show("发布成功！", 2000);
+                // 发送通知
+                let value = 'value';
+                RCTDeviceEventEmitter.emit('undatePosts',value);
+                this.goBack(); 
+            }, (err)=>{
+                this.setState({loading:false})
+                Toast.show(err);
+                console.log("====444444==="+err)
+        });
+    }
+
+    getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes()
+                + seperator2 + date.getSeconds();
+        return currentdate;
     }
 
     pickImage(){
@@ -71,22 +136,39 @@ export default class WoDe extends React.Component{
         (buttonIndex) => {
             if (buttonIndex == 0) {
                 ImagePicker.openCamera({
-
+                    includeBase64:true,
+                    cropping:true,
+                    cropperCircleOverlay:true
                 }).then(image => {
                     console.log(image);
+                    var sizeArr = [image.width/image.height];
                     this.setState({
-                        images:this.state.images.length<1?[image]:this.state.images.concat([image])
+                        images:this.state.images.length<1?[image]:this.state.images.concat([image]),
+                        uploadImgs: this.state.images.length<1?[image.data]:this.state.images.concat([image.data]),
+                        sizeArr: sizeArr
                     })
                 });
             }
             if (buttonIndex == 1) {
                 ImagePicker.openPicker({
                     multiple: true,
-                    maxFiles:8
+                    maxFiles:8,
+                    includeBase64:true,
+                    cropping:true,
+                    cropperCircleOverlay:true
                 }).then(images => {
-                    console.log(images);
+                    console.log("--------------------images-----------------"+JSON.stringify(images));
+                    var uploadImgs = [];
+                    var sizeArr = [];
+                    for(var i = 0; i < images.length; i++){
+                        uploadImgs.push(images[i].data);
+                        sizeArr.push(images[i].width/images[i].height);
+                    }
+                    //console.log("--------------------uploadImgs-----------------"+JSON.stringify(uploadImgs));
                     this.setState({
-                        images:this.state.images.length<1?images:this.state.images.concat(images)
+                        images:this.state.images.length<1?images:this.state.images.concat(images),
+                        uploadImgs: uploadImgs,
+                        sizeArr:sizeArr
                     })
                 });
             }
@@ -139,9 +221,10 @@ export default class WoDe extends React.Component{
                         {this.renderSelImg()}
                     </ScrollView>
                 </View>
-                <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pickImage()}>
+                <TouchableOpacity activeOpacity={0.8} style={{width:42, height:42, marginLeft:10, marginTop:5}} onPress={()=>this.pickImage()}>
                     <Image source={JZBImages.addImage} style={{width:42, height:42, marginLeft:10, marginTop:5}} /> 
                 </TouchableOpacity>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
             </View>
           )
     }

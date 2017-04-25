@@ -146,7 +146,7 @@ export default class WoDe extends React.Component{
 		  )
 	}
 
-    gotoJigouInfo(ID){
+    gotoJigouInfo(ID, NAME){
         const { navigator } = this.props;
         if(navigator) {
             navigator.push({
@@ -154,7 +154,11 @@ export default class WoDe extends React.Component{
                 param: {
                     title:'机构信息',
                     id:ID,
-                    userIcon:this.props.param.userIcon
+                    userIcon:this.props.param.userIcon,
+                    name:NAME,
+                    userId:this.props.param.userId,
+                    userphone:this.props.param.userphone,
+                    username:this.props.param.username
                 }
             })
         }
@@ -162,7 +166,7 @@ export default class WoDe extends React.Component{
 
     renderRow(rowData){
         return(
-            <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.gotoJigouInfo(rowData.orgId)}}>
+            <TouchableOpacity style={styles.cell} activeOpacity={0.8} onPress={()=>{this.gotoJigouInfo(rowData.orgId, rowData.name)}}>
                 <Image source={{uri: BimgURL+rowData.logo+LimgURL}} style={{width:85, height:70, backgroundColor:'#F5F5F5'}}/>
                 <View style={styles.recommendCell}>
                     <View>

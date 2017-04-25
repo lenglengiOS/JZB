@@ -45,6 +45,7 @@ import JigouInfo from '../home/jigouInfo'; //
 import HomeJiazhangquan from '../home/home_jiazhangquan'; // 
 import ChatGroupInfo from '../parents/cahtGroupInfo'; // 
 import Setting from '../wode/setting';
+import PostDetails from '../home/postDetails';
 
 
 var _navigator,_route;
@@ -142,6 +143,12 @@ export default class MainIndex extends React.Component {
             case "setting":
                 Component=Setting;
                 break;
+            case "postdetails":
+                Component=PostDetails;
+                break;
+
+
+                
 
                 
             default: //default view

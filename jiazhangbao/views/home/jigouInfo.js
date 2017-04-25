@@ -20,6 +20,8 @@ import {
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import Tools from '../tools';
 import LoadingShow  from '../component/react-native-loading';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import Toast from '../tools/Toast';
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -30,14 +32,26 @@ export default class NewsDetail extends React.Component{
         }
     }
     componentDidMount(){
-        //alert(this.props.param.userIcon)
+        //alert(this.props.param.id)
         this.getData()
+
+        // 接收到通知之后执行  this.getData()
+        this.listener = RCTDeviceEventEmitter.addListener('undatePosts',(value)=>{  
+            // 接受到通知后的处理  
+            this.getData()
+        });
+        
+    }
+
+    componentWillUnmount(){  
+      // 移除监听 一定要写  
+      this.listener.remove();  
     }
 
     getData(){
         this.setState({loading:true})
-        Tools.get(IPAddr+"/home/jigouInfo.php"+'?id='+this.props.param.id,(data)=>{
-                console.log("==getData===="+JSON.stringify(data));
+        Tools.get(IPAddr+"/home/jigouInfo.php?name="+this.props.param.name+'&id='+this.props.param.id,(data)=>{
+                console.log("==getPostsData===="+JSON.stringify(data));
                 this.setState({
                     loading:false,
                     data:data
@@ -58,17 +72,37 @@ export default class NewsDetail extends React.Component{
         }
     }
 
- 
-
     publish(){
-        let {route,navigator} = this.props;
-        if(navigator){
-            navigator.push({
-                name:"publish",
-                param:{
+        Tools.getStorage("maincfg",(resData)=>{
+            if(Tools.isDataValid(resData))
+            {
+                let {route,navigator} = this.props;
+                if(navigator){
+                    navigator.push({
+                        name:"publish",
+                        param:{
+                            circleId:this.props.param.id,
+                            userIcon:this.props.param.userIcon,
+                            userId:this.props.param.userId,
+                            userphone:this.props.param.userphone,
+                            username:this.props.param.username,
+                            c_grade:this.props.param.c_grade
+                        }
+                    })
                 }
-            })
-        }
+            }else{
+                Toast.show("需要登录", 2000)
+                let {route,navigator} = this.props;
+                if(navigator){
+                    navigator.push({
+                        name:"login",
+                        param:{
+                           
+                        }
+                    })
+                }
+            }
+        });
     }
 
     jigouIntru(){
@@ -92,6 +126,46 @@ export default class NewsDetail extends React.Component{
                 }
             })
         }
+    }
+
+    gotoPostDetails(item){
+        let {route,navigator} = this.props;
+        if(navigator){
+            navigator.push({
+                name:"postdetails",
+                param:{
+                    item:item
+                }
+            })
+        }
+    }
+
+    renderPosts(){
+        if(!this.state.data){return;}
+
+        return this.state.data.post.map((item, index) => {
+            return(
+                <TouchableOpacity key={index} activeOpacity={0.8} onPress={()=>this.gotoPostDetails(item)} style={styles.cell}>
+                    <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
+                        <View style={{flexDirection:'row'}}>
+                            <Image source={item.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+item.avatar}:{uri: this.state.data?BimgURL+item.avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
+                            <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
+                                <Text style={{color:'#FAB665', fontSize:14}}>{this.state.data?item.name:''}</Text>
+                                <Text style={{color:'#A5A5A5', fontSize:12}}>{this.state.data?item.childGrade:''}</Text>
+                            </View>
+                        </View>
+                        <View style={{flexDirection:'row'}}>
+                            <Image source={JZBImages.replyIco} style={{width:14, height:14}} />
+                            <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>{item.replyNum?item.replyNum:0}</Text>
+                            <Image source={JZBImages.likeIcon} style={{width:14, height:14, marginLeft:10}} />
+                            <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>{item.likeNum?item.likeNum:0}</Text>
+                        </View>
+                    </View>
+                    <Text style={{fontSize:16, marginLeft:5, marginRight:5, marginTop:10}} numberOfLines={2}>{this.state.data?item.title:''}</Text>
+                </TouchableOpacity>
+            )
+        })
+        
     }
 
     render(){
@@ -141,24 +215,7 @@ export default class NewsDetail extends React.Component{
                             <Text style={{fontSize:14, color:'#989898'}}>家长讨论</Text>
                             <Text onPress={()=>alert('机构圈子')} style={{fontSize:14, color:'#19BCAD'}}>机构圈子>></Text>
                         </View>
-                        <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('帖子详情')} style={styles.cell}>
-                            <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
-                                <View style={{flexDirection:'row'}}>
-                                    <Image source={{uri: this.state.data?BimgURL+this.state.data.post[0].avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
-                                    <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
-                                        <Text style={{color:'#FAB665', fontSize:14}}>{this.state.data?this.state.data.post[0].name:''}</Text>
-                                        <Text style={{color:'#A5A5A5', fontSize:12}}>{this.state.data?this.state.data.post[0].childGrade:''}</Text>
-                                    </View>
-                                </View>
-                                <View style={{flexDirection:'row'}}>
-                                    <Image source={JZBImages.replyIco} style={{width:14, height:14}} />
-                                    <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>{this.state.data?this.state.data.post[0].replyNum:0}</Text>
-                                    <Image source={JZBImages.likeIcon} style={{width:14, height:14, marginLeft:10}} />
-                                    <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>{this.state.data?this.state.data.post[0].likeNum:0}</Text>
-                                </View>
-                            </View>
-                            <Text style={{fontSize:16, marginLeft:5, marginRight:5, marginTop:10}} numberOfLines={2}>{this.state.data?this.state.data.post[0].title:''}</Text>
-                        </TouchableOpacity>
+                        {this.renderPosts()}
                     </ScrollView>
                 </View>
                 <View style={styles.bottomBar}>

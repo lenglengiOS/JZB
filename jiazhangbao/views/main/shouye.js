@@ -116,7 +116,7 @@ export default class Home extends React.Component{
                             likeNum:org[i].ext.posts[0].likeNum,
                             childGrade:org[i].ext.posts[0].childGrade,
                             name:org[i].ext.posts[0].name,
-                            userId:org[i].ext.posts[0].userId,
+                            circleId:org[i].ext.posts[0].userId,
                             avatar:org[i].ext.posts[0].avatar,
                             replyNum:org[i].ext.posts[0].replyNum,
                             photos:org[i].ext.event.photos
@@ -195,9 +195,13 @@ export default class Home extends React.Component{
         Tools.getStorage("maincfg",(resData)=>{
             if(Tools.isDataValid(resData))
             {
-                this.setState({isLogin:true})
                 var maincfgData=JSON.parse(resData)
-                console.log("====maincfgData=="+maincfgData)
+                this.setState({
+                        isLogin:true,
+                        userphone:maincfgData.data.userphone,
+                        userpwd:maincfgData.data.userpwd
+                    })
+                console.log("====maincfgData=="+resData)
                 var PostData ={
                     data:{
                         userphone:maincfgData.data.userphone,
@@ -205,7 +209,7 @@ export default class Home extends React.Component{
                     }
                 }
                 Tools.postNotBase64(IPAddr+"/login/login.php", PostData,(ret)=>{
-                    console.log("====dadadada=="+JSON.stringify(ret))
+                    console.log("====登陆成功dadadada=="+JSON.stringify(ret))
                         if(ret.message == "登陆成功")
                         {
                             this.setState({
@@ -213,7 +217,8 @@ export default class Home extends React.Component{
                                 id:ret.data[0].id,
                                 user_icon:ret.data[0].user_icon,
                                 data:ret.data[0],
-                                isLogin:true
+                                isLogin:true,
+                                c_grade:ret.data[0].c_grade+"家长"
                             })
                         }else{
                             Toast.show("获取用户信息失败", 2000)
@@ -279,7 +284,10 @@ export default class Home extends React.Component{
                     TITLE:TITLE,
                     INDEX:INDEX,
                     topItems:this.state.topItems,
-                    userIcon:this.state.user_icon
+                    userIcon:this.state.user_icon,
+                    userId:this.state.id,
+                    userphone:this.state.userphone,
+                    username:this.state.username
                 }
             })
         }
@@ -321,7 +329,12 @@ export default class Home extends React.Component{
                     param: {
                         title:TITLE,
                         id:ID,
-                        userIcon:this.state.user_icon
+                        name:NAME,
+                        userIcon:this.state.user_icon,
+                        userId:this.state.id,
+                        userphone:this.state.userphone,
+                        username:this.state.username,
+                        c_grade:this.state.c_grade
                     }
                 })
             }

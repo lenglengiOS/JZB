@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import Toast from '../tools/Toast';
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -39,6 +40,7 @@ export default class NewsDetail extends React.Component{
     submit(){
         if(this.state.submitText)
         {   
+            Toast.show("提交成功！",2000);
             this._back();
         }
     }

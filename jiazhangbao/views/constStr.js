@@ -39,7 +39,7 @@ var Size=function(font){
 }
 
 let IPAddr = "http://192.168.0.105";
-//let IPAddr = "http://172.27.35.1";
+//let IPAddr = "http://172.21.26.1";
 
 const isDebug=true;
 if(!isDebug){
@@ -56,6 +56,8 @@ const JZBImages = {
 	replyIco:require('../resources/home/postList_replyIcon@2x.png'),
 	common_mes:require('../resources/home/common_mes@2x.png'),
 	common_getinNor:require('../resources/home/common_getinNor@2x.png'),
+	postDetailSendReply:require('../resources/home/postDetailSendReply@2x.png'),
+
 	common_phone :require('../resources/home/common_phone@2x.png'),
 	jigou:require('../resources/home/class_pay_success@2x.png'),
 	youhui:require('../resources/home/agency_tag_youhui@2x.png'),
@@ -76,6 +78,7 @@ const JZBImages = {
 	phone:require('../resources/home/agency_phone@2x.png'),
 	showMore:require('../resources/home/common_getin@2x.png'),
 	addImage:require('../resources/home/sendPost_add@2x.png'),
+	user_time:require('../resources/home/user_time@2x.png'),
 	cancel:require('../resources/login/login_cancel@2x.png'),
 	pwd:require('../resources/login/login_psw@2x.png'),
 	wx:require('../resources/login/share_weixin.png'),
@@ -122,6 +125,10 @@ const JZBImages = {
 	user_setting:require('../resources/wode/user_setting.png'),
 	user_store:require('../resources/wode/user_store.png'),
 	user_take_class:require('../resources/wode/user_take_class.png'),
+
+
+
+	
 }
 
 
