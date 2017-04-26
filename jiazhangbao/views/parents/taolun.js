@@ -14,9 +14,13 @@ import {
     Image
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import MyListView from '../component/MyListView';
-
+var TaoLunQun = require('./fujinqun.json');
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import LoadingShow  from '../component/react-native-loading';
+import Toast from '../tools/Toast';
+import Tools from '../tools';
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -26,7 +30,7 @@ export default class BaoBan extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-           dataSource:defaultData.cloneWithRows(['','','','','','','','','']),
+           dataSource:defaultData.cloneWithRows(TaoLunQun.data),
            dataSize:4,
            count:3,
            index:0,
@@ -36,7 +40,7 @@ export default class BaoBan extends React.Component{
 		}
 	}
     componentDidMount(){
-       
+       //alert(TaoLunQun.data.length)
     }
 
     onRefresh() {  
@@ -48,16 +52,17 @@ export default class BaoBan extends React.Component{
         }
     }
 
-    pressRow(rowID){
+    pressRow(rowID, rowData){
         if (this.state.isJoin&&this.state.selectedButton.indexOf(rowID)!=-1){
-            alert('聊天')
+            alert(rowData.id)
         }else{            
-            const { navigator } = this.props;
-            if(navigator) {
-                navigator.push({
-                    name: 'chatgroupinfo',
-                })
-            }
+            //const { navigator } = this.props;
+            //if(navigator) {
+            //    navigator.push({
+            //        name: 'chatgroupinfo',
+            //    })
+            //}
+            Toast.show("加入后才能进群聊天哦！", 3000);
         }
         
 
@@ -66,7 +71,7 @@ export default class BaoBan extends React.Component{
     pressHeader(sectionID){
         this.setState({
             isShowMore:!this.state.isShowMore,
-            dataSource:defaultData.cloneWithRows(['','','','','','','','','']),
+            dataSource:defaultData.cloneWithRows(TaoLunQun.data),
         })
     }
 
@@ -74,19 +79,19 @@ export default class BaoBan extends React.Component{
         this.setState({
             isJoin:true, 
             selectedButton:this.state.selectedButton.concat([rowID]),
-            dataSource:defaultData.cloneWithRows(['','','','','','','','','']),
+            dataSource:defaultData.cloneWithRows(TaoLunQun.data),
         })
     }
 
     renderCell(rowData, sectionID, rowID){
         return(
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow(rowID)}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow(rowID, rowData)}>
                 <View style={styles.rowStyle}>
-                    <Image source={JZBImages.nav} style={styles.rowImageStyle}/>
+                    <Image source={{uri: BimgURL+rowData.logo+LimgURL}} style={styles.rowImageStyle}/>
                     <View style={{justifyContent:'center', flex:1, height:72}}>
                         <View>
-                            <Text style={{color:'#F87A00'}}>天府幼儿园</Text>
-                            <Text style={{marginTop:5, color:'#838383'}}>欢迎加入天府幼儿园</Text>
+                            <Text style={{color:'#F87A00'}}>{rowData.name}</Text>
+                            <Text style={{marginTop:5, color:'#838383'}}>{rowData.description}</Text>
                         </View>
                     </View>
                     {this.renderJoinButton(rowData, sectionID, rowID)}
@@ -165,7 +170,8 @@ var styles = StyleSheet.create({
         width: 48,
         height: 48,
         borderRadius:24,
-        marginRight:10
+        marginRight:10,
+        backgroundColor:'#F5F5F5'
     },
     sectionHeaderViewStyle: {
         backgroundColor: '#F5F5F5',

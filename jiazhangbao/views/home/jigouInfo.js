@@ -118,14 +118,15 @@ export default class NewsDetail extends React.Component{
     }
 
     chatOnline(){
-        let {route,navigator} = this.props;
-        if(navigator){
-            navigator.push({
-                name:"chatonline",
-                param:{
-                }
-            })
-        }
+        //let {route,navigator} = this.props;
+        //if(navigator){
+        //    navigator.push({
+        //        name:"chatonline",
+        //        param:{
+        //        }
+        //    })
+        //}
+        alert('跳转到聊天界面')
     }
 
     gotoPostDetails(item){
