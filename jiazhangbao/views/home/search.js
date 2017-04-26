@@ -75,7 +75,7 @@ export default class WoDe extends React.Component{
                      animated={true}/>
 				<View style={styles.nav}>
                     <TouchableOpacity  activeOpacity={0.8} onPress={()=>{this._back()}}>
-                        <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
+                        <Image source={JZBImages.back} style={{width:25, height:25, marginLeft:10}} />
                     </TouchableOpacity>
                     <TouchableOpacity  activeOpacity={0.8} style={{flexDirection:'row', alignItems:'center'}} onPress={()=>this.setState({showMore:!this.state.showMore})}>
                     	<Text style={{color:'#8C8C8C', fontSize:18, marginLeft:10}}>{this.state.selectOptions}</Text>
