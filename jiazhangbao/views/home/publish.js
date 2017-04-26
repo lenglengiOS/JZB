@@ -120,9 +120,8 @@ export default class WoDe extends React.Component{
         if (strDate >= 0 && strDate <= 9) {
             strDate = "0" + strDate;
         }
-        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-                + " " + date.getHours() + seperator2 + date.getMinutes()
-                + seperator2 + date.getSeconds();
+        var currentdate = month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes();
         return currentdate;
     }
 

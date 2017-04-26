@@ -78,7 +78,7 @@ export default class NewsDetail extends React.Component{
     }
 
     send(){
-        alert('发消息')
+        alert('调用原生界面发消息')
     }
 
     baoban(){

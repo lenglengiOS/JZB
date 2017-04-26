@@ -14,7 +14,7 @@ import {
     Image
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import MyListView from '../component/MyListView';
 
 var Car = require('./Car.json');
@@ -110,16 +110,19 @@ export default class BaoBan extends React.Component{
         }
     }
 
-    pressRow(){
+    pressRow(rowData){
         let { navigator } = this.props;
         if(navigator) {
             navigator.push({
                 name: 'homejiazhangquan',
                 param:{
-                    TITLE:'家长圈'
+                    TITLE:'家长圈',
+                    id:rowData.id,
+                    name:rowData.name
                 }
             })
         }
+        //alert(JSON.stringify(rowData))
     }
 
     pressHeader(sectionID){
@@ -144,13 +147,13 @@ export default class BaoBan extends React.Component{
             return null;
         }
         return (
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow(rowData)}>
                 <View style={styles.rowStyle}>
-                    <Image source={JZBImages.nav} style={styles.rowImageStyle}/>
+                    <Image source={{uri: BimgURL+rowData.logo+LimgURL}} style={styles.rowImageStyle}/>
                     <View style={{justifyContent:'center', flex:1, height:72}}>
                     	<View>
 	                    	<Text style={{color:'#F87A00'}}>{rowData.name}</Text>
-	                    	<Text style={{marginTop:5, color:'#838383'}}>{rowData.name}</Text>
+	                    	<Text style={{marginTop:5, color:'#838383'}}>{rowData.latestInfo}</Text>
 	                    </View>
                     </View>
                 </View>
@@ -164,7 +167,7 @@ export default class BaoBan extends React.Component{
     // 每一组中的数据
     renderSectionHeader(sectionData, sectionID) {
         return (
-        	<TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressHeader(sectionID)}>
+        	<TouchableOpacity activeOpacity={1} onPress={()=>this.pressHeader(sectionID)}>
 	            <View style={styles.sectionHeaderViewStyle}>
 	                <Text style={{marginLeft: 5, color: '#8F8F8F'}}>{sectionData}</Text>
 		            <Image source={this.state.closeSection.indexOf(sectionID)!=-1?JZBImages.showMore:JZBImages.common_getinNor} style={{width:15, height:15, tintColor:'#AAAAAA'}}/>
@@ -177,7 +180,6 @@ export default class BaoBan extends React.Component{
 		return(
 			<View style={styles.container}>
                 <MyListView
-                    onRefresh={this.onRefresh.bind(this)}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}
                     dataSize={this.state.dataSize}
@@ -213,7 +215,8 @@ var styles = StyleSheet.create({
         width: 48,
         height: 48,
         borderRadius:24,
-        marginRight:10
+        marginRight:10,
+        backgroundColor:'#F5F5F5'
     },
     sectionHeaderViewStyle: {
         backgroundColor: '#F5F5F5',

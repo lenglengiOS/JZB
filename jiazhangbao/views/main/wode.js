@@ -34,6 +34,10 @@ export default class WoDe extends React.Component{
             // 接受到通知后的处理  
             this.login();
         }); 
+        this.listener = RCTDeviceEventEmitter.addListener('undateUserAddr',(value)=>{  
+            // 接受到通知后的处理  
+            this.login();
+        }); 
     }
 
     componentWillUnmount(){  

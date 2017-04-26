@@ -140,6 +140,20 @@ export default class NewsDetail extends React.Component{
         }
     }
 
+    jigouquanzi(){
+        let { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'homejiazhangquan',
+                param:{
+                    TITLE:'家长圈',
+                    id:this.props.param.id,
+                    name:this.state.data.jigouInfo.name
+                }
+            })
+        }
+    }
+
     renderPosts(){
         if(!this.state.data){return;}
 
@@ -150,7 +164,7 @@ export default class NewsDetail extends React.Component{
                         <View style={{flexDirection:'row'}}>
                             <Image source={item.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+item.avatar}:{uri: this.state.data?BimgURL+item.avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
                             <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
-                                <Text style={{color:'#FAB665', fontSize:14}}>{this.state.data?item.name:''}</Text>
+                                <Text style={{color:'#FAB665', fontSize:14, fontWeight:'bold'}}>{this.state.data?item.name:''}</Text>
                                 <Text style={{color:'#A5A5A5', fontSize:12}}>{this.state.data?item.childGrade:''}</Text>
                             </View>
                         </View>
@@ -213,7 +227,7 @@ export default class NewsDetail extends React.Component{
                         </View>
                         <View style={styles.jiazhang}>
                             <Text style={{fontSize:14, color:'#989898'}}>家长讨论</Text>
-                            <Text onPress={()=>alert('机构圈子')} style={{fontSize:14, color:'#19BCAD'}}>机构圈子>></Text>
+                            <Text onPress={()=>this.jigouquanzi()} style={{fontSize:14, color:'#19BCAD'}}>机构圈子>></Text>
                         </View>
                         {this.renderPosts()}
                     </ScrollView>

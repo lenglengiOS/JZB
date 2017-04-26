@@ -12,29 +12,114 @@ import {
     Alert,
     ScrollView,
     Image,
-    StatusBar
+    StatusBar,
+    Modal
 } from 'react-native';
 
-import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
 import MyListView from '../component/MyListView';
-
+import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
+import Tools from '../tools';
+import LoadingShow  from '../component/react-native-loading';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import Toast from '../tools/Toast';
+import PhotoView from '../component/'
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
 });
 
+const margin = 5;
+
 export default class WoDe extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-           dataSource:defaultData.cloneWithRows(['','','']),
-           dataSize:4,
-           count:3,
-           index:0
+            dataSource:defaultData,
+            dataSize:4,
+            count:3,
+            index:0,
+            loading:false,
+            loadingWaitText:"加载中...",
+            modalVisible:false
 		}
 	}
     componentDidMount(){
-       
+       //alert(this.props.param.id)
+       //alert(this.props.param.name)
+        this.getData();
+        this.login();
+        this.listener = RCTDeviceEventEmitter.addListener('undatePosts',(value)=>{  
+            // 接受到通知后的处理  
+            this.getData()
+        });
+    }
+
+    componentWillUnmount(){  
+      // 移除监听 一定要写  
+      this.listener.remove();  
+    }
+
+    login(){
+        Tools.getStorage("maincfg",(resData)=>{
+            if(Tools.isDataValid(resData))
+            {
+                var maincfgData=JSON.parse(resData)
+                this.setState({
+                        isLogin:true,
+                        userphone:maincfgData.data.userphone,
+                        userpwd:maincfgData.data.userpwd
+                    })
+                console.log("====maincfgData=="+resData)
+                var PostData ={
+                    data:{
+                        userphone:maincfgData.data.userphone,
+                        userpwd:maincfgData.data.userpwd
+                    }
+                }
+                Tools.postNotBase64(IPAddr+"/login/login.php", PostData,(ret)=>{
+                    console.log("====家长圈页面登陆成功dadadada=="+JSON.stringify(ret))
+                        if(ret.message == "登陆成功")
+                        {
+                            this.setState({
+                                username:ret.data[0].user_name,
+                                id:ret.data[0].id,
+                                user_icon:ret.data[0].user_icon,
+                                data:ret.data[0],
+                                isLogin:true,
+                                c_grade:ret.data[0].c_grade+"家长"
+                            })
+                        }else{
+                            Toast.show("获取用户信息失败", 2000)
+                        }
+                    }, (err)=>{
+                        Toast.show(err);
+                        this.setState({isLogin:false})
+                        console.log("====444444==="+err)
+                });
+            }else{
+                this.setState({
+                    isLogin:false,
+                    user_icon:null
+                })
+            }
+        });  
+    }
+
+    getData(){
+        this.setState({loading:true})
+        Tools.get(IPAddr+"/home/jigouInfo.php?id="+this.props.param.id,(data)=>{
+                console.log("==getPostsData8888===="+JSON.stringify(data));
+                this.setState({
+                    loading:false,
+                    dataSource:defaultData.cloneWithRows(data.post),
+                })
+                
+        },(err)=>{
+            this.setState({
+              loading:false
+            })
+            Toast.show(err)
+        })
     }
 
     _back(){
@@ -44,28 +129,49 @@ export default class WoDe extends React.Component{
         }
     }
 
-    goToTopicDetail(){
-        let {route,navigator} = this.props;
+    goToTopicDetail(item){
+       let {route,navigator} = this.props;
         if(navigator){
             navigator.push({
-                name:"newsdetail",
+                name:"postdetails",
                 param:{
-                    
+                    item:item
                 }
             })
         }
     }
 
     publish(){
-        let {route,navigator} = this.props;
-        if(navigator){
-            navigator.push({
-                name:"publish",
-                param:{
-                    
+        Tools.getStorage("maincfg",(resData)=>{
+            if(Tools.isDataValid(resData))
+            {
+                let {route,navigator} = this.props;
+                if(navigator){
+                    navigator.push({
+                        name:"publish",
+                        param:{
+                            circleId:this.props.param.id,
+                            userIcon:this.state.user_icon,
+                            userId:this.state.id,
+                            userphone:this.state.userphone,
+                            username:this.state.username,
+                            c_grade:this.state.c_grade,
+                        }
+                    })
                 }
-            })
-        }
+            }else{
+                Toast.show("需要登录", 2000)
+                let {route,navigator} = this.props;
+                if(navigator){
+                    navigator.push({
+                        name:"login",
+                        param:{
+                           
+                        }
+                    })
+                }
+            }
+        });
     }
 
 	render(){
@@ -77,9 +183,9 @@ export default class WoDe extends React.Component{
                    />
                 <View style={styles.nav}>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>{this._back()}}>
-                        <Image source={JZBImages.back} style={{width:30, height:30, marginLeft:10}} />
+                        <Image source={JZBImages.back} style={{width:25, height:25, marginLeft:10}} />
                     </TouchableOpacity>
-                    <Text numberOfLines={1} style={{fontSize:20, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.param.TITLE}</Text>
+                    <Text numberOfLines={1} style={{fontSize:18, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.param.name}</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.setState({isFocus:!this.state.isFocus})}>
                         <Image source={this.state.isFocus?JZBImages.focus_on:JZBImages.focus_off} style={{width:20, height:20, marginRight:10}} />
                     </TouchableOpacity>
@@ -107,43 +213,54 @@ export default class WoDe extends React.Component{
 		  )
 	}
 
-    renderCell(){
+    renderCell(rowData){
         return(
             <View>
-                <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.goToTopicDetail()}} style={styles.cell}>
+                <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.goToTopicDetail(rowData)}} style={styles.cell}>
                     <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
                         <View style={{flexDirection:'row'}}>
                             <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('用户资料')}>
-                                <Image source={JZBImages.nav} style={{width:40, height:40, borderRadius:20}} />
+                                <Image source={rowData.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+rowData.avatar}:{uri: rowData.avatar?BimgURL+rowData.avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20}} />
                             </TouchableOpacity>
                             <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
-                                <Text style={{color:'#FAB665', fontSize:14}}>宝妈小娟娟</Text>
-                                <Text style={{color:'#A5A5A5', fontSize:12}}>四年级家长</Text>
+                                <Text style={{color:'#FAB665', fontSize:14}}>{rowData.name}</Text>
+                                <Text style={{color:'#A5A5A5', fontSize:12}}>{rowData.childGrade}</Text>
                             </View>
                         </View>
                         <View style={{flexDirection:'row'}}>
                             <Image source={JZBImages.replyIco} style={{width:14, height:14}} />
-                            <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>10</Text>
+                            <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>{rowData.replyNum?rowData.replyNum:0}</Text>
                             <Image source={JZBImages.likeIcon} style={{width:14, height:14, marginLeft:10}} />
-                            <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>8</Text>
+                            <Text style={{color:'#969696', marginLeft:2, fontSize:12}}>{rowData.likeNum?rowData.likeNum:0}</Text>
                         </View>
                     </View>
-                    <Text style={{fontSize:16, marginLeft:5, marginRight:5, marginTop:10}} numberOfLines={2}>家长圈使用需知a用需dv用需用需wad用需需知a用需dv用需用需wa需知a用需dv用需用需wa需知a用需dv用需用需wa需知a用需dv用需用需wa</Text>
-                    <Text style={{fontSize:14, marginLeft:5, marginRight:5, marginTop:5, color:'#909090'}} numberOfLines={2}>需用需wa需知a用需dv用需用需wa需知a用需dv需wa需知a用需dv需wa需知a用需dv用需用需wa需知a用需dv用需用需wa</Text>
-                    <View style={{width:screenWidth-30,marginLeft:5, height:(screenWidth-40)/3,justifyContent:'space-between', flexDirection:'row', marginTop:8}}>
-                        <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('查看图片1')}>
-                            <Image source={JZBImages.nav} style={{width:(screenWidth-40)/3, height:(screenWidth-40)/3}} />
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('查看图片2')}>
-                            <Image source={JZBImages.nav} style={{width:(screenWidth-40)/3, height:(screenWidth-40)/3}} />
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('查看图片3')}>
-                            <Image source={JZBImages.nav} style={{width:(screenWidth-40)/3, height:(screenWidth-40)/3}} />
-                        </TouchableOpacity>
+                    <Text style={{fontSize:16, marginLeft:5, marginRight:5, marginTop:15}} numberOfLines={2}>{rowData.title}</Text>
+                    <Text style={{fontSize:14, marginLeft:5, marginRight:5, marginTop:6, color:'#909090', lineHeight:20}} numberOfLines={2}>{rowData.content}</Text>
+                    <View style={{flexDirection:'row'}}> 
+                        {this.renderPhotos(rowData)}
                     </View>
                 </TouchableOpacity>
             </View>
         )
+    }
+
+    renderPhotos(rowData){
+        if(!rowData.photos)
+        {
+            return;
+        }
+        var arr = rowData.photos?rowData.photos.split(","):[];
+        return arr.map((item, index) => {
+            if(index>=3)
+            {
+                return null;
+            }
+            return(
+                <View key={index} style={styles.photoCell}>
+                     <Image source={{uri: IPAddr+item}} style={{width:(screenWidth-20-margin*2)/3, height:(screenWidth-20-margin*2)/3, backgroundColor:'#F5F5F5'}} />
+                </View>
+            )
+        })
     }
 
     renderRow(rowData, sectionID, rowID){
@@ -157,24 +274,19 @@ export default class WoDe extends React.Component{
                         </View>
                     </TouchableOpacity>
                     <View style={{width:screenWidth, height:1, backgroundColor:'#E8E8E8'}}/>
-                    {this.renderCell()}
+                    {this.renderCell(rowData)}
                 </View>
             )
         }
         return(
             <View>
-                {this.renderCell()}
+                {this.renderCell(rowData)}
             </View>
         )
     }
 
     onRefresh() {  
-        this.page=1;
-        var firstData=[];
-        if(this.state.isLocationSearch){
-            this.loadManualFwqData()
-            return;
-        }
+        this.getData()
     }
 
 }
@@ -265,6 +377,12 @@ var styles = StyleSheet.create({
         borderRadius:4,
         justifyContent:'center', 
         alignItems:'center'
+    },
+    photoCell:{
+        width:(screenWidth-20-margin*2)/3, 
+        height:(screenWidth-20-margin*2)/3, 
+        marginRight:5,
+        marginTop:10
     }
 });
 

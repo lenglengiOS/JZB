@@ -20,6 +20,7 @@ import Tools from '../tools';
 import LoadingShow  from '../component/react-native-loading';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import Toast from '../tools/Toast';
+import { MapView, MapTypes, MapModule, Geolocation } from 'react-native-baidu-map';
 import ResolveAssetSource from 'resolveAssetSource';
 
 export default class BaoBan extends React.Component{
@@ -32,6 +33,22 @@ export default class BaoBan extends React.Component{
     componentDidMount(){
     	//var images = this.props.param.item.photos.split(",");
     	//console.log(JSON.stringify(this.props.param.item))
+        this.goLocation();
+    }
+
+    goLocation(){
+        Geolocation.getCurrentPosition().then(data => {
+                console.log("====Geolocation=="+JSON.stringify(data))
+                Geolocation.reverseGeoCode(data.latitude, data.longitude).then(res => {
+                        console.log("====reverseGeoCode=="+JSON.stringify(res))
+                        this.setState({location:res.city})
+                    }).catch(e =>{
+                    console.warn(e, 'error');
+                  })
+
+          }).catch(e =>{
+            console.warn(e, 'error');
+          })
     }
 
     _back(){
@@ -87,8 +104,13 @@ export default class BaoBan extends React.Component{
 	                        <View style={{flexDirection:'row'}}>
 	                            <Image source={this.props.param.item.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+this.props.param.item.avatar}:{uri: BimgURL+this.props.param.item.avatar+LimgURL}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
 	                            <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
-	                                <Text style={{color:'#FAB665', fontSize:14}}>{this.props.param.item.name}</Text>
-	                                <Text style={{color:'#A5A5A5', fontSize:12}}>{this.props.param.item.childGrade}</Text>
+	                                <Text style={{color:'#FAB665', fontSize:14, fontWeight:'bold'}}>{this.props.param.item.name}</Text>
+	                                <View style={{flexDirection:'row', marginTop:5}}>
+		                                <Text style={{color:'#A5A5A5', fontSize:12}}>{this.props.param.item.childGrade}</Text>
+		                                <Image source={JZBImages.location} style={{width:10, height:12, marginLeft:10}}/>
+						                <Text style={{marginLeft:3, color:'#A5A5A5', fontSize:12}}>{this.state.location}</Text>
+						            </View>
+
 	                            </View>
 	                        </View>
 	                        <View style={{flexDirection:'row', height:69, paddingTop:15}}>
@@ -98,7 +120,7 @@ export default class BaoBan extends React.Component{
 	                    </View>
 	                    <View style={styles.content}>
 	                    	<Text style={{fontSize:16, fontWeight:'bold', marginTop:15, width:screenWidth-20}}>{this.props.param.item.title}</Text>
-	                    	<Text style={{fontSize:16, marginTop:10, width:screenWidth-20, color:'#343434'}}>{this.props.param.item.content}</Text>
+	                    	<Text style={{fontSize:16, marginTop:10, width:screenWidth-20, color:'#343434', lineHeight:20}}>{this.props.param.item.content}</Text>
 	                    </View>
 	                    {this.renderImages()}
 	                    <View style={{width:screenWidth, height:80, backgroundColor:'#FFF', flexDirection:'row',alignItems:'center', justifyContent:'flex-end'}}>

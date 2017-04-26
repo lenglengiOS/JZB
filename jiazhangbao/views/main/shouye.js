@@ -142,6 +142,13 @@ export default class Home extends React.Component{
             // 接受到通知后的处理  
             this.login();
         }); 
+        this.listener = RCTDeviceEventEmitter.addListener('undateUserAddr',(value)=>{  
+            // 接受到通知后的处理  
+            this.login();
+        });
+
+
+        
     }
 
     componentWillUnmount(){  
@@ -287,7 +294,9 @@ export default class Home extends React.Component{
                     userIcon:this.state.user_icon,
                     userId:this.state.id,
                     userphone:this.state.userphone,
-                    username:this.state.username
+                    username:this.state.username,
+                    id:8888,
+                    name:'成都市家长圈'
                 }
             })
         }

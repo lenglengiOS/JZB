@@ -27,7 +27,7 @@ export default class WoDe extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-           dataSource:defaultData.cloneWithRows(['','','']),
+           dataSource:defaultData.cloneWithRows([]),
            dataSize:5,
            count:3
 		}
