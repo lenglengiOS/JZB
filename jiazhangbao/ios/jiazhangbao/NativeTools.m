@@ -10,6 +10,8 @@
 #import <BmobSDK/Bmob.h>
 #import <SMS_SDK/SMSSDK.h>
 #import "LHLMapViewController.h"
+#import <RongIMKit/RongIMKit.h>
+#import "LHLConversationViewController.h"
 
 @implementation NativeTools
 
@@ -159,6 +161,44 @@ RCT_EXPORT_METHOD(getLHLMap)
   LHLMapViewController *controller = [[LHLMapViewController alloc] init];
   UIViewController *rootViewController = [self getCurrentVC];
   [rootViewController presentViewController:controller animated:YES completion:NULL];
+}
+
+// 连接融云服务器
+RCT_EXPORT_METHOD(connectWithToken:(NSString *)token callback:(RCTResponseSenderBlock)callback)
+{
+  [[RCIM sharedRCIM] connectWithToken:token     success:^(NSString *userId) {
+    NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+    NSArray *events = [NSArray arrayWithObjects:@"登陆成功", nil];
+    callback(@[[NSNull null], events]);
+  } error:^(RCConnectErrorCode status) {
+    NSLog(@"登陆的错误码为:%ld", (long)status);
+    NSArray *events = [NSArray arrayWithObjects:@"登陆失败", nil];
+    callback(@[[NSNull null], events]);
+  } tokenIncorrect:^{
+    //token过期或者不正确。
+    //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+    //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+    NSLog(@"token错误");
+    NSArray *events = [NSArray arrayWithObjects:@"token失效", nil];
+    callback(@[[NSNull null], events]);
+  }];
+}
+
+//单聊
+RCT_EXPORT_METHOD(singleChat:(NSString *)title)
+{
+  //do smothing
+  dispatch_sync(dispatch_get_main_queue(), ^{
+    //主线程更新
+    LHLConversationViewController *conversationVC = [[LHLConversationViewController alloc]init];
+    conversationVC.conversationType = 1;
+    conversationVC.targetId = @"18428309335";
+    conversationVC.title = title;
+    UIViewController *rootViewController = [self getCurrentVC];
+    [rootViewController presentViewController:conversationVC animated:YES completion:NULL];
+    
+  });
+  
 }
 
 

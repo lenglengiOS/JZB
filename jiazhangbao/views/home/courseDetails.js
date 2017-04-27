@@ -15,14 +15,16 @@ import {
     WebView,
     StatusBar,
     Linking,
-    Modal
+    Modal,
+    NativeModules
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
-import PhotoView from '../component/'
+import PhotoView from '../component/';
+var NativeTools = NativeModules.NativeTools;
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -78,7 +80,8 @@ export default class NewsDetail extends React.Component{
     }
 
     send(){
-        alert('调用原生界面发消息')
+        //alert('调用原生界面发消息')
+        NativeTools.singleChat(this.props.param.subtitle);
     }
 
     baoban(){
@@ -164,11 +167,11 @@ export default class NewsDetail extends React.Component{
                             <Text onPress={()=>alert('在线讨论')} style={{fontSize:14, color:'#19BCAD'}}>在线讨论>></Text>
                         </View>
                         <TouchableOpacity style={styles.location} activeOpacity={0.8} onPress={()=>alert('机构信息')}>
-                            <Text style={{fontSize:16, color:'#000'}}>星萌艺校</Text>
+                            <Text style={{fontSize:16, color:'#000'}}>{this.props.param.subtitle}</Text>
                             <Text style={{fontSize:14, color:'#808080', marginTop:5}}>四川省成都市锦江区景明路65号5栋</Text>
                             <View style={{flexDirection:'row', marginTop:5}}>
                                 <Image source={JZBImages.location} style={{width:8, height:12}}/>
-                                <Text style={{fontSize:13, color:'#9B9B9B'}}> 9.35km</Text>
+                                <Text style={{fontSize:13, color:'#9B9B9B'}}> {this.props.param.distance}</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={styles.jigouInfo}>

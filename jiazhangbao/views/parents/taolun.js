@@ -11,7 +11,8 @@ import {
  	Platform,
     Alert,
     ScrollView,
-    Image
+    Image,
+    NativeModules
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
@@ -21,6 +22,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
+var NativeTools = NativeModules.NativeTools;
 
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
@@ -54,7 +56,8 @@ export default class BaoBan extends React.Component{
 
     pressRow(rowID, rowData){
         if (this.state.isJoin&&this.state.selectedButton.indexOf(rowID)!=-1){
-            alert(rowData.id)
+            //alert(rowData.name)
+            NativeTools.singleChat(rowData.name);
         }else{            
             //const { navigator } = this.props;
             //if(navigator) {

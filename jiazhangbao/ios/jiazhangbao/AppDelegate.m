@@ -13,6 +13,7 @@
 #import <React/RCTRootView.h>
 #import <SMS_SDK/SMSSDK.h>
 #import "RCTBaiduMapViewManager.h"
+#import <RongIMKit/RongIMKit.h>
 
 @implementation AppDelegate
 
@@ -20,11 +21,15 @@
 {
   // Bmob后端云
   [Bmob registerWithAppKey:@"ee90961885f20d65680c306e517ddba7"];
+  
   // Mod验证码
   [SMSSDK registerApp:@"1af4a3a0e0cb0"
            withSecret:@"f9bd59d14ace351395d38094eb029c04"];
   // 百度地图
   [RCTBaiduMapViewManager initSDK:@"Uzny2Z0UBOGuMgbBrD6GdQNsaPUycXhS"];
+  
+  // 融云
+  [[RCIM sharedRCIM] initWithAppKey:@"c9kqb3rdcvrej"];
   
   NSURL *jsCodeLocation;
 

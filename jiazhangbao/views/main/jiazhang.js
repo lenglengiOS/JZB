@@ -10,7 +10,8 @@ import {
  	ListView,
  	Platform,
     Alert,
-    ScrollView
+    ScrollView,
+    StatusBar
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,navbackground,lineColor,console} from '../constStr';
@@ -33,6 +34,10 @@ export default class JiaZhang extends React.Component{
 	render(){
 		return(
 			<View style={styles.container}>
+				<StatusBar
+                     backgroundColor="blue"
+                     barStyle="light-content"
+                     animated={true}/>
                 <ScrollableTabView renderTabBar={() => <CustomTabBar textStyle={{fontSize:16}} navigator={this.props.navigator}/>}>
 			        <Jiazhangquan tabLabel="家长圈" navigator={this.props.navigator}/>
 			        <Taolun tabLabel="讨论群" navigator={this.props.navigator}/>

@@ -22,6 +22,10 @@ import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
 import PageLoading from '../tools/Loading';
+var NativeTools = NativeModules.NativeTools;
+
+var SHA1 = require("crypto-js/sha1");
+
 
 
 //import {org} from './youeryuan.js';
@@ -147,6 +151,8 @@ export default class Home extends React.Component{
             this.login();
         });
 
+        // 连接融云服务器
+        this.connectWithToken();
 
         
     }
@@ -154,6 +160,79 @@ export default class Home extends React.Component{
     componentWillUnmount(){  
       // 移除监听 一定要写  
       this.listener.remove();  
+    }
+
+    connectWithToken(){
+        Tools.getStorage("token",(token)=>{
+            if(Tools.isDataValid(token))
+            {
+                //alert(token)
+                NativeTools.connectWithToken(token,(error, events) => {
+                    if (events[0] == '登陆成功') {
+                        //Toast.show("登陆成功", 200);
+                    } 
+                    if (events[0] == '登陆失败') {
+                        //Toast.show("登陆失败", 200);
+                    } 
+                    if (events[0] == 'token失效') {
+                        // 此处应切换到登陆界面，清除登陆信息和tocken值
+                        Toast.show("登陆失效, 请重新登陆", 200);
+                        Tools.removeStorage("maincfg");
+                        Tools.removeStorage("token");
+                        let {route,navigator} = this.props;
+                        if(navigator) {
+                            navigator.push({
+                                name: 'login',
+                                param:{
+                                   
+                                }
+                            })
+                        }
+                    } 
+                });
+            }
+        });
+    }
+
+    
+    getToken(userphone){
+        var Nonce = Math.floor(Math.random()*50000);
+        var Timestamp = Date.parse(new Date())/1000;
+        fetch('http://api.cn.ronghub.com/user/getToken.json', {
+              method: 'POST',
+              headers: {
+                    'App-Key': 'c9kqb3rdcvrej',
+                    'Nonce': Nonce,
+                    'Timestamp': Timestamp,
+                    'Signature': SHA1('igqTwfGWuA'+Nonce+Timestamp),
+                    'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: 'userId='+userphone
+        })
+        .then((response) => response.text())
+        .then((responseText) => {
+            var responseData=JSON.parse(responseText)
+            console.log("====token获取成功dadadada=="+responseData.token)
+            // 成功获取token之后保存在本地
+            Tools.setStorage("token", responseData.token);
+
+
+            // 如果其他页面需要验证token,则调用此方法
+
+            //Tools.getStorage("token",(resData)=>{
+            //    if(Tools.isDataValid(resData))
+            //    {
+            //        alert(resData)
+            //    }else{
+            //       alert(400)
+            //    }
+            //});
+
+
+        })
+        .catch((error) => {
+            console.log("====token获取失败44444=="+JSON.stringify(error))
+        })
     }  
 
     goLocation(){
@@ -177,7 +256,7 @@ export default class Home extends React.Component{
     getData(){
         this.setState({loading:true})
         Tools.get(IPAddr+"/home/home.php"+'?longitude='+this.state.longitude+'&latitude='+this.state.latitude,(data)=>{
-                console.log("==getData===="+JSON.stringify(data));
+                //console.log("==getData===="+JSON.stringify(data));
                 this.setState({
                     recomedNews:data.recomedNews,
                     recomedCourse:data.recomedCourse,
@@ -209,6 +288,8 @@ export default class Home extends React.Component{
                         userpwd:maincfgData.data.userpwd
                     })
                 console.log("====maincfgData=="+resData)
+
+                // 1.登陆家长宝服务器
                 var PostData ={
                     data:{
                         userphone:maincfgData.data.userphone,
@@ -235,6 +316,10 @@ export default class Home extends React.Component{
                         this.setState({isLogin:false})
                         console.log("====444444==="+err)
                 });
+
+                // 2.链接融云服务器获取Token
+                this.getToken(maincfgData.data.userphone);
+
             }else{
                 this.setState({
                     isLogin:false,
@@ -315,7 +400,7 @@ export default class Home extends React.Component{
         }
     }
 
-    goToCourseDetails(PRICE, NAME, ID){
+    goToCourseDetails(PRICE, NAME, ID , SUBTITLE, DISTANCE){
         var TITLE = '';
         if (PRICE) {
             TITLE = "课程详情";
@@ -325,7 +410,9 @@ export default class Home extends React.Component{
                     name: 'coursedetail',
                     param: {
                         title:TITLE,
-                        name:NAME
+                        name:NAME,
+                        subtitle: SUBTITLE,
+                        distance:DISTANCE
                     }
                 })
             }
@@ -380,7 +467,7 @@ export default class Home extends React.Component{
         var icon = this.state.recomedOrg?{uri: ICON}:JZBImages.default_holder;
         return(
             <View>
-                <TouchableOpacity activeOpacity={1} onPress={()=>this.goToCourseDetails(PRICE, TITLE, ID)}>
+                <TouchableOpacity activeOpacity={1} onPress={()=>this.goToCourseDetails(PRICE, TITLE, ID, SUBTITLE, DISTANCE)}>
                     <View style={{flexDirection:'row'}}>
                         <Image source={icon} style={{width:85, height:70, marginTop:15, marginLeft:10, backgroundColor:'#F5F5F5'}}/>
                         <View style={styles.recommendCell}>
