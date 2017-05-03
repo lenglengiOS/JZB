@@ -38,10 +38,10 @@ var Size=function(font){
 	}
 }
 
-let IPAddr = "http://192.168.0.105";
-//let IPAddr = "http://172.21.26.1";
+//let IPAddr = "http://192.168.0.105";
+let IPAddr = "http://172.21.85.1";
 
-const isDebug=true;
+const isDebug=false;
 if(!isDebug){
 	console.log=function(text){}
 }

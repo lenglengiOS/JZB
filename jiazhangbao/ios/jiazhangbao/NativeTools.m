@@ -12,6 +12,7 @@
 #import "LHLMapViewController.h"
 #import <RongIMKit/RongIMKit.h>
 #import "LHLConversationViewController.h"
+#define CONTACT_ID @"18428309335"
 
 @implementation NativeTools
 
@@ -154,7 +155,6 @@ RCT_EXPORT_METHOD(checkBaiduMap:(RCTResponseSenderBlock)callback)
 }
 
 // 跳转到苹果自带地图
-//货运物流-城市选择
 RCT_EXPORT_METHOD(getLHLMap)
 {
   //do smothing
@@ -192,7 +192,7 @@ RCT_EXPORT_METHOD(singleChat:(NSString *)title)
     //主线程更新
     LHLConversationViewController *conversationVC = [[LHLConversationViewController alloc]init];
     conversationVC.conversationType = 1;
-    conversationVC.targetId = @"18428309335";
+    conversationVC.targetId = CONTACT_ID;
     conversationVC.title = title;
     UIViewController *rootViewController = [self getCurrentVC];
     [rootViewController presentViewController:conversationVC animated:YES completion:NULL];

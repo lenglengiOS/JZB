@@ -547,11 +547,11 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				9D8FE8211E309FE6007DEB6C /* NativeTools.h */,
 				9D8FE8221E309FE6007DEB6C /* NativeTools.m */,
-				9D8FE8241E309FF0007DEB6C /* lib */,
 				9DE629B41EA9C9DA0009A075 /* LHLMapViewController.h */,
 				9DE629B51EA9C9DA0009A075 /* LHLMapViewController.m */,
 				9D622DF11EB1CBA00096D0F8 /* LHLConversationViewController.h */,
 				9D622DF21EB1CBA00096D0F8 /* LHLConversationViewController.m */,
+				9D8FE8241E309FF0007DEB6C /* lib */,
 			);
 			name = jiazhangbao;
 			sourceTree = "<group>";

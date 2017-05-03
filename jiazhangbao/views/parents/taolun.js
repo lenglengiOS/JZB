@@ -146,7 +146,6 @@ export default class BaoBan extends React.Component{
 		return(
 			<View style={styles.container}>
                 <MyListView
-                    onRefresh={this.onRefresh.bind(this)}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}
                     dataSize={this.state.dataSize}
