@@ -19,6 +19,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import Tools from '../tools';
+import ShareModal from '../component/shareModal'
 import LoadingShow  from '../component/react-native-loading';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import Toast from '../tools/Toast';
@@ -46,6 +47,20 @@ export default class NewsDetail extends React.Component{
     componentWillUnmount(){  
       // 移除监听 一定要写  
       this.listener.remove();  
+    }
+
+    /*
+    *分享
+    */
+    toShare(){
+        // var sharedata={
+        //     title:actInfo.share_pri_title,
+        //     imageurl:actInfo.share_prize_img_url,
+        //     url:actInfo.share_prize_url
+        // }
+       
+        // this.ShareModal&&this.ShareModal.show(sharedata,null,actInfo.share_prize_url)
+        this.ShareModal&&this.ShareModal.show()
     }
 
     getData(){
@@ -126,7 +141,7 @@ export default class NewsDetail extends React.Component{
         //        }
         //    })
         //}
-        alert('跳转到聊天界面')
+        //alert('跳转到聊天界面')
     }
 
     gotoPostDetails(item){
@@ -195,7 +210,7 @@ export default class NewsDetail extends React.Component{
                         <Image source={JZBImages.back} style={{width:25, height:25, marginLeft:10}} />
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={{fontSize:18, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>机构信息</Text>
-                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.toShare()}>
                     	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>
                 </View>
@@ -240,6 +255,7 @@ export default class NewsDetail extends React.Component{
                     </TouchableOpacity>
                 </View>
                 <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
+                <ShareModal ref={(o) => this.ShareModal = o}></ShareModal>
             </View>
           )
     }

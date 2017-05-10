@@ -193,7 +193,6 @@ export default class Home extends React.Component{
             }
         });
     }
-
     
     getToken(userphone){
         var Nonce = Math.floor(Math.random()*50000);

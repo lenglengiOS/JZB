@@ -17,6 +17,7 @@ import {
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr,BimgURL,LimgURL} from '../constStr';
 import Tools from '../tools';
+import ShareModal from '../component/shareModal'
 import LoadingShow  from '../component/react-native-loading';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import Toast from '../tools/Toast';
@@ -34,6 +35,20 @@ export default class BaoBan extends React.Component{
     	//var images = this.props.param.item.photos.split(",");
     	//console.log(JSON.stringify(this.props.param.item))
         this.goLocation();
+    }
+
+    /*
+    *分享
+    */
+    toShare(){
+        // var sharedata={
+        //     title:actInfo.share_pri_title,
+        //     imageurl:actInfo.share_prize_img_url,
+        //     url:actInfo.share_prize_url
+        // }
+       
+        // this.ShareModal&&this.ShareModal.show(sharedata,null,actInfo.share_prize_url)
+        this.ShareModal&&this.ShareModal.show()
     }
 
     goLocation(){
@@ -94,7 +109,7 @@ export default class BaoBan extends React.Component{
                         <Image source={JZBImages.back} style={{width:25, height:25, marginLeft:10}} />
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={{fontSize:18, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>帖子详情</Text>
-                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.toShare()}>
                     	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>
                 </View>
@@ -140,6 +155,7 @@ export default class BaoBan extends React.Component{
                         <Text style={styles.bottomText} numberOfLines={2}>回复是一种鼓励</Text>
                     </TouchableOpacity>
                 </View>
+                <ShareModal ref={(o) => this.ShareModal = o}></ShareModal>
 			</View>
 		  )
 	}

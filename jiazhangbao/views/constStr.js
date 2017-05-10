@@ -38,8 +38,8 @@ var Size=function(font){
 	}
 }
 
-//let IPAddr = "http://192.168.0.105";
-let IPAddr = "http://172.21.85.1";
+let IPAddr = "http://192.168.0.102";
+//let IPAddr = "http://172.16.216.1";
 
 const isDebug=false;
 if(!isDebug){
@@ -57,7 +57,6 @@ const JZBImages = {
 	common_mes:require('../resources/home/common_mes@2x.png'),
 	common_getinNor:require('../resources/home/common_getinNor@2x.png'),
 	postDetailSendReply:require('../resources/home/postDetailSendReply@2x.png'),
-
 	common_phone :require('../resources/home/common_phone@2x.png'),
 	jigou:require('../resources/home/class_pay_success@2x.png'),
 	youhui:require('../resources/home/agency_tag_youhui@2x.png'),
@@ -84,6 +83,13 @@ const JZBImages = {
 	wx:require('../resources/login/share_weixin.png'),
 	qq:require('../resources/login/share_qq.png'),
 	wb:require('../resources/login/share_sina.png'),
+
+	qqZone:require('../resources/login/share_coll.png'),
+	weixinTimeline:require('../resources/login/share_friends_icon@2x.png'),
+
+
+
+
 	nicheng:require('../resources/login/login_user@2x.png'),
 	login_phone:require('../resources/login/login_phone@2x.png'),	
 	msg:require('../resources/home/main_mes@2x.png'),

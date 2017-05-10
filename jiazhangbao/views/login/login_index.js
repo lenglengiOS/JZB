@@ -22,7 +22,7 @@ import LoadingShow  from '../component/react-native-loading';
 import Toast from '../tools/Toast';
 import Tools from '../tools';
 
-//var NativeTools = NativeModules.NativeTools;
+var NativeTools = NativeModules.NativeTools;
 
 export default class Login extends React.Component{
 	constructor(props){
@@ -69,6 +69,32 @@ export default class Login extends React.Component{
                 }
             })
         }
+    }
+
+    loginByOther(INDEX){
+        switch(INDEX)
+            {
+            case 0:
+                //alert('微信')
+                NativeTools.loginByOther('wx');
+                break;
+            case 1:
+                NativeTools.loginByOther('QQ',(error, events) => {
+                    //alert(events)
+                    if(!error)
+                    {
+                        // 在数据库中注册
+                        
+                    }
+                });
+                break;
+            case 2:
+                //alert('微博')
+                NativeTools.loginByOther('wb');
+                break;
+            default:
+                break;
+            }
     }
 
     login(){
@@ -186,9 +212,15 @@ export default class Login extends React.Component{
             	<View style={{flex:1,  width:screenWidth, marginTop:10}}>
             		<Text style={styles.loginText}>还可以使用以下账号登录</Text>
             		<View style={styles.loginWay}>
-            			<Image source={JZBImages.wx} style={{width:60, height:60}}/>
-            			<Image source={JZBImages.qq} style={{width:60, height:60}}/>
-            			<Image source={JZBImages.wb} style={{width:60, height:60}}/>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>this.loginByOther(0)}>
+            			    <Image source={JZBImages.wx} style={{width:60, height:60}}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>this.loginByOther(1)}>
+            			     <Image source={JZBImages.qq} style={{width:60, height:60}}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>this.loginByOther(2)}>
+            			     <Image source={JZBImages.wb} style={{width:60, height:60}}/>
+                        </TouchableOpacity>
             		</View>
             	</View>
 

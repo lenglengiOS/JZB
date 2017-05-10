@@ -1,5 +1,5 @@
 'use strict';
-var PluginList = NativeModules.NativeTools;
+
 import Tools from "../tools";
 const Toast = require("../tools/Toast")
 import React from 'react';
@@ -7,7 +7,7 @@ import {
     Platform,
     NativeModules
 } from 'react-native';
-
+var PluginList = NativeModules.NativeTools;
 const AppPlugin = ({
 	initPush:function(){
 		PluginList.initPush()

@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console} from '../constStr';
+import Tools from '../tools';
+import ShareModal from '../component/shareModal'
 
 export default class NewsDetail extends React.Component{
     constructor(props){
@@ -37,6 +39,20 @@ export default class NewsDetail extends React.Component{
         }
     }
 
+    /*
+    *分享
+    */
+    toShare(){
+        // var sharedata={
+        //     title:actInfo.share_pri_title,
+        //     imageurl:actInfo.share_prize_img_url,
+        //     url:actInfo.share_prize_url
+        // }
+       
+        // this.ShareModal&&this.ShareModal.show(sharedata,null,actInfo.share_prize_url)
+        this.ShareModal&&this.ShareModal.show()
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -49,7 +65,7 @@ export default class NewsDetail extends React.Component{
                         <Image source={JZBImages.back} style={{width:25, height:25, marginLeft:10}} />
                     </TouchableOpacity>
                     <Text numberOfLines={1} style={{fontSize:18, marginLeft:20, marginRight:20, flex:1, color:'#00B09D', textAlign:'center'}}>{this.props.param.title}</Text>
-                    <TouchableOpacity activeOpacity={0.8} onPress={()=>{alert('分享')}}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.toShare()}>
                     	<Image source={JZBImages.common_more} style={{width:30, height:30, marginRight:10}} />
                 	</TouchableOpacity>
                 </View>
@@ -60,6 +76,7 @@ export default class NewsDetail extends React.Component{
                         scalesPageToFit={true}
                         startInLoadingState={true}
                         clearButtonMode="while-editing" />
+                    <ShareModal ref={(o) => this.ShareModal = o}></ShareModal>
                 </View>
             </View>
           )

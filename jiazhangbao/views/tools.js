@@ -6,18 +6,22 @@ import {
     AsyncStorage,
     Platform,
     NetInfo,
-    Dimensions
+    Dimensions,
+    NativeModules
 } from 'react-native';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 const AppPlugin = require('react-native').NativeModules.PluginList;
 var ImagePickerManager = require('NativeModules').ImagePickerManager;
 import Toast from './tools/Toast'
 import {cgRoute} from "./constStr"
+import  ShareModal from './component/shareModal'
 var  screenWidth=Dimensions.get('window').width;
 var  screenHeight=Dimensions.get('window').height;
 var chnNumChar = ["零","一","二","三","四","五","六","七","八","九"];
 var chnUnitSection = ["","万","亿","万亿","亿亿"];
 var chnUnitChar = ["","十","百","千"];
+var NativeTools = NativeModules.NativeTools;
+
 
 var Tools = {
     /**

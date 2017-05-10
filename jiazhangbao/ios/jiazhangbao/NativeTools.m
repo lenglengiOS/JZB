@@ -12,7 +12,11 @@
 #import "LHLMapViewController.h"
 #import <RongIMKit/RongIMKit.h>
 #import "LHLConversationViewController.h"
-#define CONTACT_ID @"18428309335"
+#import <UShareUI/UShareUI.h>
+#import "WXApi.h"
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <UMSocialCore/UMSocialCore.h>
+#define CONTACT_ID @"15680222613"
 
 @implementation NativeTools
 
@@ -201,6 +205,118 @@ RCT_EXPORT_METHOD(singleChat:(NSString *)title)
   
 }
 
+/**
+ *  第三方登陆
+ */
+RCT_EXPORT_METHOD(loginByOther:(NSString *)type callback:(RCTResponseSenderBlock)callback)
+{
+  // QQ登陆
+  if ([type isEqualToString:@"QQ"]) {
+    NSLog(@"type:%@", type);
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
+      if (error) {
+        callback(@[error,[NSArray array]]);
+      } else {
+        UMSocialUserInfoResponse *resp = result;
+        // 授权信息
+        NSLog(@"QQ uid: %@", resp.uid);
+        NSLog(@"QQ name: %@", resp.name);
+        NSLog(@"QQ iconurl: %@", resp.iconurl);
+        NSArray *arr = [NSArray arrayWithObjects:resp.uid, resp.name, resp.iconurl, nil];
+        callback(@[[NSNull null],arr]);
+      }
+    }];
+  }else if ([type isEqualToString:@"wx"]) {
+    NSLog(@"type:%@", type);
+  }else if ([type isEqualToString:@"wb"]) {
+    NSLog(@"type:%@", type);
+  }
+}
+
+
+
+
+//plugin-4、友盟分享
+/**
+ *  友盟分享(图文分享)
+ *  type：分享平台（Sina-新浪微博, QQ-QQ好友, Qzone-QQ空间, WechatSession-微信好友, WechatTimeline-微信朋友圈）
+ *  content：分享文字内容
+ *  image：分享本地图片内容
+ *  url：分享网络图片的地址
+ url与image二选一，若同时存在url优先
+ */
+RCT_EXPORT_METHOD(shareSNS:(NSString *)type)
+{
+//  NSLog(@"--type--:%@", type);
+  if ([type isEqualToString:@"QQ"]) {
+      [self share:UMSocialPlatformType_QQ];
+    }else if ([type isEqualToString:@"Qzone"]) {
+      [self share:UMSocialPlatformType_Qzone];
+    }else if ([type isEqualToString:@"WechatSession"]) {
+      [self share:UMSocialPlatformType_WechatSession];
+    }else if ([type isEqualToString:@"WechatTimeline"]) {
+      [self share:UMSocialPlatformType_WechatTimeLine];
+    }
+}
+
+- (void)share:(UMSocialPlatformType)platformType{
+  //创建分享消息对象
+  UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+  UIImage *thumImage = [UIImage imageNamed:@"AppIcon.png"];
+  //创建网页内容对象
+  UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"家长宝" descr:@"欢迎使用家长宝" thumImage:thumImage];
+  //设置网页地址
+//  shareObject.webpageUrl = @"https://appsto.re/cn/_mu5fb.i";
+  shareObject.webpageUrl = @"http://www.appjzb.com/";
+  //分享消息对象设置分享内容对象
+  messageObject.shareObject = shareObject;
+  
+  [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
+    if (error) {
+      UMSocialLogInfo(@"************Share fail with error %@*********",error);
+    }else{
+      if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+        UMSocialShareResponse *resp = data;
+        //分享结果消息
+        UMSocialLogInfo(@"response message is %@",resp.message);
+        //第三方原始返回的数据
+        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+        
+      }else{
+        UMSocialLogInfo(@"response data is %@",data);
+      }
+    }
+    
+  }];
+  
+}
+
+
+/**
+ *  检测QQ和微信是否安装
+ *  callback(回调参数): 回调函数
+ 回调参数(String): ""-都未安装
+ "QQ"-安装QQ
+ "Wechat"-安装微信
+ "QQ-Wechat"-安装QQ和微信
+ */
+RCT_EXPORT_METHOD(checkQQAndWechatInstalled:(RCTResponseSenderBlock)callback) {
+  
+  NSMutableString *result = [NSMutableString string];
+  if ([QQApiInterface isQQInstalled]) {
+    [result appendString:@"QQ"];
+  }
+  
+  if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]]) {
+    result.length ? [result appendString:@"-Wechat"] : [result appendString:@"Wechat"];
+  }
+  callback(@[result]);
+//  NSLog(@"QQQQQQQQQQQQQQWWWWWWWWWWWW: %@", result);
+}
+- (dispatch_queue_t)methodQueue
+{
+  return dispatch_get_main_queue();
+}
 
 //获取当前View
 - (UIViewController *)getCurrentVC

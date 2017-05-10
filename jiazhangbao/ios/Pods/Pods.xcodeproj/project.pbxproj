@@ -14,32 +14,65 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04DE5279E80CC6B4B9DA47B6D06C9C2D /* RongCloud.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = RongCloud.bundle; path = RongCloudIM/RongCloud.bundle; sourceTree = "<group>"; };
 		07A300B836BDB60C9CC753AE869E5728 /* Pods-jiazhangbaoTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-jiazhangbaoTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		08D7CE26096A207DAE9700B87B84FB46 /* libPods-jiazhangbao.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-jiazhangbao.a"; path = "libPods-jiazhangbao.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C200BBA4315024EAE10664FED0AC4CD /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "RongCloudIM/zh-Hans.lproj"; sourceTree = "<group>"; };
 		1027D5B7F8AFCA8A7002E67751B75757 /* Pods-jiazhangbao-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-jiazhangbao-frameworks.sh"; sourceTree = "<group>"; };
-		1A6ABC069D87EF53BDDA2AB9422E4E36 /* RCConfig.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = RCConfig.plist; path = RongCloudIM/RCConfig.plist; sourceTree = "<group>"; };
+		1F396C84605070FCB2796DDD37B69480 /* libopencore-amrnb.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "RongCloudIM/libopencore-amrnb.a"; sourceTree = "<group>"; };
+		1F602E650765386C76DB00C305D1FBA2 /* WBHttpRequest+WeiboGame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboGame.h"; path = "UShareSDK/SocialLibraries/Sina/SinaSDK/WBHttpRequest+WeiboGame.h"; sourceTree = "<group>"; };
+		204C8948A1A0B620FE2B5F9E17A0F2D9 /* libSocialQQ.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libSocialQQ.a; path = UShareSDK/SocialLibraries/QQ/libSocialQQ.a; sourceTree = "<group>"; };
+		2264D4643562330221A186F76306F23A /* libWeiboSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = UShareSDK/SocialLibraries/Sina/SinaSDK/libWeiboSDK.a; sourceTree = "<group>"; };
+		239EAAC657D9D15A0666F9F2939780F2 /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboUser.h"; path = "UShareSDK/SocialLibraries/Sina/SinaSDK/WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
+		3439812902F7D859730633B518AF10A5 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "RongCloudIM/zh-Hans.lproj"; sourceTree = "<group>"; };
+		35E44DE7D6FD6D331BF4FC02B9271EE5 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKCommentButton.h; path = UShareSDK/SocialLibraries/Sina/SinaSDK/WBSDKCommentButton.h; sourceTree = "<group>"; };
+		37A70580BD9AE7032934701FD9CD0C45 /* UMSocialQQHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UMSocialQQHandler.h; path = UShareSDK/SocialLibraries/QQ/UMSocialQQHandler.h; sourceTree = "<group>"; };
+		386628C33DDC6516A9FD40FA7B7DBB01 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboShare.h"; path = "UShareSDK/SocialLibraries/Sina/SinaSDK/WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
+		3B90C4E367411480E4B3020BD91CB123 /* UMSocialNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMSocialNetwork.framework; path = UShareSDK/UMSocialSDK/UMSocialNetwork.framework; sourceTree = "<group>"; };
+		4B139E7C54E55628000146A8AE3E00B5 /* libUMSocialLog.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libUMSocialLog.a; path = UShareSDK/UMSocialSDKPlugin/libUMSocialLog.a; sourceTree = "<group>"; };
+		4BACA655F313B5CE659CC10E36655CB1 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = UShareSDK/SocialLibraries/QQ/QQSDK/TencentOpenAPI.framework; sourceTree = "<group>"; };
+		5260376AC4C7887A506B3FE15D760174 /* WeiboSDK+Statistics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WeiboSDK+Statistics.h"; path = "UShareSDK/SocialLibraries/Sina/SinaSDK/WeiboSDK+Statistics.h"; sourceTree = "<group>"; };
+		53655DB021F590EEFA87FDB933DCB6E2 /* libSocialWeChat.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libSocialWeChat.a; path = UShareSDK/SocialLibraries/WeChat/libSocialWeChat.a; sourceTree = "<group>"; };
 		5392FD4E7CE259C342792A591FC32509 /* Pods-jiazhangbaoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-jiazhangbaoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5C798AEEFD113BF809168F8FFB6EAF4A /* UMSocialUniqueIdHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UMSocialUniqueIdHandler.h; path = UShareSDK/SocialLibraries/UniqueId/UMSocialUniqueIdHandler.h; sourceTree = "<group>"; };
 		6024D5D4C93DB1B5BE7F566C4839695A /* Pods-jiazhangbao-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-jiazhangbao-acknowledgements.plist"; sourceTree = "<group>"; };
+		61E21A1EB5F9190675300CE240CB54BB /* Emoji.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Emoji.plist; path = RongCloudIM/Emoji.plist; sourceTree = "<group>"; };
 		63880D7DA46A56C8B749437B38E3BD8A /* Pods-jiazhangbaoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-jiazhangbaoTests.release.xcconfig"; sourceTree = "<group>"; };
 		6414AEB185A751F7F670A22DA24579B0 /* Pods-jiazhangbao-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-jiazhangbao-acknowledgements.markdown"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		78923C300CEF15B50627551AEB57D541 /* Emoji.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Emoji.plist; path = RongCloudIM/Emoji.plist; sourceTree = "<group>"; };
-		7BD785FA2B087E1CF96A7ACA9C448633 /* RongIMLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RongIMLib.framework; path = RongCloudIM/RongIMLib.framework; sourceTree = "<group>"; };
-		84745CBFA0B6C5E4AA5613714EA2390E /* RongIMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RongIMKit.framework; path = RongCloudIM/RongIMKit.framework; sourceTree = "<group>"; };
+		701E95BA859AA1642BF871758528C8F9 /* RCConfig.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = RCConfig.plist; path = RongCloudIM/RCConfig.plist; sourceTree = "<group>"; };
+		70D6C8B62135533F67F85F765FD85F4F /* RongCloud.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = RongCloud.bundle; path = RongCloudIM/RongCloud.bundle; sourceTree = "<group>"; };
+		8370F68F36FAC56002F01A80874C008E /* UMSocialCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMSocialCore.framework; path = UShareSDK/UMSocialSDK/UMSocialCore.framework; sourceTree = "<group>"; };
 		8D7887530E2AEE7EC456ABB328C03613 /* Pods-jiazhangbao-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-jiazhangbao-dummy.m"; sourceTree = "<group>"; };
+		8D836203ECDFC2C002FA198708327712 /* WXApiObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = UShareSDK/SocialLibraries/WeChat/WechatSDK/WXApiObject.h; sourceTree = "<group>"; };
 		8DC0CE55EA82498D8EC9B00130F3B0BD /* libPods-jiazhangbaoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-jiazhangbaoTests.a"; path = "libPods-jiazhangbaoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EA585BC31BA942A8BB4132080013C2 /* Pods-jiazhangbao-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-jiazhangbao-resources.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		957DE0F11336D32C1B22144E35252373 /* WBSDKBasicButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKBasicButton.h; path = UShareSDK/SocialLibraries/Sina/SinaSDK/WBSDKBasicButton.h; sourceTree = "<group>"; };
 		995075A488C143FC4F4A4702528D5BA0 /* Pods-jiazhangbaoTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-jiazhangbaoTests-dummy.m"; sourceTree = "<group>"; };
+		9CB9AFB7FEBD0B818F0DCBA6E24B3336 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboToken.h"; path = "UShareSDK/SocialLibraries/Sina/SinaSDK/WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
+		9CE45DAC7D2995FABA75F71669005D44 /* WBHttpRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBHttpRequest.h; path = UShareSDK/SocialLibraries/Sina/SinaSDK/WBHttpRequest.h; sourceTree = "<group>"; };
 		A0BEC53E5DCC7691C50A59CB4D450C37 /* Pods-jiazhangbao.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-jiazhangbao.debug.xcconfig"; sourceTree = "<group>"; };
+		A1B71341D9811CFAE3BF6DBB51A9C655 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = RongCloudIM/en.lproj; sourceTree = "<group>"; };
 		A64D032592599744149463BF656D705C /* Pods-jiazhangbao.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-jiazhangbao.release.xcconfig"; sourceTree = "<group>"; };
-		B764C8AF5172B06920C32418A5339DF9 /* libopencore-amrnb.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libopencore-amrnb.a"; path = "RongCloudIM/libopencore-amrnb.a"; sourceTree = "<group>"; };
-		C1A03387C932CFB5333094D14E80481F /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = RongCloudIM/en.lproj; sourceTree = "<group>"; };
+		AE166704DF778D0BAAAFDE48D3A18F7C /* WeiboSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = UShareSDK/SocialLibraries/Sina/SinaSDK/WeiboSDK.h; sourceTree = "<group>"; };
+		B1D829F87C5D4F29269A0F980E6E7CDA /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UMSocialWechatHandler.h; path = UShareSDK/SocialLibraries/WeChat/UMSocialWechatHandler.h; sourceTree = "<group>"; };
+		B3B4AE66B2F7DED7539448FD9233F97F /* RongIMLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RongIMLib.framework; path = RongCloudIM/RongIMLib.framework; sourceTree = "<group>"; };
 		C7ADD69D4CAC3E97D0A88C0070039F85 /* Pods-jiazhangbaoTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-jiazhangbaoTests-resources.sh"; sourceTree = "<group>"; };
+		C9CAE306BA78DFCCB87167F8619F94A4 /* RongIMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RongIMKit.framework; path = RongCloudIM/RongIMKit.framework; sourceTree = "<group>"; };
 		CAEA2638FA32C5C506AD489D26F01C3E /* Pods-jiazhangbaoTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-jiazhangbaoTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		CE44B1D3506926AA447FEC4C3BA58521 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKRelationshipButton.h; path = UShareSDK/SocialLibraries/Sina/SinaSDK/WBSDKRelationshipButton.h; sourceTree = "<group>"; };
+		D31ED8FAF3BF7969560AEF42D0246DC0 /* WXApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = UShareSDK/SocialLibraries/WeChat/WechatSDK/WXApi.h; sourceTree = "<group>"; };
 		D721A002E31CABA59DD87550B74F77FC /* Pods-jiazhangbaoTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-jiazhangbaoTests-frameworks.sh"; sourceTree = "<group>"; };
+		E00C0B59C34647D88F115966C0AA0891 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = TencentOpenApi_IOS_Bundle.bundle; path = UShareSDK/SocialLibraries/QQ/QQSDK/TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		E5C5BCA802D643C8ED4A5FB5B22660EB /* UMSocialSDKResources.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = UMSocialSDKResources.bundle; path = UShareSDK/UMSocialUI/UMSocialSDKResources.bundle; sourceTree = "<group>"; };
+		E729EFBB6AE8FC06766DF631C9F09121 /* UShareUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UShareUI.framework; path = UShareSDK/UMSocialUI/UShareUI.framework; sourceTree = "<group>"; };
+		E74C7874C9814888BFBA8CDF192D9F9B /* UMSocialSinaHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UMSocialSinaHandler.h; path = UShareSDK/SocialLibraries/Sina/UMSocialSinaHandler.h; sourceTree = "<group>"; };
+		E85C5062EAA8E5807E36F5DC5134283E /* WeiboSDK.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = UShareSDK/SocialLibraries/Sina/SinaSDK/WeiboSDK.bundle; sourceTree = "<group>"; };
+		E8BA2BECF857830D977075A7D79577A5 /* WechatAuthSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = UShareSDK/SocialLibraries/WeChat/WechatSDK/WechatAuthSDK.h; sourceTree = "<group>"; };
+		EC53CFAF69956DEE334A0270826E2983 /* UMSocialSDKPromptResources.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = UMSocialSDKPromptResources.bundle; path = UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle; sourceTree = "<group>"; };
+		ED586812E982DD415FAE59E3BE59673B /* libSocialSina.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libSocialSina.a; path = UShareSDK/SocialLibraries/Sina/libSocialSina.a; sourceTree = "<group>"; };
+		EDF5C01A2B4539D0AC9912582EC19058 /* libWeChatSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = UShareSDK/SocialLibraries/WeChat/WechatSDK/libWeChatSDK.a; sourceTree = "<group>"; };
+		EF6014A79BD7D6415A5F520EC9A6AE58 /* libSocialUniqueId.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libSocialUniqueId.a; path = UShareSDK/SocialLibraries/UniqueId/libSocialUniqueId.a; sourceTree = "<group>"; };
+		FC78219A0DC7CE5FD695CD6D782F356C /* WeiboUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WeiboUser.h; path = UShareSDK/SocialLibraries/Sina/SinaSDK/WeiboUser.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +95,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		257B3FDED07C9AA666F1125EEF779AD3 /* IMLib */ = {
+		00A22B21D09ACE1DC6D6D38E8787FCC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BCDA7C910775D8B4D7A6062CB61CCC7E /* Frameworks */,
-				E12C0995F9FA2CD9641C94B9F51CCD8E /* Resources */,
+				4B139E7C54E55628000146A8AE3E00B5 /* libUMSocialLog.a */,
+				8370F68F36FAC56002F01A80874C008E /* UMSocialCore.framework */,
 			);
-			name = IMLib;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		06D7D19451963EB3185185E0EF85AFAA /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				87B877A2C9DAB6F70587E2E337A29A19 /* QQ */,
+				B912DC86D1FA87BB8F1CDFFD75E26F3C /* ReducedQQ */,
+				1E8D60E79713D7689E4AFFC634C3C12A /* ReducedSina */,
+				B31078A4904803CFFD920C47C4520E8D /* ReducedWeChat */,
+				65A8DC660FF5F9DD71E6DC42CE4D7667 /* Sina */,
+				393E4F591E7D383CC4A8E27929474737 /* WeChat */,
+			);
+			name = Social;
+			sourceTree = "<group>";
+		};
+		1824FC070C503A2748DA29FFDEBC30C8 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				00A22B21D09ACE1DC6D6D38E8787FCC9 /* Frameworks */,
+				F123100EDF18F600A0763968CB83AC8D /* Resources */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		1D380335D17EA5281950E36FFC50B97A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E85C5062EAA8E5807E36F5DC5134283E /* WeiboSDK.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1E8D60E79713D7689E4AFFC634C3C12A /* ReducedSina */ = {
+			isa = PBXGroup;
+			children = (
+				E74C7874C9814888BFBA8CDF192D9F9B /* UMSocialSinaHandler.h */,
+				A52A88B4F1A726C9CC2AE4B0B3CA5CEC /* Frameworks */,
+			);
+			name = ReducedSina;
+			sourceTree = "<group>";
+		};
+		25407F1E52E81BEB600A554C45281301 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B90C4E367411480E4B3020BD91CB123 /* UMSocialNetwork.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		26A1D5ECA9F185F714CFF10BD21AC31F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E729EFBB6AE8FC06766DF631C9F09121 /* UShareUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		29E25AE8BFA1D1D65F87A7A0DDE2F373 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9CAE306BA78DFCCB87167F8619F94A4 /* RongIMKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2E4D26D319B659D376639151132DD447 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDF5C01A2B4539D0AC9912582EC19058 /* libWeChatSDK.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		32B0170C70161A337526340219EAC9DD /* Products */ = {
@@ -80,22 +184,90 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		354D111C6A1B112CF8A3D8CA011D7B4C /* Pods */ = {
+		338A85197271683E18D3482E9FD577FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				535C5B8234E1D99C6C89DE604C480612 /* RongCloudIM */,
+				EF6014A79BD7D6415A5F520EC9A6AE58 /* libSocialUniqueId.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3484B9C412F3E12D62333A6501DFF508 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				C20D1A357DF2A006A756EB2D3E4D9E94 /* IDFA */,
+			);
+			name = Plugin;
+			sourceTree = "<group>";
+		};
+		393E4F591E7D383CC4A8E27929474737 /* WeChat */ = {
+			isa = PBXGroup;
+			children = (
+				E8BA2BECF857830D977075A7D79577A5 /* WechatAuthSDK.h */,
+				D31ED8FAF3BF7969560AEF42D0246DC0 /* WXApi.h */,
+				8D836203ECDFC2C002FA198708327712 /* WXApiObject.h */,
+				2E4D26D319B659D376639151132DD447 /* Frameworks */,
+			);
+			name = WeChat;
+			sourceTree = "<group>";
+		};
+		425AB2C3533FE8C82F870ADE9840BF70 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2264D4643562330221A186F76306F23A /* libWeiboSDK.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D0B424AEA06D1C9F26402FA29DCC9A6 /* UMengUShare */ = {
+			isa = PBXGroup;
+			children = (
+				1824FC070C503A2748DA29FFDEBC30C8 /* Core */,
+				C12467BEEFD25270676F6963476DE9CC /* Network */,
+				3484B9C412F3E12D62333A6501DFF508 /* Plugin */,
+				06D7D19451963EB3185185E0EF85AFAA /* Social */,
+				9DBC8E849C9D3896E27FDD790EE3F4EA /* UI */,
+			);
+			name = UMengUShare;
+			path = UMengUShare;
+			sourceTree = "<group>";
+		};
+		65A8DC660FF5F9DD71E6DC42CE4D7667 /* Sina */ = {
+			isa = PBXGroup;
+			children = (
+				9CE45DAC7D2995FABA75F71669005D44 /* WBHttpRequest.h */,
+				1F602E650765386C76DB00C305D1FBA2 /* WBHttpRequest+WeiboGame.h */,
+				386628C33DDC6516A9FD40FA7B7DBB01 /* WBHttpRequest+WeiboShare.h */,
+				9CB9AFB7FEBD0B818F0DCBA6E24B3336 /* WBHttpRequest+WeiboToken.h */,
+				239EAAC657D9D15A0666F9F2939780F2 /* WBHttpRequest+WeiboUser.h */,
+				957DE0F11336D32C1B22144E35252373 /* WBSDKBasicButton.h */,
+				35E44DE7D6FD6D331BF4FC02B9271EE5 /* WBSDKCommentButton.h */,
+				CE44B1D3506926AA447FEC4C3BA58521 /* WBSDKRelationshipButton.h */,
+				AE166704DF778D0BAAAFDE48D3A18F7C /* WeiboSDK.h */,
+				5260376AC4C7887A506B3FE15D760174 /* WeiboSDK+Statistics.h */,
+				FC78219A0DC7CE5FD695CD6D782F356C /* WeiboUser.h */,
+				425AB2C3533FE8C82F870ADE9840BF70 /* Frameworks */,
+				1D380335D17EA5281950E36FFC50B97A /* Resources */,
+			);
+			name = Sina;
+			sourceTree = "<group>";
+		};
+		6BB66B6618AC0BCB0BA7F01421DCCBCB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				98D27C4D6899E7971B516BBD9E378412 /* RongCloudIM */,
+				4D0B424AEA06D1C9F26402FA29DCC9A6 /* UMengUShare */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		535C5B8234E1D99C6C89DE604C480612 /* RongCloudIM */ = {
+		6D1556FE77CF337A1D0B1E17884C4B96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CCCCF295EB21315F1FCD89B7B0273ABF /* IMKit */,
-				257B3FDED07C9AA666F1125EEF779AD3 /* IMLib */,
+				1F396C84605070FCB2796DDD37B69480 /* libopencore-amrnb.a */,
+				B3B4AE66B2F7DED7539448FD9233F97F /* RongIMLib.framework */,
 			);
-			name = RongCloudIM;
-			path = RongCloudIM;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		78376F17FC22D9AAD1CEB5301B4844E5 /* Pods-jiazhangbao */ = {
@@ -113,15 +285,105 @@
 			path = "Target Support Files/Pods-jiazhangbao";
 			sourceTree = "<group>";
 		};
+		797B386F54F92553074DB1D5EFB6EC77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4BACA655F313B5CE659CC10E36655CB1 /* TencentOpenAPI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				354D111C6A1B112CF8A3D8CA011D7B4C /* Pods */,
+				6BB66B6618AC0BCB0BA7F01421DCCBCB /* Pods */,
 				32B0170C70161A337526340219EAC9DD /* Products */,
 				CB3D91E5AB17577700A0E72320763ECA /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		87B877A2C9DAB6F70587E2E337A29A19 /* QQ */ = {
+			isa = PBXGroup;
+			children = (
+				797B386F54F92553074DB1D5EFB6EC77 /* Frameworks */,
+				DBB87ACA9D37A0C9A270530255D9D654 /* Resources */,
+			);
+			name = QQ;
+			sourceTree = "<group>";
+		};
+		98D27C4D6899E7971B516BBD9E378412 /* RongCloudIM */ = {
+			isa = PBXGroup;
+			children = (
+				AE46FE99E141B1D1A2494F01F676FC00 /* IMKit */,
+				E098477B911E8FFC19E01FF81FC95340 /* IMLib */,
+			);
+			name = RongCloudIM;
+			path = RongCloudIM;
+			sourceTree = "<group>";
+		};
+		9DBC8E849C9D3896E27FDD790EE3F4EA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				26A1D5ECA9F185F714CFF10BD21AC31F /* Frameworks */,
+				C70FDF0654D10913781F7F31B7C036E2 /* Resources */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		A52A88B4F1A726C9CC2AE4B0B3CA5CEC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED586812E982DD415FAE59E3BE59673B /* libSocialSina.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AE46FE99E141B1D1A2494F01F676FC00 /* IMKit */ = {
+			isa = PBXGroup;
+			children = (
+				29E25AE8BFA1D1D65F87A7A0DDE2F373 /* Frameworks */,
+				BA30BDDD4E63565DDC495263002510E7 /* Resources */,
+			);
+			name = IMKit;
+			sourceTree = "<group>";
+		};
+		B31078A4904803CFFD920C47C4520E8D /* ReducedWeChat */ = {
+			isa = PBXGroup;
+			children = (
+				B1D829F87C5D4F29269A0F980E6E7CDA /* UMSocialWechatHandler.h */,
+				BC08FEE8EA4982CB20F6E5730373EEDC /* Frameworks */,
+			);
+			name = ReducedWeChat;
+			sourceTree = "<group>";
+		};
+		B912DC86D1FA87BB8F1CDFFD75E26F3C /* ReducedQQ */ = {
+			isa = PBXGroup;
+			children = (
+				37A70580BD9AE7032934701FD9CD0C45 /* UMSocialQQHandler.h */,
+				F96DE985E176CEC917A711335E73F281 /* Frameworks */,
+			);
+			name = ReducedQQ;
+			sourceTree = "<group>";
+		};
+		BA30BDDD4E63565DDC495263002510E7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				61E21A1EB5F9190675300CE240CB54BB /* Emoji.plist */,
+				A1B71341D9811CFAE3BF6DBB51A9C655 /* en.lproj */,
+				70D6C8B62135533F67F85F765FD85F4F /* RongCloud.bundle */,
+				3439812902F7D859730633B518AF10A5 /* zh-Hans.lproj */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		BC08FEE8EA4982CB20F6E5730373EEDC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53655DB021F590EEFA87FDB933DCB6E2 /* libSocialWeChat.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -132,13 +394,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BCDA7C910775D8B4D7A6062CB61CCC7E /* Frameworks */ = {
+		C12467BEEFD25270676F6963476DE9CC /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				B764C8AF5172B06920C32418A5339DF9 /* libopencore-amrnb.a */,
-				7BD785FA2B087E1CF96A7ACA9C448633 /* RongIMLib.framework */,
+				25407F1E52E81BEB600A554C45281301 /* Frameworks */,
 			);
-			name = Frameworks;
+			name = Network;
+			sourceTree = "<group>";
+		};
+		C20D1A357DF2A006A756EB2D3E4D9E94 /* IDFA */ = {
+			isa = PBXGroup;
+			children = (
+				5C798AEEFD113BF809168F8FFB6EAF4A /* UMSocialUniqueIdHandler.h */,
+				338A85197271683E18D3482E9FD577FA /* Frameworks */,
+			);
+			name = IDFA;
+			sourceTree = "<group>";
+		};
+		C70FDF0654D10913781F7F31B7C036E2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E5C5BCA802D643C8ED4A5FB5B22660EB /* UMSocialSDKResources.bundle */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		CB3D91E5AB17577700A0E72320763ECA /* Targets Support Files */ = {
@@ -150,13 +428,12 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		CCCCF295EB21315F1FCD89B7B0273ABF /* IMKit */ = {
+		CCF1875445EDE47AAC064B931534498A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EF03E870E89876D9845AF65F4E2999E0 /* Frameworks */,
-				D642726CAECB611288E16BA34F62539E /* Resources */,
+				701E95BA859AA1642BF871758528C8F9 /* RCConfig.plist */,
 			);
-			name = IMKit;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
@@ -167,31 +444,29 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		D642726CAECB611288E16BA34F62539E /* Resources */ = {
+		DBB87ACA9D37A0C9A270530255D9D654 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				78923C300CEF15B50627551AEB57D541 /* Emoji.plist */,
-				C1A03387C932CFB5333094D14E80481F /* en.lproj */,
-				04DE5279E80CC6B4B9DA47B6D06C9C2D /* RongCloud.bundle */,
-				0C200BBA4315024EAE10664FED0AC4CD /* zh-Hans.lproj */,
+				E00C0B59C34647D88F115966C0AA0891 /* TencentOpenApi_IOS_Bundle.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		E12C0995F9FA2CD9641C94B9F51CCD8E /* Resources */ = {
+		E098477B911E8FFC19E01FF81FC95340 /* IMLib */ = {
 			isa = PBXGroup;
 			children = (
-				1A6ABC069D87EF53BDDA2AB9422E4E36 /* RCConfig.plist */,
+				6D1556FE77CF337A1D0B1E17884C4B96 /* Frameworks */,
+				CCF1875445EDE47AAC064B931534498A /* Resources */,
 			);
-			name = Resources;
+			name = IMLib;
 			sourceTree = "<group>";
 		};
-		EF03E870E89876D9845AF65F4E2999E0 /* Frameworks */ = {
+		F123100EDF18F600A0763968CB83AC8D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				84745CBFA0B6C5E4AA5613714EA2390E /* RongIMKit.framework */,
+				EC53CFAF69956DEE334A0270826E2983 /* UMSocialSDKPromptResources.bundle */,
 			);
-			name = Frameworks;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		F2A208D2440E82AB403131749EF0FCE9 /* Pods-jiazhangbaoTests */ = {
@@ -207,6 +482,14 @@
 			);
 			name = "Pods-jiazhangbaoTests";
 			path = "Target Support Files/Pods-jiazhangbaoTests";
+			sourceTree = "<group>";
+		};
+		F96DE985E176CEC917A711335E73F281 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				204C8948A1A0B620FE2B5F9E17A0F2D9 /* libSocialQQ.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
