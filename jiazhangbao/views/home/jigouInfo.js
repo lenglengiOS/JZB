@@ -33,7 +33,7 @@ export default class NewsDetail extends React.Component{
         }
     }
     componentDidMount(){
-        //alert(this.props.param.id)
+        //alert(this.props.param.userIcon)
         this.getData()
 
         // 接收到通知之后执行  this.getData()

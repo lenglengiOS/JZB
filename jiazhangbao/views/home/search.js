@@ -21,13 +21,14 @@ import MyListView from '../component/MyListView';
 const defaultData = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2
 });
+const rowDataArr = [];
 
 export default class WoDe extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
            showMore:false,
-           dataSource:defaultData.cloneWithRows(['','','']),
+           dataSource:defaultData.cloneWithRows(rowDataArr),
            selectOptions:'机构'
 		}
 	}
@@ -43,6 +44,13 @@ export default class WoDe extends React.Component{
     }
 
     doSearch(){
+        //alert(this.state.searchText)
+        // 拼接查询记录
+        rowDataArr = rowDataArr.concat([this.state.searchText]);
+        this.setState({
+            dataSource:defaultData.cloneWithRows(rowDataArr)
+        })
+
         let {route,navigator} = this.props;
         if(navigator&&this.state.searchText) {
             navigator.push({
@@ -54,13 +62,14 @@ export default class WoDe extends React.Component{
         }
     }
 
-    pressRow(){
+    pressRow(rowData){
+        // 请求查询数据
         let {route,navigator} = this.props;
         if(navigator){
             navigator.push({
                 name:"searchresult",
                 param:{
-                    searchText:'rowData'
+                    searchText:rowData
                 }
             })
         }
@@ -98,10 +107,10 @@ export default class WoDe extends React.Component{
                         dataSource={this.state.dataSource}
                         enableEmptySections = {true}
                         renderRow={this.renderRow.bind(this)}/>
-                    <TouchableOpacity activeOpacity={0.8} onPress={()=>this.setState({dataSource:defaultData.cloneWithRows([])})} style={styles.clearHistory}>
+                    {rowDataArr.length > 0?<TouchableOpacity activeOpacity={0.8} onPress={()=>this.setState({dataSource:defaultData.cloneWithRows([])})} style={styles.clearHistory}>
                         <Image source={JZBImages.search_clearHistory} style={{width:20, height:20}} />
                         <Text style={{marginLeft:10, color:'#919191', fontSize:15}}>清除历史记录</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>:null}
                 </ScrollView>
                 {this.state.showMore?<View style={{position:'absolute', top:56, left:28, alignItems:'center'}}>
                                         <Image source={JZBImages.options} style={{width:11, height:8}} opacity={0.8}/>
@@ -118,12 +127,12 @@ export default class WoDe extends React.Component{
 		  )
 	}
 
-	renderRow(){
+	renderRow(rowData){
 		return(
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow()}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this.pressRow(rowData)}>
     			<View style={styles.renderRow}>
                     <Image source={JZBImages.search_history} style={{width:20, height:20}} />
-                    <Text style={{marginLeft:10, color:'#919191', fontSize:15}}>金苹果</Text>
+                    <Text style={{marginLeft:10, color:'#919191', fontSize:15}}>{rowData}</Text>
     			</View>
             </TouchableOpacity>
 		)
