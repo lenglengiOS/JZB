@@ -220,7 +220,7 @@ export default class WoDe extends React.Component{
                     <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
                         <View style={{flexDirection:'row'}}>
                             <TouchableOpacity activeOpacity={0.8} onPress={()=>alert('用户资料')}>
-                                <Image source={rowData.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+rowData.avatar}:{uri: rowData.avatar?BimgURL+rowData.avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20}} />
+                                <Image source={rowData.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+rowData.avatar}:{uri: rowData.avatar?BimgURL+rowData.avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#E8E8E8'}} />
                             </TouchableOpacity>
                             <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
                                 <Text style={{color:'#FAB665', fontSize:14}}>{rowData.name}</Text>

@@ -41,11 +41,12 @@ var Size=function(font){
 let IPAddr = "http://192.168.0.102";
 //let IPAddr = "http://172.16.216.1";
 
-const isDebug=false;
+/*******************************关闭控制台log*********************************/
+const isDebug=true;
 if(!isDebug){
 	console.log=function(text){}
 }
-
+/****************************************************************/
 const JZBImages = {
 	nav:require('../resources/home/home_nav.png'),
 	back:require('../resources/login/nav_back@2x.png'),

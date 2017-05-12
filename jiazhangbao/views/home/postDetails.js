@@ -117,7 +117,7 @@ export default class BaoBan extends React.Component{
 	                <ScrollView>
 	                	<View style={styles.info}>
 	                        <View style={{flexDirection:'row'}}>
-	                            <Image source={this.props.param.item.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+this.props.param.item.avatar}:{uri: BimgURL+this.props.param.item.avatar+LimgURL}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
+	                            <Image source={this.props.param.item.avatar.indexOf("/images/user/")!=-1?{uri: this.props.param.item.avatar.indexOf("https://")!=-1?this.props.param.item.avatar:IPAddr+this.props.param.item.avatar}:{uri: BimgURL+this.props.param.item.avatar+LimgURL}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
 	                            <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
 	                                <Text style={{color:'#FAB665', fontSize:14, fontWeight:'bold'}}>{this.props.param.item.name}</Text>
 	                                <View style={{flexDirection:'row', marginTop:5}}>

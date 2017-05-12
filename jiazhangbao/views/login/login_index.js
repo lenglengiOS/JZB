@@ -76,21 +76,66 @@ export default class Login extends React.Component{
             {
             case 0:
                 //alert('微信')
-                NativeTools.loginByOther('wx');
-                break;
-            case 1:
-                NativeTools.loginByOther('QQ',(error, events) => {
+                NativeTools.loginByOther('wx',(error, events) => {
                     //alert(events)
                     if(!error)
                     {
-                        // 在数据库中注册
-                        
+                        //alert(JSON.stringify(events))   
                     }
                 });
                 break;
+            case 1:
+                NativeTools.checkQQAndWechatInstalled((result)=>{  
+                    if(result.indexOf('QQ') != -1){
+                        NativeTools.loginByOther('QQ',(error, events) => {
+                            if(!error)
+                            {
+                                const { navigator } = this.props;
+                                if(navigator) {
+                                    navigator.popToTop();
+                                }
+                                //alert(JSON.stringify(events))
+                                // 进行第三方登陆注册
+                                var PostData ={
+                                            data:{
+                                                userphone:events[0],
+                                                username:events[1],
+                                                usericon:events[2],
+                                                userpwd:'123',
+                                                isLogin:true
+                                            }
+                                        }
+                                Tools.postNotBase64(IPAddr+"/login/loginByOther.php", PostData,(ret)=>{
+                                    console.log("====loginByOther---dadadada=="+JSON.stringify(ret))
+                                        if(ret.code == 200)
+                                        {
+                                            Toast.show("登陆成功", 2000)
+                                            Tools.setStorage("maincfg", JSON.stringify(PostData));
+                                            let value = 'value';
+                                            RCTDeviceEventEmitter.emit('undateUserInfo',value); 
+                                        }
+                                    }, (err)=>{
+                                        this.setState({loading:false})
+                                        console.log("====444444==="+err)
+                                        Toast.show("====444444==="+err);
+                                });
+                            }
+                        });
+                    }else{
+                        Toast.show("请先安装QQ");
+                    }
+                })
+                break;
             case 2:
                 //alert('微博')
-                NativeTools.loginByOther('wb');
+                NativeTools.loginByOther('wb',(error, events) => {
+                    //alert(events)
+                    if(!error)
+                    {
+                        alert(JSON.stringify(events))
+                        
+                    }
+                });
                 break;
             default:
                 break;

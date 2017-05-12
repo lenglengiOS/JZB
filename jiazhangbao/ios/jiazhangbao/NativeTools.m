@@ -192,7 +192,7 @@ RCT_EXPORT_METHOD(connectWithToken:(NSString *)token callback:(RCTResponseSender
 RCT_EXPORT_METHOD(singleChat:(NSString *)title)
 {
   //do smothing
-  dispatch_sync(dispatch_get_main_queue(), ^{
+//  dispatch_sync(dispatch_get_main_queue(), ^{
     //主线程更新
     LHLConversationViewController *conversationVC = [[LHLConversationViewController alloc]init];
     conversationVC.conversationType = 1;
@@ -201,7 +201,7 @@ RCT_EXPORT_METHOD(singleChat:(NSString *)title)
     UIViewController *rootViewController = [self getCurrentVC];
     [rootViewController presentViewController:conversationVC animated:YES completion:NULL];
     
-  });
+//  });
   
 }
 
@@ -226,10 +226,35 @@ RCT_EXPORT_METHOD(loginByOther:(NSString *)type callback:(RCTResponseSenderBlock
         callback(@[[NSNull null],arr]);
       }
     }];
-  }else if ([type isEqualToString:@"wx"]) {
-    NSLog(@"type:%@", type);
-  }else if ([type isEqualToString:@"wb"]) {
-    NSLog(@"type:%@", type);
+  }else if ([type isEqualToString:@"wb"]) { // 微博账号登陆
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Sina currentViewController:nil completion:^(id result, NSError *error) {
+      if (error) {
+        callback(@[error,[NSArray array]]);
+      } else {
+        UMSocialUserInfoResponse *resp = result;
+        
+        // 授权信息
+        NSLog(@"Sina uid: %@", resp.uid);
+        NSLog(@"Sina name: %@", resp.name);
+        NSLog(@"Sina iconurl: %@", resp.iconurl);
+        NSArray *arr = [NSArray arrayWithObjects:resp.uid, resp.name, resp.iconurl, nil];
+        callback(@[[NSNull null],arr]);
+      }
+    }];
+  }else if ([type isEqualToString:@"wx"]) {// 微信登陆
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+      if (error) {
+        callback(@[error,[NSArray array]]);
+      } else {
+        UMSocialUserInfoResponse *resp = result;
+        // 授权信息
+        NSLog(@"Wechat uid: %@", resp.uid);
+        NSLog(@"Wechat name: %@", resp.name);
+        NSLog(@"Wechat iconurl: %@", resp.iconurl);
+        NSArray *arr = [NSArray arrayWithObjects:resp.uid, resp.name, resp.iconurl, nil];
+        callback(@[[NSNull null],arr]);
+      }
+    }];
   }
 }
 

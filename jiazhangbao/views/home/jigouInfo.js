@@ -178,7 +178,7 @@ export default class NewsDetail extends React.Component{
                 <TouchableOpacity key={index} activeOpacity={0.8} onPress={()=>this.gotoPostDetails(item)} style={styles.cell}>
                     <View style={{flex:1, backgroundColor:'#FFF',height:40,flexDirection:'row', justifyContent:'space-between'}}>
                         <View style={{flexDirection:'row'}}>
-                            <Image source={item.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+item.avatar}:{uri: this.state.data?BimgURL+item.avatar+LimgURL:'http://'}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
+                            <Image source={item.avatar.indexOf("/images/user/")!=-1?{uri: IPAddr+item.avatar}:{uri: this.state.data?BimgURL+item.avatar+LimgURL:item.avatar}} style={{width:40, height:40, borderRadius:20, backgroundColor:'#F5F5F5'}} />
                             <View style={{marginLeft:10, marginTop:3, marginBottom:3, justifyContent:'space-between',height:34}}>
                                 <Text style={{color:'#FAB665', fontSize:14, fontWeight:'bold'}}>{this.state.data?item.name:''}</Text>
                                 <Text style={{color:'#A5A5A5', fontSize:12}}>{this.state.data?item.childGrade:''}</Text>
@@ -249,7 +249,7 @@ export default class NewsDetail extends React.Component{
                     </ScrollView>
                 </View>
                 <View style={styles.bottomBar}>
-                    <Image source={this.props.param.userIcon?{uri: IPAddr+this.props.param.userIcon}:JZBImages.userIcon} style={{width:38, height:38, marginLeft:8, borderRadius:19, backgroundColor:'#F5F5F5'}} />
+                    <Image source={this.props.param.userIcon?{uri: this.props.param.userIcon.indexOf('https://') != -1?this.props.param.userIcon:IPAddr+this.props.param.userIcon}:JZBImages.userIcon} style={{width:38, height:38, marginLeft:8, borderRadius:19, backgroundColor:'#F5F5F5'}} />
                     <TouchableOpacity activeOpacity={0.8} onPress={()=>this.publish()} style={styles.touch}>
                         <Text style={styles.bottomText} numberOfLines={2}>对于这个机构，您有什么想了解的吗？</Text>
                     </TouchableOpacity>

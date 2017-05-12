@@ -280,6 +280,7 @@ export default class Home extends React.Component{
         Tools.getStorage("maincfg",(resData)=>{
             if(Tools.isDataValid(resData))
             {
+                //alert(resData)
                 var maincfgData=JSON.parse(resData)
                 this.setState({
                         isLogin:true,
@@ -300,12 +301,12 @@ export default class Home extends React.Component{
                         if(ret.message == "登陆成功")
                         {
                             this.setState({
-                                username:ret.data[0].user_name,
-                                id:ret.data[0].id,
-                                user_icon:ret.data[0].user_icon,
-                                data:ret.data[0],
+                                username:ret.data[0]?ret.data[0].user_name:'',
+                                id:ret.data[0]?ret.data[0].id:'',
+                                user_icon:ret.data[0]?ret.data[0].user_icon:'',
+                                data:ret.data[0]?ret.data[0]:null,
                                 isLogin:true,
-                                c_grade:ret.data[0].c_grade+"家长"
+                                c_grade:ret.data[0].c_grade?ret.data[0].c_grade+"家长":''
                             })
                         }else{
                             Toast.show("获取用户信息失败", 2000)
@@ -313,7 +314,7 @@ export default class Home extends React.Component{
                     }, (err)=>{
                         Toast.show(err);
                         this.setState({isLogin:false})
-                        console.log("====444444==="+err)
+                        console.log("====5555==="+err)
                 });
 
                 // 2.链接融云服务器获取Token
@@ -553,7 +554,7 @@ export default class Home extends React.Component{
                     <View style={{backgroundColor:"#FFF", paddingBottom:10}}>
                         <Image source={JZBImages.userBg} style={{width:screenWidth, height:113}} resizeMode={Image.resizeMode.stretch}>
                             <TouchableOpacity activeOpacity={0.8} onPress={()=>{this.pressUserIcon()}} style={{alignItems:'center'}}>
-                                <Image source={this.state.user_icon?{uri:IPAddr+this.state.user_icon}:JZBImages.userIcon} style={{width:70, height:70, borderRadius:35, backgroundColor:'#F5F5F5'}}/>
+                                <Image source={this.state.user_icon?{uri: this.state.user_icon.indexOf('https://') != -1?this.state.user_icon:IPAddr+this.state.user_icon}:JZBImages.userIcon} style={{width:70, height:70, borderRadius:35, backgroundColor:'#F5F5F5'}}/>
                                 <Text style={styles.login}>{this.state.isLogin?this.state.username:'登录/注册'}</Text>
                             </TouchableOpacity>
                         </Image>

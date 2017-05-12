@@ -79,11 +79,29 @@ export default class BaoBan extends React.Component{
     }
 
     pressJoin(rowData, sectionID, rowID){
-        this.setState({
-            isJoin:true, 
-            selectedButton:this.state.selectedButton.concat([rowID]),
-            dataSource:defaultData.cloneWithRows(TaoLunQun.data),
-        })
+        // 验证是否登陆
+            Tools.getStorage("maincfg",(resData)=>{
+                if(Tools.isDataValid(resData))
+                {
+                   this.setState({
+                        isJoin:true, 
+                        selectedButton:this.state.selectedButton.concat([rowID]),
+                        dataSource:defaultData.cloneWithRows(TaoLunQun.data),
+                    })
+                }else{
+                    Toast.show("需要登录", 2000)
+                    let {route,navigator} = this.props;
+                    if(navigator){
+                        navigator.push({
+                            name:"login",
+                            param:{
+                               
+                            }
+                        })
+                    }
+                }
+            });
+        
     }
 
     renderCell(rowData, sectionID, rowID){

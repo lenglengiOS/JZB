@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    dispatch_sync(dispatch_get_main_queue(), ^(){
+//    dispatch_sync(dispatch_get_main_queue(), ^(){
       // 这里的代码会在主线程执行
       
       MKMapView *mapView =[[MKMapView alloc]init];
@@ -35,7 +35,7 @@
       mapView.delegate = self;
       
       [self.view addSubview:mapView];
-    });
+//    });
   
     UIImage *backImg = [UIImage imageNamed:@"back.png"];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

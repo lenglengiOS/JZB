@@ -18,6 +18,7 @@ import {
 import {Size,navheight,screenWidth,screenHeight,MainTabHeight,JZBImages,navbackground,lineColor,console,IPAddr} from '../constStr';
 import Tools from '../tools';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import ShareModal from '../component/shareModal'
 
 export default class BaoBan extends React.Component{
 	constructor(props){
@@ -74,6 +75,10 @@ export default class BaoBan extends React.Component{
         )
     }
 
+    toShare(){
+        this.ShareModal&&this.ShareModal.show()
+    }
+
 	render(){
 		return(
 			<View style={styles.container}>
@@ -88,11 +93,11 @@ export default class BaoBan extends React.Component{
                     <Text style={{fontSize:18, color:'#00B09D'}}>我的设置</Text>
                 </View>
                 <ScrollView>
-                	<View style={styles.yaoqing}>
+                	<TouchableOpacity  activeOpacity={0.8} onPress={()=>this.toShare()} style={styles.yaoqing}>
                         <Text style={{fontSize:16}}>邀请好友</Text>
                         <Text style={styles.text}>分享参与抽奖</Text>
                         <Image source={JZBImages.chose} style={{width:20, height:20}} />
-                	</View>
+                	</TouchableOpacity>
                 	<View style={styles.huancun}>
                         <Text style={{fontSize:16}}>清楚缓存</Text>
                         <Text style={styles.text}>1.00M</Text>
@@ -116,10 +121,8 @@ export default class BaoBan extends React.Component{
                             <Text style={{color:'#FFF', fontSize:18}}>退出登录</Text>
                         </TouchableOpacity>
                         :<View/>}
-
                 </ScrollView>
-
-
+                <ShareModal ref={(o) => this.ShareModal = o}></ShareModal>
 			</View>
 		)
 	}

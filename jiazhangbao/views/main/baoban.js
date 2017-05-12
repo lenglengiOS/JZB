@@ -157,7 +157,7 @@ export default class WoDe extends React.Component{
 			<View style={styles.container}>
 				<StatusBar
                      backgroundColor="blue"
-                     barStyle="default"
+                     barStyle="light-content"
                      animated={true}/>
                 <View style={styles.nav}>
                     <Text style={{fontSize:18, color:'#FFF'}}>报班</Text>
