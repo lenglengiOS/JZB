@@ -16,7 +16,7 @@
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <UMSocialCore/UMSocialCore.h>
-#define CONTACT_ID @"15680222613"
+#define CONTACT_ID @"18428309335"
 
 @implementation NativeTools
 

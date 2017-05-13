@@ -29,13 +29,16 @@ export default class WoDe extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-           dataSource:defaultData,
-           dataSize:5,
-           count:3
+            dataSource:defaultData,
+            dataSize:5,
+            count:3,
+            loading:false,
+            loadingWaitText:"搜索中..",
 		}
 	}
     componentDidMount(){
        //alert(this.props.param.searchText)
+       this.setState({loading:true})
        this.goLocation();
        this.getUserData();
     }
@@ -95,16 +98,14 @@ export default class WoDe extends React.Component{
         navigator.geolocation.getCurrentPosition(
           (position) => {
                 console.log("==position===="+JSON.stringify(position));
-                this.setState({
-                    longitude:position.coords.longitude,
-                    latitude:position.coords.latitude
-                })
+                
                 // 请求后台查询数据
                 var url = IPAddr+'/home/search.php?searchText='+this.props.param.searchText+'&longitude='+position.coords.longitude+'&latitude='+position.coords.latitude;
                 Tools.get(url,(data)=>{
                     console.log("==searchData===="+JSON.stringify(data.allOrgs));
                     this.setState({
                         dataSource:defaultData.cloneWithRows(data.allOrgs),
+                        loading:false
                     })
         
                 },(err)=>{
@@ -170,6 +171,7 @@ export default class WoDe extends React.Component{
                     renderRow={this.renderRow.bind(this)}
                     dataSize={this.state.dataSize}
                     count={this.state.count}/>
+                <LoadingShow loading={this.state.loading} text={this.state.loadingWaitText}/>
 			</View>
 		  )
 	}

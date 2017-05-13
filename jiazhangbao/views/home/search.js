@@ -75,6 +75,11 @@ export default class WoDe extends React.Component{
         }
     }
 
+    clear(){
+        rowDataArr = [];
+        this.setState({dataSource:defaultData.cloneWithRows(rowDataArr)})
+    }
+
 	render(){
 		return(
 			<View style={styles.container}>
@@ -107,7 +112,7 @@ export default class WoDe extends React.Component{
                         dataSource={this.state.dataSource}
                         enableEmptySections = {true}
                         renderRow={this.renderRow.bind(this)}/>
-                    {rowDataArr.length > 0?<TouchableOpacity activeOpacity={0.8} onPress={()=>this.setState({dataSource:defaultData.cloneWithRows([])})} style={styles.clearHistory}>
+                    {rowDataArr.length > 0?<TouchableOpacity activeOpacity={0.8} onPress={()=>this.clear()} style={styles.clearHistory}>
                         <Image source={JZBImages.search_clearHistory} style={{width:20, height:20}} />
                         <Text style={{marginLeft:10, color:'#919191', fontSize:15}}>清除历史记录</Text>
                     </TouchableOpacity>:null}
