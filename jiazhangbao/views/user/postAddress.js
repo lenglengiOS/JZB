@@ -111,7 +111,7 @@ export default class WoDe extends React.Component{
             }
         }
         Tools.postNotBase64(IPAddr+"/user/updateUserInfo.php", PostData,(ret)=>{
-            console.log("====dadadada=="+ret)
+            console.log("====postAddressData=="+JSON.stringify(ret))
                 this.setState({loading:false})
                 Toast.show("修改成功！", 2000)
                 let value = this.state.address;

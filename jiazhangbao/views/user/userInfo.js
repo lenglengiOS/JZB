@@ -159,7 +159,7 @@ export default class WoDe extends React.Component{
             }
         }
         Tools.postNotBase64(IPAddr+"/user/updateUserInfo.php", PostData,(ret)=>{
-            console.log("====dadadada=="+ret)
+            console.log("====uploadImgData=="+JSON.stringify(ret))
                 this.setState({
                     loading:false,
                     flag:'http://'
@@ -242,8 +242,9 @@ export default class WoDe extends React.Component{
                         user_phone:this.props.param.data.user_phone
                     }
                 }
+                //alert(JSON.stringify(PostData))
                 Tools.postNotBase64(IPAddr+"/user/updateUserInfo.php", PostData,(ret)=>{
-                    console.log("====dadadada=="+ret)
+                    console.log("====updateData=="+JSON.stringify(ret))
                         switch(INDEX){
                             case 1:
                                 this.setState({
@@ -275,7 +276,15 @@ export default class WoDe extends React.Component{
                                 })
                             break;
                         }
-                        Toast.show("更新成功！", 2000)
+                        if(ret.message == "更新成功")
+                        {
+                            Toast.show("更新成功！", 2000)
+                        }
+                        if(ret.message == "更新失败")
+                        {
+                            Toast.show("更新失败！", 2000)
+                        }
+                        
                         let value = 'value';
                         RCTDeviceEventEmitter.emit('undateUserInfo',value);
                         
